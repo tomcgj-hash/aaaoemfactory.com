@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TIANQIU — Hero 排版布局对比</title>
+<style>
+body{font-family:-apple-system,'Segoe UI',Roboto,Arial,'PingFang SC',sans-serif;margin:0;background:#eef1f5;padding:28px;}
+.wrap{max-width:1120px;margin:0 auto;}
+.h{font-size:28px;font-weight:800;color:#1a2b45;text-align:center;margin:20px 0 26px;}
+.tag{display:inline-block;background:#1746a2;color:#fff;padding:5px 14px;border-radius:999px;font-size:12px;font-weight:700;margin-bottom:8px;}
+.hero{position:relative;height:520px;border-radius:16px;overflow:hidden;margin-bottom:44px;box-shadow:0 14px 40px rgba(20,44,82,.18);}
+.hero .ov{position:absolute;inset:0;z-index:1;}
+.hero .in{position:absolute;z-index:2;color:#fff;}
+.hero .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#a6c9ec;margin-bottom:10px;}
+.hero h1{font-size:40px;line-height:1.1;margin:0 0 12px;font-weight:800;letter-spacing:-.02em;}
+.hero p{font-size:16px;line-height:1.5;margin:0 0 22px;color:#dde9f6;max-width:44ch;}
+.hero .btn{display:inline-block;background:#ea5b0b;color:#fff;padding:12px 26px;border-radius:8px;font-weight:700;font-size:14px;}
+</style></head><body><div class="wrap">
+<h2 class="h">▼ 五种 Hero 排版布局（同图）▼</h2>
+
+<!-- A 居中 -->
+<div><div class="tag">A · 居中大标题（文字居中于图上）</div>
+<div class="hero" style="background:url('./public/images/hero-factory.jpg') center/cover;">
+  <div class="ov" style="background:rgba(12,27,48,.72);"></div>
+  <div class="in" style="inset:0;text-align:center;display:flex;flex-direction:column;justify-content:center;padding:40px;">
+    <div class="eyebrow" style="color:#fff;">Battery OEM / ODM</div><h1 style="max-width:12ch;margin:0 auto 12px;">Custom batteries, engineered to your brand.</h1>
+    <p style="margin:0 auto 22px;">One certified factory, spec to shelf.</p><a class="btn" href="#">Start Your Project</a>
+  </div>
+</div></div>
+
+<!-- B 左下 -->
+<div><div class="tag">B · 左下叠字（文字靠左下，遮罩左深）</div>
+<div class="hero" style="background:url('./public/images/hero-factory.jpg') center/cover;">
+  <div class="ov" style="background:linear-gradient(90deg,rgba(12,27,48,.88) 0%,rgba(23,70,162,.55) 55%,rgba(23,70,162,.12) 100%);"></div>
+  <div class="in" style="left:0;bottom:0;padding:48px;max-width:600px;">
+    <div class="eyebrow">Battery OEM / ODM</div><h1>Custom batteries, engineered to your brand.</h1>
+    <p>One certified factory, spec to shelf.</p><a class="btn" href="#">Start Your Project</a>
+  </div>
+</div></div>
+
+<!-- C 底部条带 -->
+<div><div class="tag">C · 底部文字条带（文字横贯底部，图上半全是图）</div>
+<div class="hero" style="background:url('./public/images/hero-factory.jpg') center/cover;">
+  <div class="ov" style="background:linear-gradient(to top,rgba(12,27,48,.9) 0%,rgba(12,27,48,.45) 45%,transparent 100%);"></div>
+  <div class="in" style="left:0;right:0;bottom:0;padding:40px 48px;display:flex;justify-content:space-between;align-items:flex-end;">
+    <div><div class="eyebrow">Battery OEM / ODM</div><h1 style="font-size:34px;max-width:24ch;">Custom batteries, engineered to your brand.</h1></div>
+    <a class="btn" href="#" style="flex-shrink:0;">Start Your Project</a>
+  </div>
+</div></div>
+
+<!-- D 图右文左 split -->
+<div><div class="tag">D · 左文右图（白色区文字 + 右侧整图，无叠加）</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;border-radius:16px;overflow:hidden;height:520px;box-shadow:0 14px 40px rgba(20,44,82,.18);margin-bottom:44px;">
+  <div style="background:#fff;padding:48px;display:flex;flex-direction:column;justify-content:center;">
+    <div class="eyebrow" style="color:#1746a2;">Battery OEM / ODM</div><h1 style="font-size:36px;color:#1c2b4a;line-height:1.1;">Custom batteries, engineered to your brand.</h1>
+    <p style="color:#606266;">One certified factory, spec to shelf.</p><a class="btn" href="#">Start Your Project</a>
+  </div>
+  <div style="background:url('./public/images/hero-factory.jpg') center/cover;"></div>
+</div></div>
+
+<!-- E 白卡片悬浮 -->
+<div><div class="tag">E · 图全屏 + 白卡片悬浮（图做主视觉，白色卡片内放文字）</div>
+<div class="hero" style="background:url('./public/images/hero-factory.jpg') center/cover;">
+  <div class="ov" style="background:rgba(12,27,48,.18);"></div>
+  <div class="in" style="left:50%;top:50%;transform:translate(-50%,-50%);width:520px;">
+    <div style="background:#fff;border-radius:14px;padding:38px;box-shadow:0 20px 50px rgba(0,0,0,.3);">
+      <div class="eyebrow" style="color:#1746a2;">Battery OEM / ODM</div><h1 style="font-size:30px;color:#1c2b4a;">Custom batteries, built to your brand.</h1>
+      <p style="color:#606266;">One certified factory, spec to shelf.</p><a class="btn" href="#">Start Your Project</a>
+    </div>
+  </div>
+</div></div>
+
+</div></body></html>

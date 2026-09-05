@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { brand } from '../data/brand.js';
+const title = 'Shipping Policy | TIANQIU';
+const description = 'Shipping policy for ' + brand.name;
+---
+<Layout title={title} description={description}>
+  <section class="section reveal"><div class="container container-narrow">
+    <div class="eyebrow">Legal</div>
+    <h1>Shipping Policy</h1>
+    <p class="lead">We ship worldwide by sea and air freight.</p>
+    <h2>Shipping Methods</h2>
+    <p style="color:var(--ink-2);font-size:17px;">We offer sea freight, air freight and express shipping, and can prepare shipments for Amazon FBA.</p>
+    <h2>Battery Shipping Compliance</h2>
+    <p style="color:var(--ink-2);font-size:17px;">Lithium batteries are shipped in compliance with UN38.3 and air transport regulations. Maritime and air transport certification available on request.</p>
+    <h2>Lead Time</h2>
+    <p style="color:var(--ink-2);font-size:17px;">Lead time depends on quantity and customization. We will confirm your estimated delivery date with the quote.</p>
+  </div></section>
+</Layout>

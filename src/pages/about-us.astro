@@ -1,0 +1,126 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { brand } from '../data/brand.js';
+import { company } from '../data/company.js';
+
+const title = 'About TIANQIU | Battery OEM Manufacturer - 31+ Years, 100,000㎡ Factory';
+const description = 'GUANGDONG TIANQIU ELECTRONICS TECHNOLOGY CO., LTD. — 31+ years battery manufacturer with a 100,000 m² industrial park, Japanese production lines, UL/UN38.3 certified, OEM for global brands.';
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'About Us', url: '/about-us/' }];
+const org = [{ '@context':'https://schema.org','@type':'AboutPage','name':title,'url':brand.domain+'/about-us/' }];
+
+const stats = [
+  { n: '31+', l: 'Years Manufacturing' },
+  { n: '100,000 m²', l: 'Factory Area' },
+  { n: '500+', l: 'Product Types' },
+  { n: '500+', l: 'Employees' },
+];
+const facts = [
+  { icon:'fa-building', t:'Tianqiu Industrial Park', d:'A 100,000 m² industrial park with a RMB 1.5 billion investment and about 500 staff.' },
+  { icon:'fa-gears', t:'Japanese Production Lines', d:'Imported MITSUBISHI full-automatic lines and premium raw materials for consistent quality.' },
+  { icon:'fa-leaf', t:'0% Mercury', d:'Developed mercury-free (0% Hg) alkaline button cells on full-automatic production lines.' },
+  { icon:'fa-bolt', t:'High Performance', d:'Laser-seal structure delivers high capacity, low impedance, smooth discharge & long service life.' },
+];
+const certs = company.certifications;
+const partners = company.partners;
+const groups = company.group;
+const exportsList = company.exports;
+---
+
+<Layout title={title} description={description} schema={org} breadcrumbs={crumbs}>
+  <div class="container breadcrumb"><a href="/">Home</a> <span>/</span> About Us</div>
+
+  <section class="hero hero-park">
+    <div class="container" style="max-width:900px;">
+      <div class="eyebrow">About TIANQIU</div>
+      <h1>A Trusted Battery OEM Manufacturer Since 1994</h1>
+      <p class="lead">{brand.nameFull} is a high-tech manufacturer specializing in developing, manufacturing and distributing all kinds of battery products, from button cells to cylindrical batteries and lithium packs.</p>
+      <div class="trustbar">
+        {stats.map(s=>(<div class="t"><b>{s.n}</b><span>{s.l}</span></div>))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Our Story</div><h2>From a Battery Workshop to a Global OEM Partner</h2></div>
+      <p class="lead">Founded in the early 1990s and formally established in 1994, TIANQIU has grown from a button-cell specialist into a diversified manufacturing group supplying over 500 battery products worldwide.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+        <div><p>Since 2003, TIANQIU has cooperated with Japan SOXEY Electronics — the first to introduce high-quality silver-oxide button cells in China. In 2004, it signed an exclusive agency agreement with MITSUBISHI ELECTRIC HOME APPLIANCE CO., LTD. for the battery business in China (including Hong Kong &amp; Macao).</p></div>
+        <div><p>Today, the TIANQIU Industrial Park covers 100,000 m² with a RMB 1.5 billion investment. Imported Japanese production lines, an ERP system and strict ISO 9001 quality management ensure every battery is stable and reliable.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Manufacturing Strength</div><h2>Why Global Brands Trust TIANQIU</h2></div>
+      <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px;">{[1,2,3].map(n=>(<div class="card" style="padding:0;overflow:hidden;"><img src={`/images/catalog/factory-${n}.jpg`} alt="TIANQIU battery factory production line" loading="lazy" style="width:100%;height:220px;object-fit:cover;display:block;"></div>))}</div>
+      <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr));">
+        {facts.map(f=>(<div class="card"><div style="font-size:30px;color:var(--primary);margin-bottom:10px;"><i class={`fa-solid ${f.icon}`}></i></div><h3>{f.t}</h3><p style="color:var(--ink-2);font-size:15px;">{f.d}</p></div>))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">OEM &amp; License Partners</div><h2>Authorized Manufacturer for Global Brands</h2></div>
+      <p class="lead">TIANQIU is a licensed and authorized manufacturer for leading international battery brands.</p>
+      <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr));">
+        {partners.map(p=>(<div class="card">
+          <h3>{p.name}</h3>
+          <div style="font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--primary);margin-bottom:8px;">{p.type}</div>
+          <p style="color:var(--ink-2);font-size:15px;">{p.desc}</p>
+        </div>))}
+      </div>
+      <div class="grid" style="grid-template-columns:1fr 1fr;margin-top:24px;">
+        <div class="card"><img src="/images/partner-philips-mitsubishi.jpg" alt="PHILIPS and MITSUBISHI battery authorization" loading="lazy" style="max-height:280px;"><p style="color:var(--ink-2);font-size:14px;margin-top:10px;">PHILIPS &amp; MITSUBISHI authorization letters</p></div>
+        <div class="card"><img src="/images/partner-seizi-authorization.jpg" alt="SEIZI battery agency agreement" loading="lazy" style="max-height:280px;"><p style="color:var(--ink-2);font-size:14px;margin-top:10px;">SEIZI (Japan) sole agency agreement</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Certifications</div><h2>Certified, Safe &amp; Compliant</h2></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        {certs.map(c=>(<span class="btn btn-outline btn-sm" style="pointer-events:none;">{c}</span>))}
+      </div>
+      <p style="margin-top:20px;color:var(--ink-2);font-size:15px;">Maritime and air transport certification available for safe shipping worldwide. Compliant with EU Regulation 2023/1542.</p>
+    </div>
+  </section>
+
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Global Network</div><h2>Exporting to More Than 30 Countries</h2></div>
+      <p class="lead">A global sales network with representative offices in the USA, Germany, Turkey, Spain, Brazil, Italy, Korea, Dubai, Saudi Arabia and South Africa.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        {exportsList.map(c=>(<span style="background:var(--surface);border:1px solid var(--border-light);padding:8px 14px;border-radius:999px;font-size:14px;">{c}</span>))}
+      </div>
+      <p style="margin-top:20px;font-size:14px;color:var(--ink-3);">Trademark protected under the Madrid Agreement in the USA, Germany, Japan, Turkey &amp; Hong Kong.</p>
+    </div>
+  </section>
+
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">TIANQIU Group</div><h2>From Button Cells to Energy Storage</h2></div>
+      <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr));">
+        {groups.map(g=>(<div class="card"><h3>{g.name}</h3><p style="color:var(--ink-2);font-size:15px;">{g.desc}</p></div>))}
+      </div>
+      <div class="grid" style="grid-template-columns:1fr 1fr;margin-top:24px;">
+        <div class="card"><img src="/images/tianqiu-energy-home-storage.jpg" alt="Tianqiu home energy storage system" loading="lazy" style="max-height:300px;"><div style="margin-top:12px;"><strong>Home Energy Storage</strong><p style="color:var(--ink-2);font-size:14px;">Smart-lock lithium and home energy storage systems.</p></div></div>
+        <div class="card"><img src="/images/tianrui-lithium-module.jpg" alt="Tianrui lithium battery modules" loading="lazy" style="max-height:300px;"><div style="margin-top:12px;"><strong>Lithium Battery Modules</strong><p style="color:var(--ink-2);font-size:14px;">Power and storage modules for e-bikes, UPS and storage cabinets.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal">
+    <div class="container" style="text-align:center;">
+      <h2>Partner With TIANQIU</h2>
+      <p class="lead" style="margin:0 auto 24px;">From a single pack to a full OEM program — get certified, factory-direct batteries under your brand.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="/oem-battery-manufacturing/" class="btn btn-primary">Explore OEM / ODM</a>
+        <a href="/contact-us/" class="btn btn-outline">Contact Us</a>
+      </div>
+    </div>
+  </section>
+</Layout>

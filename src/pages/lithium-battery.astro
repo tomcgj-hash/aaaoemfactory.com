@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { tianqiuProducts } from '../data/tianqiu_products.js';
+const title = 'Lithium Battery (Li-ion & Button Cell) OEM Manufacturer | TIANQIU';
+const description = 'TIANQIU lithium battery OEM: CR lithium button cells & Li-ion solutions. 3V coin cells, custom packs. UL/UN38.3 certified, factory direct.';
+const crs = tianqiuProducts.filter(p=>p.chem && /Li-MnO₂/i.test(p.chem));
+---
+<Layout title={title} description={description}>
+  <section class="hero"><div class="hero-content"><div class="hero-card">
+    <div class="eyebrow">Lithium Battery OEM</div>
+    <h1>Lithium batteries, engineered for your device.</h1>
+    <p class="lead">CR lithium button cells and Li-ion solutions, OEM/ODM from spec to packaging. Licensed manufacturer for global brands.</p>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;">
+      <a href="/contact-us/" class="btn btn-primary btn-lg">Start Your Project</a>
+      <a href="/wholesale-batteries/" class="btn btn-outline btn-lg">Bulk Supply</a>
+    </div>
+  </div></div></section>
+
+  <section class="section reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">CR Lithium Button Cells</div><h2>3V coin cells, mercury-free.</h2><p class="lead">High energy, long shelf life. Powered by a Li-MnO₂ chemistry — ideal for motherboards, key fobs, medical & IoT devices.</p></div>
+    <div class="grid">
+      {crs.map(p=>(<a class="prod-card" href={`/battery-info/${p.type}/`} style="text-decoration:none;display:block;">
+        <img src={p.img||'/images/products/cr2032.png'} alt={p.model} loading="lazy" onerror="this.style.opacity=.3"/>
+        <div class="sub">3V Lithium</div><h3>{p.model} Battery</h3>
+        <p>{p.voltage} · {p.capacity||''} · 0% mercury</p><span class="more">View Specs →</span>
+      </a>))}
+    </div>
+  </div></section>
+
+  <section class="section section-alt reveal"><div class="container">
+    <div class="cols2" style="align-items:center;">
+      <div><div class="eyebrow">OEM Capabilities</div><h2>Your custom lithium battery.</h2>
+        <ul class="clean">{['Voltage & capacity fit','CR / Li-ion chemistries','Connectors & terminals','Brand label & packaging','UL / UN38.3 compliance','OEM & ODM service'].map(c=>(<li>{c}</li>))}</ul>
+        <a href="/oem-battery-manufacturing/" class="btn btn-primary" style="margin-top:22px;">Explore OEM</a>
+      </div>
+      <div class="panel"><div class="eyebrow">Licensed OEM</div>
+        <p style="font-size:17px;color:var(--ink-2);">Manufactured under license for internationally recognized battery brands. ISO 9001, UL, UN38.3 & EU 2023/1542 certified.</p>
+      </div>
+    </div>
+  </div></section>
+</Layout>

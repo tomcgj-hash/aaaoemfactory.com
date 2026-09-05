@@ -1,0 +1,110 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { watches } from '../../data/watches.js';
+import { batteries } from '../../data/batteries.js';
+
+export function getStaticPaths() {
+  return watches.map(w => ({ params: { brand: w.slug }, props: { w } }));
+}
+const { w } = Astro.props;
+const bat = batteries.find(b => b.url === w.batteryUrl);
+const crumbs = [{ name:'Home', url:'/' }, { name:'Watch Batteries', url:'/watch-battery/' }, { name:w.brand, url:w.url }];
+
+const faqs = [
+  { q:`What battery does a ${w.brand} watch use?`, a:`Most ${w.brand} watches take a ${w.battery} battery${bat ? ` (${bat.voltage}, ${bat.diameter})` : ''}. Check the model number on your old cell to confirm.` },
+  { q:`How do I replace a ${w.brand} watch battery?`, a:`Pry the case back open with a watch-back tool, note the battery polarity, remove the old cell with non-metallic tweezers, insert the new battery (correct side up) and re-seal the case.` },
+  { q:`Is the ${w.battery} battery rechargeable?`, a:`No — the standard ${w.battery} is a primary (non-rechargeable) ${bat ? bat.chemistry : ''} cell. Replace it rather than recharge.` },
+];
+const pg = [{ '@context':'https://schema.org', '@type':'FAQPage', 'mainEntity': faqs.map(f=>({'@type':'Question','name':f.q,'acceptedAnswer':{'@type':'Answer','text':f.a}})) }];
+
+const steps = [
+  'Open the watch case back with a watch-back tool or flat screwdriver',
+  'Note the battery size and which side faces up',
+  `Remove the old ${w.battery} cell with non-metallic tweezers`,
+  `Insert a fresh ${w.battery} battery with the correct polarity`,
+  'Re-seal the case and set the time',
+];
+const otherModels = batteries.filter(b=>['sr626-battery','377-battery','371-battery','364-battery'].includes(b.slug));
+---
+
+<Layout title={`${w.brand} Watch Battery - What Battery & How to Replace | TIANQIU`} description={`Replace a ${w.brand} watch battery. Most ${w.brand} watches use a ${w.battery} cell. Factory-direct silver-oxide watch batteries, OEM & bulk supply.`} schema={pg} breadcrumbs={crumbs}>
+  <div class="container breadcrumb">{crumbs.map((c,i)=>(<>{i>0 && <span> / </span>}<a href={c.url}>{c.name}</a></>))}</div>
+
+  <section class="hero hero-ind"><div class="container" style="max-width:860px;">
+    <div class="eyebrow">{w.brand} Watch Battery</div>
+    <h1>{w.brand} Watch Battery Replacement</h1>
+    <p class="lead">{w.note} We supply the correct watch battery factory direct, with custom label &amp; bulk for watch brands.</p>
+    <div class="trustbar">
+      <div class="t"><b>{w.battery}</b><span>Common Cell</span></div>
+      {bat && <div class="t"><b>{bat.voltage}</b><span>Voltage</span></div>}
+      {bat && <div class="t"><b>{bat.diameter}</b><span>Diameter</span></div>}
+      <div class="t"><b>OEM</b><span>Bulk Label</span></div>
+    </div>
+    <div style="margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;"><a href={w.batteryUrl} class="btn btn-primary">Get the {w.battery} Battery</a><a href="/watch-battery/" class="btn btn-outline">All Watch Batteries</a></div>
+  </div></section>
+
+  <!-- The battery -->
+  <section class="section reveal" id="battery"><div class="container">
+    <div class="headline-group"><div class="eyebrow">Battery Type</div><h2>The {w.brand} Watch Battery: {w.battery}</h2></div>
+    {bat && (
+    <div class="content-block">
+      <div class="sec-title"><div class="ic"><i class="fa-solid fa-battery-three-quarters"></i></div><h3>{w.battery} Specifications</h3></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:640px;">
+        <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">{bat.voltage}</div><div style="font-size:13px;color:var(--ink-3);">Voltage</div></div>
+        <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">{bat.diameter}</div><div style="font-size:13px;color:var(--ink-3);">Diameter</div></div>
+        <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">{bat.chemistry}</div><div style="font-size:13px;color:var(--ink-3);">Chemistry</div></div>
+      </div>
+      <p style="color:var(--ink-2);font-size:15px;margin-top:18px;">Equivalent to <strong>{bat.compat}</strong>. {bat.chemistryEn === 'silver oxide' ? 'A steady 1.55V silver-oxide cell is the correct choice for a watch movement.' : 'A 3V lithium coin cell used in feature/smart watches and larger devices.'}</p>
+      <p style="color:var(--ink-2);font-size:15px;">Capacity: {bat.capacity} · Thickness: {bat.thickness}.</p>
+      <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;"><a href={w.batteryUrl} class="btn btn-primary btn-sm">View {w.battery} Specs &amp; Bulk</a><a href="/wholesale-batteries/" class="btn btn-outline btn-sm">Wholesale Price</a></div>
+    </div>
+    )}
+  </div></section>
+
+  <!-- Replacement steps -->
+  <section class="section section-alt reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">How-To</div><h2>How to Replace a {w.brand} Watch Battery</h2></div>
+    <div class="content-block">
+      <ol style="font-size:16px;color:var(--ink-2);line-height:1.9;padding-left:24px;margin-bottom:0;">
+        {steps.map(s=>(<li>{s}</li>))}
+      </ol>
+      <div class="panel-note" style="margin-top:20px;">Match the exact size and voltage. A wrong-thickness cell can jam the case back or power the watch incorrectly.</div>
+    </div>
+  </div></section>
+
+  <!-- Other watch battery models -->
+  <section class="section reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">Watch Batteries</div><h2>Other Watch Battery Models</h2></div>
+    <div class="grid">
+      {otherModels.map(b=>(<a class="card" href={b.url} style="text-decoration:none;">
+        <div style="font-size:22px;font-weight:800;color:var(--primary);">{b.model}</div>
+        <p style="color:var(--ink-2);font-size:14px;">{b.voltage} · {b.diameter} · {b.chemistry}</p>
+        <span class="more">View {b.model} battery →</span>
+      </a>))}
+      <a class="card" href="/button-cell-battery/" style="text-decoration:none;"><h3>All Button Cells</h3><p style="color:var(--ink-2);font-size:15px;">Browse every coin cell model from the TIANQIU factory.</p><span class="more">View all →</span></a>
+    </div>
+  </div></section>
+
+  <!-- FAQ -->
+  <section class="section section-alt reveal"><div class="container container-narrow">
+    <div class="headline-group"><div class="eyebrow">FAQ</div><h2>{w.brand} Watch Battery FAQs</h2></div>
+    <div class="content-block">
+      {faqs.map(f=>(<details><summary>{f.q}</summary><div class="a">{f.a}</div></details>))}
+    </div>
+  </div></section>
+
+  <!-- Other brands -->
+  <section class="section reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">More Brands</div><h2>Watch Batteries by Brand</h2></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      {watches.map(x=>(<a href={x.url} style={`background:#fff;border:1px solid var(--border);padding:10px 18px;border-radius:999px;font-size:15px;text-decoration:none;color:var(--ink);${x.slug===w.slug?'border-color:var(--primary);color:var(--primary);font-weight:600;':''}`}>{x.brand}</a>))}
+    </div>
+  </div></section>
+
+  <!-- CTA -->
+  <section class="section section-alt reveal"><div class="container" style="text-align:center;">
+    <h2>Buy {w.battery} Watch Batteries in Bulk</h2>
+    <p class="lead" style="margin:0 auto 24px;">Factory-direct {w.battery} cells with OEM custom label. Get a quote today.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;"><a href="/wholesale-batteries/" class="btn btn-primary">Get Wholesale Price</a><a href="/oem-battery-manufacturing/" class="btn btn-outline">Custom Watch Battery OEM</a></div>
+  </div></section>
+</Layout>

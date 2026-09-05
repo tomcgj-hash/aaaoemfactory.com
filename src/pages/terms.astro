@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { brand } from '../data/brand.js';
+const title = 'Terms of Service | TIANQIU';
+const description = 'Terms of service for ' + brand.name;
+---
+<Layout title={title} description={description}>
+  <section class="section reveal"><div class="container container-narrow">
+    <div class="eyebrow">Legal</div>
+    <h1>Terms of Service</h1>
+    <p class="lead">These terms govern your use of this website.</p>
+    <h2>Use of Site</h2>
+    <p style="color:var(--ink-2);font-size:17px;">You agree to use this site for lawful business inquiries only. Product information is provided for reference.</p>
+    <h2>Products &amp; Quotes</h2>
+    <p style="color:var(--ink-2);font-size:17px;">Specifications shown are for reference; final product specifications are confirmed per OEM project. Quotes are subject to final confirmation.</p>
+    <h2>Intellectual Property</h2>
+    <p style="color:var(--ink-2);font-size:17px;">All content on this site is the property of {brand.nameFull} and may not be reproduced without permission.</p>
+  </div></section>
+</Layout>

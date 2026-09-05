@@ -1,0 +1,237 @@
+---
+// Layout.astro — 全站公共布局（Apple 极简 + 工业深蓝）
+import '../styles/global.css';
+import { brand } from '../data/brand.js';
+const path = Astro.url.pathname;
+
+interface Props {
+  title?: string;
+  description?: string;
+  schema?: object | object[];   // JSON-LD schema（页面级）
+  breadcrumbs?: { name: string; url: string }[];
+  ogImage?: string;
+}
+
+const {
+  title = `${brand.nameFull} | ${brand.tagline}`,
+  description = 'Battery OEM / ODM manufacturer from China. Custom AA, AAA, D, button cell & battery pack. UL / UN38.3 certified. Factory direct bulk supply.',
+  schema,
+  breadcrumbs,
+  ogImage = '/images/og-default.jpg',
+} = Astro.props;
+
+// 默认 Organization schema（全站）
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: brand.nameFull,
+  url: brand.domain,
+  logo: brand.domain + '/images/logo.png',
+  description,
+  contactPoint: {
+    '@type': 'ContactPoint', contactType: 'sales', telephone: brand.phone, email: brand.email,
+  },
+};
+const jsonSchemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+const allSchemas = [orgSchema, ...jsonSchemas];
+
+const canURL = brand.domain + Astro.url.pathname;
+
+// 面包屑 JSON-LD
+let breadcrumbSchema: any = null;
+if (breadcrumbs && breadcrumbs.length) {
+  breadcrumbSchema = {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map((b, i) => ({
+      '@type': 'ListItem', position: i + 1, name: b.name, item: brand.domain + b.url,
+    })),
+  };
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" />
+    <link rel="canonical" href={canURL} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canURL} />
+    <meta property="og:image" content={brand.domain + ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Tailwind CSS (CDN) -->
+    <script is:inline src="https://cdn.tailwindcss.com"></script>
+    <script is:inline>
+      tailwind.config = { theme: { extend: { colors: {
+        primary: '#1F4E79', ink: '#1d1d1f', surface: '#f5f5f7',
+      } } } };
+    </script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- jQuery (local) -->
+    <script is:inline src="/js/jquery.min.js"></script>
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="/css/style.css" />
+
+    {
+      allSchemas.map(s => (
+        <script type="application/ld+json" is:inline set:html={JSON.stringify(s)} />
+      ))
+    }
+    {breadcrumbSchema && <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />}
+  </head>
+  <body>
+    <header class="nav">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo"><img src="/logo-mark.png" alt="TIANQIU" style="width:30px;height:30px;display:inline-block;vertical-align:-7px;margin-right:1px;"><b>TIANQIU</b></a>
+        <nav class="nav-links" aria-label="Main">
+          <a href="/" class={path==='/' ? 'active' : ''}>Home</a>
+          <div class="nav-drop">
+            <span class={'nav-drop-title'+(['button-cell-battery','aa-battery','aaa-battery','d-battery','rechargeable-battery','battery-pack'].some(p=>path.includes(p)) ? ' active' : '')}>Products <i class="fa-solid fa-chevron-down" style="font-size:11px;margin-left:4px;"></i></span>
+            <div class="nav-dropdown">
+              <a href="/button-cell-battery/">Button Cell Batteries</a>
+              <a href="/aa-battery/">AA Batteries</a>
+              <a href="/aaa-battery/">AAA Batteries</a>
+              <a href="/d-battery/">D &amp; C Batteries</a>
+              <a href="/rechargeable-battery/">Rechargeable &amp; USB</a>
+              <a href="/battery-pack/">Custom Battery Pack</a>
+            </div>
+          </div>
+          <a href="/oem-battery-manufacturing/" class={path.includes('oem-battery') ? 'active' : ''}>OEM</a>
+          <div class="nav-drop">
+            <span class={'nav-drop-title'+(['watch-battery','key-fob-battery','cmos-battery'].some(p=>path.includes(p)) ? ' active' : '')}>Applications <i class="fa-solid fa-chevron-down" style="font-size:11px;margin-left:4px;"></i></span>
+            <div class="nav-dropdown">
+              <a href="/watch-battery/">Watch Batteries</a>
+              <a href="/key-fob-battery/">Key Fob Batteries</a>
+              <a href="/cmos-battery/">CMOS Batteries</a>
+            </div>
+          </div>
+          <a href="/about-us/" class={path.includes('about-us') ? 'active' : ''}>About</a>
+          <a href="/downloads/" class={path.includes('downloads') ? 'active' : ''}>Resources</a>
+        </nav>
+        <a href="/contact-us/" class="btn btn-primary btn-sm nav-cta">Get a Quote</a>
+        <button class="nav-burger" aria-label="Menu">&#9776;</button>
+      </div>
+      <!-- 移动端菜单 -->
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="/">Home</a>
+        <a href="/button-cell-battery/">Button Cell Batteries</a>
+        <a href="/aa-battery/">AA Batteries</a>
+        <a href="/aaa-battery/">AAA Batteries</a><a href="/battery-pack/">Custom Battery Pack</a>
+        <a href="/d-battery/">D Batteries</a>
+        <a href="/rechargeable-battery/">Rechargeable</a>
+        
+        <a href="/oem-battery-manufacturing/">OEM / ODM Service</a>
+        <a href="/wholesale-batteries/">Wholesale</a>
+        <a href="/battery-certifications/">Certifications</a>
+        <a href="/about-us/">About Us</a>
+        <a href="/downloads/">Downloads / Resources</a>
+        <a href="/contact-us/">Contact Us</a>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div style="font-size:20px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:9px;"><img src="/logo-mark.png" alt="TIANQIU" style="width:30px;height:30px;">TIANQIU</div>
+            <p style="color:var(--ink-2);font-size:15px;">{brand.tagline} — custom batteries from spec to packaging. {brand.exportCountries}.</p>
+          </div>
+          <div>
+            <h4>Products</h4>
+            <a href="/button-cell-battery/">Button Cells</a>
+            <a href="/aa-battery/">AA</a>
+            <a href="/aaa-battery/">AAA</a>
+            <a href="/d-battery/">D</a>
+            <a href="/rechargeable-battery/">Rechargeable</a>
+          </div>
+          <div>
+            <h4>Services</h4>
+            <a href="/oem-battery-manufacturing/">OEM / ODM</a>
+            <a href="/battery-pack/">Battery Pack</a>
+            
+            <a href="/wholesale-batteries/">Wholesale</a>
+            <a href="/battery-certifications/">Certifications</a>
+          </div>
+          <div>
+            <h4>Company</h4>
+            <a href="/about-us/">About Us</a>
+        <a href="/downloads/">Downloads / Resources</a>
+            <a href="/blog/">Blog</a>
+            <a href="/contact-us/">Contact</a>
+            <a href="/privacy-policy/">Privacy</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          &copy; {new Date().getFullYear()} {brand.nameFull}. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <!-- WhatsApp 悬浮按钮 -->
+    <a class="wa-fab" target="_blank" rel="noopener" href={`https://wa.me/${brand.whatsapp}?text=Hello%2C%20I%20am%20interested%20in%20your%20batteries`} aria-label="Chat on WhatsApp">
+      <svg viewBox="0 0 32 32"><path d="M16.004 3C8.832 3 3 8.83 3 16c0 2.3.6 4.5 1.7 6.4L3 29l6.8-1.7c1.9 1 4 1.6 6.2 1.6 7.17 0 13-5.83 13-13s-5.8-13-13-13zm0 23.7c-2 0-4-.55-5.7-1.6l-.4-.24-4 1 1.05-3.9-.26-.4a10.6 10.6 0 0 1-1.65-5.7c0-5.87 4.78-10.64 10.66-10.64 5.87 0 10.64 4.77 10.64 10.64 0 5.88-4.77 10.65-10.64 10.65zm5.85-8.02c-.32-.16-1.9-.94-2.2-1.05-.3-.1-.5-.16-.7.16-.22.32-.83 1.05-1.02 1.26-.19.22-.37.25-.7.08-.32-.16-1.34-.5-2.55-1.58-.94-.84-1.58-1.88-1.77-2.2-.18-.32-.02-.5.14-.66.15-.15.32-.37.48-.56.16-.18.22-.32.32-.53.1-.22.06-.4-.02-.56-.08-.16-.7-1.7-.97-2.33-.25-.6-.5-.52-.7-.53h-.6c-.2 0-.55.08-.84.4-.28.32-1.1 1.07-1.1 2.6s1.12 3.02 1.28 3.23c.16.2 2.2 3.36 5.33 4.72.75.32 1.33.51 1.78.66.75.24 1.43.2 1.97.12.6-.09 1.9-.78 2.17-1.53.27-.75.27-1.4.19-1.53-.08-.13-.28-.2-.6-.37z"/></svg>
+    </a>
+    <button class="back-top" id="backTop" aria-label="Back to top">&#8593;</button>
+
+    <!-- 移动端底部导航（<1024px） -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile">
+      <a href="/" class={Astro.url.pathname === '/' ? 'active' : ''}><i class="fa-solid fa-house"></i>Home</a>
+      <a href="/button-cell-battery/" class={Astro.url.pathname.startsWith('/button-cell') ? 'active' : ''}><i class="fa-solid fa-car"></i>Cells</a><a href="/battery-pack/" class={Astro.url.pathname.startsWith('/battery-pack') ? 'active' : ''}><i class="fa-solid fa-bolt"></i>Pack</a>
+      
+      <a href="/oem-battery-manufacturing/" class={Astro.url.pathname.startsWith('/oem') ? 'active' : ''}><i class="fa-solid fa-industry"></i>OEM</a>
+      <a href="/contact-us/" class={Astro.url.pathname.startsWith('/contact') ? 'active' : ''}><i class="fa-solid fa-envelope"></i>Contact</a>
+    </nav>
+
+    <script is:inline>
+      // 移动端菜单
+      (()=>{
+        const burger=document.querySelector('.nav-burger');
+        const menu=document.querySelector('.mobile-menu');
+        if(burger&&menu){
+          burger.addEventListener('click',()=>{ menu.classList.toggle('open'); document.body.style.overflow=menu.classList.contains('open')?'hidden':''; });
+          menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ menu.classList.remove('open'); document.body.style.overflow=''; }));
+        }
+      })();
+      // 返回顶部
+      (()=>{
+        const btn=document.getElementById('backTop');
+        if(!btn) return;
+        window.addEventListener('scroll',()=>{ btn.style.display=window.scrollY>500?'flex':'none'; });
+        btn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+      })();
+    </script>
+  <script is:inline>
+  (()=>{const els=document.querySelectorAll('.reveal');if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return;}const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.05});els.forEach(e=>io.observe(e));})();
+  document.querySelectorAll('[data-count]').forEach(el=>{const t=parseFloat(el.dataset.count),suf=el.dataset.suffix||'',dur=1400,st=performance.now();function step(n){const pr=Math.min((n-st)/dur,1),e=1-Math.pow(1-pr,3);el.textContent=Math.round(t*e)+suf;if(pr<1)requestAnimationFrame(step);}requestAnimationFrame(step);});
+
+  // ---- 产品图轮播 ----
+  document.querySelectorAll('.carousel').forEach(function(c){
+    var slides=c.querySelector('.car-slides'); var imgs=slides.children; var i=0;
+    var dots=Array.prototype.slice.call(c.querySelectorAll('.car-dots span'));
+    function go(k){ i=(k+imgs.length)%imgs.length; slides.style.transform='translateX(-'+(i*100)+'%)';
+      dots.forEach(function(d,j){ d.classList.toggle('on',j===i); }); }
+    var pv=c.querySelector('.car-arrow.prev'), nx=c.querySelector('.car-arrow.next');
+    if(pv) pv.addEventListener('click',function(){ go(i-1); });
+    if(nx) nx.addEventListener('click',function(){ go(i+1); });
+    dots.forEach(function(d,j){ d.addEventListener('click',function(){ go(j); }); });
+    go(0);
+    setInterval(function(){ go(i+1); }, 5000);
+  });
+</script>
+
+</body>
+</html>

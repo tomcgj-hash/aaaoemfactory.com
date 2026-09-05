@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { posts } from '../data/posts.js';
+const title = 'Battery Blog & Guides | TIANQIU';
+const description = 'Battery guides from TIANQIU: AA vs AAA, battery life, voltage, replacement guides and more.';
+const crumbs = [{ name:'Home', url:'/' }, { name:'Blog', url:'/blog/' }];
+---
+
+<Layout title={title} description={description} breadcrumbs={crumbs}>
+  <div class="container breadcrumb"><a href="/">Home</a> <span>/</span> Blog</div>
+  <section class="hero hero-eco"><div class="container" style="max-width:880px;">
+    <div class="eyebrow">Battery Guides</div>
+    <h1>Battery Blog &amp; Guides</h1>
+    <p class="lead">Practical, data-backed guides on choosing and using batteries.</p>
+  </div></section>
+  <section class="section reveal"><div class="container">
+    <div class="grid">
+      {posts.map(p=>(<article class="card" style="text-align:left;"><h3><a href={`/blog/${p.slug}/`} style="color:var(--ink);text-decoration:none;">{p.title}</a></h3><p style="color:var(--ink-2);font-size:14px;">{p.type} · {p.kw}</p><span class="more"><a href={`/blog/${p.slug}/`}>Read More →</a></span></article>))}
+    </div>
+  </div></section>
+</Layout>

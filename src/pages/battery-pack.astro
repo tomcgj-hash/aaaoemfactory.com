@@ -1,0 +1,223 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { brand } from '../data/brand.js';
+import { company } from '../data/company.js';
+
+const title = 'Custom Battery Pack Manufacturer - OEM/ODM Battery Pack Assembly | TIANQIU';
+const description = 'Custom battery pack manufacturer: NiMH, Li-ion & LiFePO4 packs with BMS, custom connectors & housings. Prototype to mass production. UL/UN38.3 certified.';
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'Custom Battery Pack', url: '/battery-pack/' }];
+
+const faqs = [
+  { q: 'Can you build a custom battery pack from a spec?',
+    a: 'Yes — send voltage, capacity, size, connector, cell chemistry and application. We engineer the pack, BMS and housing, then build and test a prototype before mass production.' },
+  { q: 'Do you supply BMS & protection?',
+    a: 'Yes, we integrate a custom BMS and protection circuit to match your required voltage, current and safety profile.' },
+  { q: 'Which chemistries do you build?',
+    a: 'We assemble NiMH, Li-ion and LiFePO4 battery packs — selected and balanced to the load and cycle-life target of your application.' },
+  { q: 'What is the lead time for a custom pack?',
+    a: 'Design and sampling come first; then production lead time depends on quantity and complexity. We confirm a firm date in the quote.' },
+  { q: 'Do you help with cells for e-bike and storage?',
+    a: 'Yes. Through our group we supply lithium modules and storage packs for e-bikes, UPS, energy storage cabinets and inverters.' },
+  { q: 'What is the MOQ for a battery pack?',
+    a: 'Packs are typically quoted per project after design and sampling. Once approved, MOQ depends on the pack and volume requested.' },
+];
+
+const chemTable = [
+  ['NiMH','1.2V/cell','Rechargeable, long cycle life, eco-friendly','Consumer & industrial'],
+  ['Li-ion (NMC)','3.6V/cell','High energy density, long cycle life','E-bike, power tools, consumer'],
+  ['LiFePO4','3.2V/cell','Safe, long cycle, high power','Storage, UPS, industrial, EV'],
+];
+
+const caps = ['Custom BMS / protection','Spot welding & soldering','Potting & encapsulation','Custom housings & enclosure','Wiring & connectors','Label & retail-ready packaging','Cell selection & balancing'];
+
+const proc = [
+  { n: '1', t: 'Requirement & design', d: 'Voltage, capacity, size, connector and C-rate defined.' },
+  { n: '2', t: 'Cell & BMS selection', d: 'Cell chemistry, BMS and protection matched to your load.' },
+  { n: '3', t: 'Prototype', d: 'Sample pack built and tested against your spec.' },
+  { n: '4', t: 'Assembly', d: 'Precision welding and automated assembly.' },
+  { n: '5', t: 'Mass production & QC', d: 'Batch capacity & safety testing before shipping.' },
+];
+
+const apps = ['E-bikes','Power tools','Medical equipment','Energy storage','UPS','Industrial equipment','IoT & sensors'];
+
+const moqRows = [
+  { line: 'Custom battery pack', moq: 'Project-based', lead: 'Design & sample first, then MOQ per pack' },
+  { line: 'Standard rechargeable AA/AAA', moq: 'From 5,000 pcs', lead: 'Retail & industrial' },
+];
+
+const schema = [
+  { '@context': 'https://schema.org', '@type': 'Service',
+    name: 'Custom Battery Pack Manufacturing — OEM / ODM',
+    serviceType: 'Custom NiMH, Li-ion & LiFePO4 battery pack design and assembly with BMS',
+    provider: { '@type': 'Organization', name: brand.nameFull, url: brand.domain },
+    description: description },
+  { '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+
+<Layout title={title} description={description} schema={schema} breadcrumbs={crumbs}>
+  <div class="container breadcrumb"><a href="/">Home</a> <span>/</span> <a href="/battery-pack/">Custom Battery Pack</a></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container" style="max-width:920px;padding:0 32px;">
+      <div class="eyebrow left">Custom Battery Pack</div>
+      <h1 style="font-size:clamp(38px,4.6vw,54px);">Custom Battery Pack Manufacturing — OEM / ODM</h1>
+      <p class="lead">Design, engineering and assembly of custom battery packs — NiMH, Li-ion &amp; LiFePO4 with BMS, custom connectors and housings, under your brand.</p>
+      <div class="trustbar">
+        <div class="t"><b>{'100,000m²'}</b><span>Factory Area</span></div>
+        <div class="t"><b>UL/UN38.3</b><span>Certified</span></div>
+        <div class="t"><b>BMS</b><span>Custom Protection</span></div>
+        <div class="t"><b>{'500+'}</b><span>Product Types</span></div>
+      </div>
+      <div style="margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;">
+        <a href="#quote" class="btn btn-primary btn-lg">Design My Pack</a>
+        <a href="/oem-battery-manufacturing/" class="btn btn-outline btn-lg">Battery OEM Service</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overview / from cell to pack -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">OEM / ODM</div><h2>From Cell to Pack, End to End</h2><p class="lead">We engineer and assemble battery packs to your exact voltage, capacity, size, connector and safety specification.</p></div>
+      <div class="cols3">
+        {[{i:'fa-pen-ruler',t:'Design',d:'Cell selection, voltage & C-rate, BMS and packaging'},{i:'fa-gears',t:'Assembly',d:'Precision welding and automated assembly'},{i:'fa-shield-halved',t:'Test & certify',d:'Capacity, safety & UL/UN38.3 testing'}].map(x=>(<div class="feature"><div class="feat-icon"><i class={`fa-solid ${x.i}`}></i></div><h3>{x.t}</h3><p>{x.d}</p></div>))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Chemistries comparison -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Chemistries</div><h2>Battery Pack Chemistries</h2><p class="lead">Match the chemistry to your cost, energy and cycle-life target.</p></div>
+      <div style="overflow-x:auto;background:#fff;border:1px solid var(--border-light);border-radius:14px;padding:0 8px;">
+        <table>
+          <thead><tr><th>Chemistry</th><th>Cell Voltage</th><th>Key Benefit</th><th>Typical Use</th></tr></thead>
+          <tbody>{chemTable.map(r=>(<tr><td><strong>{r[0]}</strong></td><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td></tr>))}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pack showcase image -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="cols2" style="align-items:center;">
+        <div class="img-wrap" style="background:var(--surface-alt);border:1px solid var(--border-light);border-radius:20px;overflow:hidden;">
+          <img src="/images/tianrui-lithium-module.jpg" alt="Custom lithium battery pack module assembly" loading="lazy" onerror="this.style.opacity=.3" style="width:100%;object-fit:contain;max-height:360px;" />
+        </div>
+        <div>
+          <div class="eyebrow left">Assembly &amp; Engineering</div>
+          <h2>PACK Customization Capabilities</h2>
+          <p class="lead">Every pack is configurable — from cells and BMS to the final label. With group manufacturing for storage and e-bike modules.</p>
+          <ul class="clean">
+            <li>Custom BMS, protection &amp; cell balancing</li>
+            <li>Spot welding, potting &amp; encapsulation</li>
+            <li>Custom housings, wiring &amp; connectors</li>
+          </ul>
+          <div style="margin-top:22px;display:flex;gap:14px;flex-wrap:wrap;"><a href="#quote" class="btn btn-primary">Request a Pack Quote</a><a href="/oem-battery-manufacturing/" class="btn btn-outline">Battery OEM Service</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities grid -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Capabilities</div><h2>Every Pack, Fully Configured</h2></div>
+      <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(250px,1fr));">
+        {caps.map(c=>(<div class="card"><div class="feat-icon" style="width:44px;height:44px;font-size:18px;"><i class="fa-solid fa-gears"></i></div><h3>{c}</h3><p>Tuned to your voltage, current and safety profile.</p></div>))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Process</div><h2>Custom Battery Pack Process</h2><p class="lead">A clear 5-step path from requirement to a certified, tested production sample.</p></div>
+      <div class="steps-grid">
+        {proc.map(p=>(<div class="step"><div class="sn">{p.n}</div><h4>{p.t}</h4><p>{p.d}</p></div>))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Applications -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Applications</div><h2>Where Custom Packs Are Used</h2><p class="lead">From mobility to storage — a pack for every application, engineered and certified.</p></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        {apps.map(a=>(<span class="badge" style="font-size:15px;padding:10px 20px;"><i class="fa-solid fa-bolt"></i>{a}</span>))}
+      </div>
+      <p style="margin-top:20px;color:var(--ink-2);font-size:15px;">Serving e-bikes, UPS, energy storage cabinets and inverters through our group manufacturing.</p>
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Quality</div><h2>Certified &amp; Compliant</h2><p class="lead">ISO 9001 · UL · UN38.3 · CE · RoHS · EU 2023/1542. Factory-direct with maritime &amp; air transport certification.</p></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        {company.certifications.slice(0,8).map(c=>(<span class="badge" style="font-size:15px;padding:10px 20px;"><i class="fa-solid fa-badge-check"></i>{c}</span>))}
+      </div>
+      <div style="margin-top:24px;"><a href="/battery-certifications/" class="btn btn-outline">View Certifications</a></div>
+    </div>
+  </section>
+
+  <!-- MOQ -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">MOQ &amp; Lead Time</div><h2>MOQ &amp; Lead Time</h2></div>
+      <div style="overflow-x:auto;background:#fff;border:1px solid var(--border-light);border-radius:14px;padding:0 8px;">
+        <table>
+          <thead><tr><th>Product</th><th>MOQ</th><th>Notes</th></tr></thead>
+          <tbody>{moqRows.map(r=>(<tr><td><strong>{r.line}</strong></td><td>{r.moq}</td><td>{r.lead}</td></tr>))}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote form -->
+  <section class="section reveal" id="quote">
+    <div class="container" style="max-width:840px;">
+      <div class="headline-group hl-center"><div class="eyebrow">Get a Quote</div><h2>Design My Battery Pack</h2><p class="lead">Tell us your spec — voltage, capacity, chemistry, connector and application. We reply with a design and quote.</p></div>
+      <form action="https://web3forms.com/submit" method="POST" id="packForm">
+        <input type="hidden" name="access_key" value="a532024b-8305-428d-a12e-5fcc5958d36a" />
+        <input type="hidden" name="subject" value="New Custom Battery Pack Inquiry" />
+        <div class="form-row"><label>Name *</label><input type="text" name="name" required /></div>
+        <div class="form-row"><label>Email *</label><input type="email" name="email" required /></div>
+        <div class="form-row"><label>Company</label><input type="text" name="company" /></div>
+        <div class="form-row"><label>Pack spec *</label><textarea name="message" rows="4" required placeholder="Voltage, capacity, chemistry, connector & application..."></textarea></div>
+        <div class="form-row"><label>Estimated annual quantity</label><input type="text" name="annual_quantity" placeholder="e.g. 10,000 units / year" /></div>
+        <button class="btn btn-primary btn-block" type="submit">Request a Pack Quote</button>
+        <p id="packMsg" style="margin-top:14px;font-size:14px;"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-alt reveal">
+    <div class="container container-narrow">
+      <div class="headline-group"><div class="eyebrow">FAQ</div><h2>Battery Pack FAQs</h2></div>
+      {faqs.map(f=>(<details><summary>{f.q}</summary><div class="a">{f.a}</div></details>))}
+      <div style="margin-top:28px;text-align:center;"><a href="/oem-battery-manufacturing/" class="btn btn-primary">Start an OEM Project</a></div>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  document.getElementById('packForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target, msg = document.getElementById('packMsg');
+    const btn = form.querySelector('button[type=submit]');
+    btn.disabled = true; btn.textContent = 'Sending...';
+    try {
+      const r = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+      const data = await r.json();
+      if (data.success) { msg.textContent = 'Thank you! Your pack inquiry has been sent.'; form.reset(); }
+      else { msg.textContent = 'Sorry, something went wrong. Please try again.'; }
+    } catch (err) { msg.textContent = 'Network error. Please try again.'; }
+    btn.disabled = false; btn.textContent = 'Request a Pack Quote';
+  });
+</script>

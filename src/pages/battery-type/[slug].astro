@@ -1,0 +1,376 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { batteries } from '../../data/batteries.js';
+import { brand } from '../../data/brand.js';
+import { modelImages } from '../../data/model_images.js';
+
+export function getStaticPaths() {
+  return batteries.map(b => ({ params: { slug: b.slug }, props: { b } }));
+}
+
+const { b } = Astro.props;
+const { title, description, schema, breadcrumbs } = Astro.props;
+
+// Product schema for model pages
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: `${b.model} Battery`,
+  description: `${b.model} ${b.chemistryEn} ${b.voltage} coin cell, ${b.diameter} x ${b.thickness}, ${b.capacity}. Compatible with ${b.compat.split(' = ').slice(1).join(' / ')}.`,
+  brand: { '@type': 'Brand', name: brand.name },
+  offers: { '@type': 'AggregateOffer', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
+};
+
+// FAQ content (template-driven)
+const faqs = [
+  { q: `What is a ${b.model} battery?`,
+    a: `${b.model} is a ${b.diameter} diameter, ${b.thickness} thick ${b.chemistryEn} coin cell battery with ${b.voltage} output and ~${b.capacity} capacity.` },
+  { q: `What is the ${b.model} compatible with?`,
+    a: `${b.compat.split(' = ').slice(1).join(', ')} — same size and voltage, interchangeable with ${b.model}.` },
+  { q: `Is the ${b.model} rechargeable?`,
+    a: `Standard ${b.model} is a primary (non-rechargeable) ${b.chemistryEn} battery.` },
+  { q: `How long does a ${b.model} battery last?`,
+    a: `In a low-drain device (watch, CMOS, spare key fob) a ${b.model} typically lasts several years; in high-drain use the cycle is shorter.` },
+  { q: `Does a ${b.model} fit my device?`,
+    a: `${b.model} fits any device that specifies a ${b.model} cell or a listed compatible equivalent (${b.compat.split(' = ').slice(1).slice(0,3).join(', ')}).` },
+];
+
+const compatAlternatives = b.compat.split(' = ').filter(p => p.trim());
+const base = b.slug.replace(/-battery$/, '');
+const crPng = ['cr2032','cr2025','cr2016','cr2450','cr1632','cr1220'].includes(base);
+const modelImgs = crPng ? [`/images/products/${base}.png`] : ['/images/lithium-button-cell-pack.jpg'];
+const modelImg = modelImgs[0];
+
+const sceneLinks = [];
+if (['cr2032','cr2025','cr2016','cr2450','cr1632','cr1220'].includes(base)) {
+  sceneLinks.push({ name: 'Car Key Fob Batteries', url: '/key-fob-battery/' }, { name: 'CMOS / Motherboard Batteries', url: '/cmos-battery/' });
+}
+if (['lr44','ag13','sr44','sr626','377','371','364','lr41'].includes(base)) {
+  sceneLinks.push({ name: 'Watch Batteries', url: '/watch-battery/' });
+}
+sceneLinks.push({ name: 'Button Cell Batteries', url: '/button-cell-battery/' });
+
+// Device H3 content blocks (per CR2032 template: AirTag / Car Key Fobs / Motherboard CMOS / Watch)
+const deviceBlocks = [];
+if (['cr2032','cr2025','cr2016','cr2450','cr1632'].includes(base)) {
+  deviceBlocks.push({
+    title: `${b.model} in Car Key Fobs`, icon: 'fa-car',
+    desc: `Most modern car key fobs and remote controls run on a ${b.model} coin cell. Nissan, Honda and Toyota remotes commonly use the ${b.model} (check the exact cell printed inside before ordering). When the range drops, the fob battery is usually the first thing to change.`,
+    url: '/key-fob-battery/', anchor: 'car key fob battery replacement',
+  });
+}
+if (['cr2032','cr2025','cr2016','cr1220','cr2450'].includes(base)) {
+  deviceBlocks.push({
+    title: `${b.model} for Motherboard CMOS`, icon: 'fa-microchip',
+    desc: `The motherboard CMOS battery keeps your BIOS settings and system clock powered when the PC is off. Many desktop boards and laptops use a ${b.model} — a dead cell is the usual cause of a "wrong system time" or lost BIOS settings on boot.`,
+    url: '/cmos-battery/', anchor: 'CMOS battery replacement',
+  });
+}
+if (['cr2032','cr2025','cr2016'].includes(base)) {
+  deviceBlocks.push({
+    title: `${b.model} for Apple AirTag`, icon: 'fa-tag',
+    desc: `The Apple AirTag runs on a removable ${b.model} coin cell. To replace it: press and twist the back cover open, swap the old cell for a fresh ${b.model}, then re-seat the cover. A new ${b.model} keeps your AirTag powered and alerts you when it gets low.`,
+    url: '/button-cell-battery/', anchor: 'button cell battery sizes',
+  });
+}
+if (['lr44','ag13','sr44','sr626','377','371','364','lr41'].includes(base)) {
+  deviceBlocks.push({
+    title: `${b.model} Watch Battery`, icon: 'fa-clock',
+    desc: `The ${b.model} is a common watch battery cell. Match the model number on your old cell (${b.compat}) to the one you replace it with — same size and voltage means an easy swap.`,
+    url: '/watch-battery/', anchor: 'watch battery replacement',
+  });
+}
+
+// Differential H2 per model (unique topic per plan: LR44 vs AG13, CR2025 vs CR2032, etc.)
+const diffMap = {
+  cr2032: { title:'CR2032 vs CR2025 vs CR2016', icon:'fa-scale-balanced',
+    cols:[' ','CR2032','CR2025','CR2016'],
+    rows:[['Diameter','20mm','20mm','20mm'],['Thickness','3.2mm','2.5mm','1.6mm'],['Voltage','3V','3V','3V'],['Capacity','~220mAh','~165mAh','~90mAh']],
+    body:`All three are 20mm, 3V lithium coin cells — but they differ in height. The ${b.model} is the tallest of the three, so it only fits holders designed for a 3.2mm cell. Check your device's battery bay before swapping.`,
+    links:[['CR2025 battery','/battery-type/cr2025-battery/'],['CR2016 battery','/battery-type/cr2016-battery/']],
+    cta:'/button-cell-battery/' },
+  lr44: { title:'LR44 vs AG13: Are They the Same?', icon:'fa-scale-balanced',
+    body:`LR44 and AG13 are the same battery under different names — an 11.6mm x 5.4mm, 1.5V alkaline button cell. Only the AG13 (also A76 = 357) naming differs. Any device that takes an LR44 will take an AG13 and vice versa.`,
+    links:[['AG13 battery','/battery-type/ag13-battery/'],['SR44 battery','/battery-type/sr44-battery/']],
+    cta:'/button-cell-battery/' },
+  cr2025: { title:'CR2025 vs CR2032', icon:'fa-scale-balanced',
+    cols:[' ','CR2025','CR2032'],
+    rows:[['Diameter','20mm','20mm'],['Thickness','2.5mm','3.2mm'],['Voltage','3V','3V'],['Capacity','~165mAh','~220mAh']],
+    body:`CR2025 and CR2032 share a 20mm diameter and 3V output, but the CR2032 is thicker (3.2mm vs 2.5mm) with more capacity. If your device recess is less than 3.2mm, use a CR2025 — a CR2032 will not close.`,
+    links:[['CR2032 battery','/battery-type/cr2032-battery/']],
+    cta:'/key-fob-battery/' },
+  cr2450: { title:'CR2450 vs CR2032', icon:'fa-scale-balanced',
+    cols:[' ','CR2450','CR2032'],
+    rows:[['Diameter','24.5mm','20mm'],['Thickness','5.0mm','3.2mm'],['Voltage','3V','3V'],['Capacity','~620mAh','~220mAh']],
+    body:`The ${b.model} is a larger, higher-capacity 3V cell (24.5mm x 5.0mm). It is not interchangeable with the CR2032 because the physical size is different — check your device's battery bay carefully.`,
+    links:[['CR2032 battery','/battery-type/cr2032-battery/']],
+    cta:'/key-fob-battery/' },
+  ag13: { title:'AG13 vs LR44', icon:'fa-scale-balanced',
+    body:`AG13 and LR44 are the same 1.5V alkaline button cell. AG13 is an older name; manufacturers also mark it A76, 357 or SR44. If your device lists AG13, an LR44 works as a direct replacement.`,
+    links:[['LR44 battery','/battery-type/lr44-battery/'],['SR44 battery','/battery-type/sr44-battery/']],
+    cta:'/button-cell-battery/' },
+  lr41: { title:'LR41 vs AG3: Are They Interchangeable?', icon:'fa-scale-balanced',
+    body:`LR41 and AG3 (also 392 = SR41) are interchangeable 7.9mm x 3.6mm, 1.5V alkaline cells. They are the same battery under different names — pick either to replace a watch or small sensor.`,
+    links:[['Watch batteries','/watch-battery/']],
+    cta:'/button-cell-battery/' },
+  cr2016: { title:'CR2016 vs CR2032', icon:'fa-scale-balanced',
+    cols:[' ','CR2016','CR2032'],
+    rows:[['Diameter','20mm','20mm'],['Thickness','1.6mm','3.2mm'],['Voltage','3V','3V'],['Capacity','~90mAh','~220mAh']],
+    body:`The ${b.model} is far thinner (1.6mm) than the CR2032 (3.2mm). Both are 20mm 3V cells, but a thin 1.6mm holder cannot take a 3.2mm CR2032. Match the height printed on the old cell.`,
+    links:[['CR2032 battery','/battery-type/cr2032-battery/']],
+    cta:'/key-fob-battery/' },
+  cr1632: { title:'CR1632 vs CR2032', icon:'fa-scale-balanced',
+    cols:[' ','CR1632','CR2032'],
+    rows:[['Diameter','16mm','20mm'],['Thickness','3.2mm','3.2mm'],['Voltage','3V','3V'],['Capacity','~140mAh','~220mAh']],
+    body:`The ${b.model} shares the 3.2mm height of the CR2032 but is smaller in diameter (16mm vs 20mm). They are not interchangeable — only fit the cell the device was built for.`,
+    links:[['CR2032 battery','/battery-type/cr2032-battery/']],
+    cta:'/key-fob-battery/' },
+  cr1220: { title:'CR1220 vs CR2032', icon:'fa-scale-balanced',
+    cols:[' ','CR1220','CR2032'],
+    rows:[['Diameter','12.5mm','20mm'],['Thickness','2.0mm','3.2mm'],['Voltage','3V','3V'],['Capacity','~38mAh','~220mAh']],
+    body:`The ${b.model} is a small 12.5mm 3V lithium cell used for compact devices. It is too small for a CR2032 holder — match the exact size on your old cell.`,
+    links:[['CR2032 battery','/battery-type/cr2032-battery/']],
+    cta:'/cmos-battery/' },
+  sr44: { title:'SR44 vs LR44', icon:'fa-scale-balanced',
+    cols:[' ','SR44','LR44'],
+    rows:[['Diameter','11.6mm','11.6mm'],['Thickness','5.4mm','5.4mm'],['Voltage','1.55V','1.5V'],['Chemistry','Silver oxide','Alkaline'],['Capacity','~175mAh','~118mAh']],
+    body:`Both are 11.6mm x 5.4mm coin cells, but an SR44 (silver oxide) holds a steadier 1.55V and is the better choice for watches. An LR44 (alkaline) works for low-drain devices but runs down faster.`,
+    links:[['LR44 battery','/battery-type/lr44-battery/'],['AG13 battery','/battery-type/ag13-battery/']],
+    cta:'/watch-battery/' },
+  sr626: { title:'SR626SW vs 377', icon:'fa-scale-balanced',
+    body:`SR626SW and 377 are the same 6.8mm x 2.6mm, 1.55V silver-oxide watch battery. The ${b.model} is also listed as AG4 or SG4. Either marking is a direct replacement for your watch.`,
+    links:[['377 battery','/battery-type/377-battery/']],
+    cta:'/watch-battery/' },
+  lr20: { title:'LR20 (D Cell) vs AA Batteries', icon:'fa-scale-balanced',
+    cols:[' ','LR20 (D)','AA (LR6)'],
+    rows:[['Diameter','34.2mm','14.0mm'],['Height','61.5mm','50.5mm'],['Voltage','1.5V','1.5V'],['Capacity','~18000mAh','~2500mAh']],
+    body:`A ${b.model} (D cell) is a large-area, high-capacity 1.5V cell for flashlights, radios and industrial equipment. It is not a drop-in for AA devices — check the size your product needs.`,
+    links:[['AA batteries','/aa-battery/'],['D batteries','/d-battery/']],
+    cta:'/wholesale-batteries/' },
+  '377': { title:'377 Watch Battery: Is It the Same as SR626SW?', icon:'fa-scale-balanced',
+    body:`Yes. The ${b.model} watch battery is the same as SR626SW, AG4 and SG4 — a 6.8mm x 2.6mm, 1.55V silver-oxide cell. It is the most common small watch battery and a direct replacement for any of those markings.`,
+    links:[['SR626 battery','/battery-type/sr626-battery/']],
+    cta:'/watch-battery/' },
+  '371': { title:'371 vs 377 Watch Battery', icon:'fa-scale-balanced',
+    cols:[' ','371','377'],
+    rows:[['Diameter','9.5mm','6.8mm'],['Thickness','2.1mm','2.6mm'],['Voltage','1.55V','1.55V'],['Capacity','~38mAh','~24mAh']],
+    body:`Both are 1.55V silver-oxide watch cells, but they differ in size. The ${b.model} is 9.5mm wide (SR920SW) whereas the 377 is 6.8mm (SR626SW) — pick the exact size for your watch.`,
+    links:[['377 battery','/battery-type/377-battery/']],
+    cta:'/watch-battery/' },
+  '364': { title:'364 vs SR621SW: Is It the Same?', icon:'fa-scale-balanced',
+    body:`Yes. The ${b.model} watch battery equals SR621SW and AG1 — a 6.8mm x 2.1mm, 1.55V silver-oxide cell. It is a thin watch battery and is interchangeable with SR621SW.`,
+    links:[['377 battery','/battery-type/377-battery/'],['SR626 battery','/battery-type/sr626-battery/']],
+    cta:'/watch-battery/' },
+};
+const diff = diffMap[base] || null;
+
+// related models (same family)
+const familyMap = {
+  cr2032:['cr2025','cr2016','cr2450'], cr2025:['cr2032','cr2016','cr2450'], cr2450:['cr2032','cr2025','cr2016'],
+  cr2016:['cr2032','cr2025','cr2450'], cr1632:['cr2032','cr2025'], cr1220:['cr2032','cr2025'],
+  lr44:['ag13','sr44','lr41'], ag13:['lr44','sr44','lr41'], sr44:['lr44','ag13'],
+  lr41:['lr44','ag13'], sr626:['377','371','364'], 377:['sr626','371','364'],
+  371:['sr626','377','364'], 364:['sr626','377','371'], lr20:['d-battery'],
+};
+const related = (familyMap[base] || []).map(m => batteries.find(x => x.slug === (m.indexOf('-') > -1 ? m : m + '-battery'))).filter(Boolean);
+
+const pageTitle = `${b.model} Battery - ${b.chemistry} ${b.voltage} Coin Cell | OEM Manufacturer`;
+const pageDesc = `${b.model} battery (${b.diameter}, ${b.voltage}, ${b.capacity}) - buy OEM bulk, check compatibility (${b.compat.split(' = ').slice(1).slice(0,3).join('/')}). China factory direct with UL & UN38.3.`;
+
+const crumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Button Cell Batteries', url: '/button-cell-battery/' },
+  { name: b.model, url: b.url },
+];
+---
+
+<Layout title={pageTitle} description={pageDesc} schema={[productSchema, { '@context':'https://schema.org','@type':'FAQPage','mainEntity': faqs.map(f=>({'@type':'Question','name':f.q,'acceptedAnswer':{'@type':'Answer','text':f.a}})) }]} breadcrumbs={crumbs}>
+  <!-- Breadcrumb -->
+  <div class="container breadcrumb">
+    {crumbs.map((c,i)=>(<>{i>0 && <span> / </span>}<a href={c.url}>{c.name}</a></>))}
+  </div>
+
+  <section class="section reveal" style="padding:48px 0 30px;">
+    <div class="container">
+      <div class="product-layout">
+        <div class="img-wrap">
+          <div class="carousel">
+            <div class="car-slides">
+              {(modelImages[b.model.toUpperCase()]||[]).map(m=>(<img src={m} alt={`${b.model} battery packaging`} loading="eager" onerror="this.style.display='none'" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);padding:10px;" />))}
+              {modelImgs.map(im=>(<img src={im} alt={`${b.model} battery ${b.chemistryEn}`} loading="lazy" onerror="this.style.display='none'" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);" />))}
+            </div>
+            <button class="car-arrow prev" aria-label="Previous">‹</button>
+            <button class="car-arrow next" aria-label="Next">›</button>
+            <div class="car-dots">{[...Array(modelImgs.length+(modelImages[b.model.toUpperCase()]||[]).length).keys()].map(()=>(<span></span>))}</div>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow">Coin Cell Battery</div>
+          <h1 style="font-size:clamp(42px,4.6vw,58px);">{b.model} Battery - {b.voltage} {b.chemistry} Coin Cell</h1>
+          <p class="lead">The {b.model} {b.chemistryEn} {b.voltage} coin cell — {b.diameter} diameter, {b.capacity} capacity. Ideal for {b.applicationsEn.slice(0,3).join(', ').toLowerCase()}.</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:22px;max-width:430px;">
+            <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">{b.voltage}</div><div style="font-size:13px;color:var(--ink-3);">Voltage</div></div>
+            <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">{b.capacity}</div><div style="font-size:13px;color:var(--ink-3);">Capacity</div></div>
+            <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">{b.diameter}</div><div style="font-size:13px;color:var(--ink-3);">Diameter</div></div>
+          </div>
+          <div style="margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;">
+            <a href="/wholesale-batteries/" class="btn btn-primary">Buy {b.model} in Bulk</a>
+            <a href="/oem-battery-manufacturing/" class="btn btn-outline">Customize Your {b.model}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specs (icon card grid) -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Specifications</div><h2>{b.model} Battery Specifications</h2></div>
+      <div style="max-width:640px;">
+        <table><tbody>
+          <tr><th style="width:150px;">Chemistry</th><td>{b.chemistry}</td></tr>
+          <tr><th>Voltage</th><td>{b.voltage}</td></tr>
+          <tr><th>Diameter</th><td>{b.diameter}</td></tr>
+          <tr><th>Thickness</th><td>{b.thickness}</td></tr>
+          <tr><th>Capacity</th><td>{b.capacity}</td></tr>
+          <tr><th>Weight</th><td>{b.weight}</td></tr>
+          <tr><th>Compatible</th><td>{b.compat}</td></tr>
+        </tbody></table>
+        <p style="font-size:14px;color:var(--ink-3);margin-top:14px;">Specs for reference — final values per OEM project.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Differential H2 (per-model unique topic) -->
+  {diff && (
+    <section class="section section-alt reveal">
+      <div class="container">
+        <div class="sec-title"><div class="ic"><i class={`fa-solid ${diff.icon}`}></i></div><h2>{diff.title}</h2></div>
+        <p class="lead">{diff.body}</p>
+        {diff.cols && diff.rows && (
+          <div style="overflow-x:auto;max-width:720px;margin-top:18px;">
+            <table>
+              <thead><tr>{diff.cols.map(c=>(<th>{c}</th>))}</tr></thead>
+              <tbody>{diff.rows.map(r=>(<tr>{r.map(c=>(<td>{c}</td>))}</tr>))}</tbody>
+            </table>
+          </div>
+        )}
+        {diff.links && diff.links.length>0 && (
+          <div style="margin-top:22px;">
+            <strong style="font-size:15px;">Model guides:</strong> {diff.links.map((l,i)=>(<>{i>0 && ' · '}<a href={l[1]} style="font-weight:600;">{l[0]}</a></>))}
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+
+  <!-- EU performance / compliance data -->
+  {b.eu && b.eu.perf && b.eu.perf.rows && b.eu.perf.rows.length > 0 && (
+    <section class="section reveal">
+      <div class="container">
+        <div class="headline-group"><div class="eyebrow">EU 2023/1542 Data</div><h2>{b.model} Battery Characteristics</h2></div>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead><tr>{b.eu.perf.headers ? b.eu.perf.headers.map(h=>(<th>{h}</th>)) : ''}</tr></thead>
+            <tbody>{b.eu.perf.rows.map(r=>(<tr>{r.map(c=>(<td>{c}</td>))}</tr>))}</tbody>
+          </table>
+        </div>
+        {b.eu.perf.note1 && <p style="font-size:14px;color:var(--ink-3);">{b.eu.perf.note1}</p>}
+        {b.eu.perf.note2 && <p style="font-size:14px;color:var(--ink-3);">{b.eu.perf.note2}</p>}
+        {b.eu.shelf && <p style="font-size:14px;color:var(--ink-3);">Shelf life: {b.eu.shelf}</p>}
+        {b.eu.docNo && <p style="font-size:13px;color:var(--ink-3);">EU Declaration No. {b.eu.docNo} · Compliant with Regulation (EU) 2023/1542</p>}
+      </div>
+    </section>
+  )}
+
+  <!-- Compatibility -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Cross Reference</div><h2>{b.model} Compatible Batteries</h2></div>
+      <p class="lead">The {b.model} is interchangeable with the following same-size, same-voltage models:</p>
+      <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(180px,1fr));">
+        {compatAlternatives.map(c=>(
+          <div class="card" style="text-align:center;padding:22px;"><div style="font-size:22px;font-weight:700;color:var(--primary);">{c.trim()}</div><div style="font-size:13px;color:var(--ink-2);">Equivalent</div></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Applications -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Applications</div><h2>Where the {b.model} is Used</h2></div>
+      <div class="grid">
+        {b.applicationsEn.map(a=>(
+          <div class="card"><div class="feat-icon"><i class="fa-solid fa-battery-three-quarters"></i></div><h3>{a}</h3><p style="color:var(--ink-2);font-size:15px;">Common replacement for {a.toLowerCase()} devices using a {b.model} coin cell.</p></div>
+        ))}
+      </div>
+      <div style="margin-top:24px;">
+        <strong style="font-size:15px;">Related guides:</strong> {sceneLinks.map((s,i)=>(<>{i>0 && ' · '}<a href={s.url} style="font-weight:600;">{s.name}</a></>))}
+      </div>
+      {deviceBlocks.map(db=>(
+        <div class="content-block" style="margin-top:32px;">
+          <div class="sec-title"><div class="ic"><i class={`fa-solid ${db.icon}`}></i></div><h3>{db.title}</h3></div>
+          <p class="lead">{db.desc}</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
+            <a href="/wholesale-batteries/" class="btn btn-primary btn-sm">Get {b.model} in Bulk</a>
+            <a href={db.url} class="btn btn-outline btn-sm">{db.anchor}</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Long-tail keywords natural block -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Buyers Also Search</div><h2>Common Questions About the {b.model}</h2></div>
+      <ul style="font-size:17px;column-count:2;color:var(--ink-2);">
+        {b.longtail.map(k=>(
+          <li style="margin-bottom:8px;"><a href="/contact-us/" style="color:var(--ink-2);">{b.model} {k.replace(/\b(for|of|best)/g,'')}</a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section reveal" id="faq">
+    <div class="container container-narrow">
+      <div class="headline-group"><div class="eyebrow">FAQ</div><h2>{b.model} Battery FAQs</h2></div>
+      {faqs.map(f=>(<details><summary>{f.q}</summary><div class="a">{f.a}</div></details>))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-alt reveal">
+    <div class="container" style="text-align:center;">
+      <h2>Get {b.model} Battery Wholesale Pricing</h2>
+      <p class="lead" style="margin:0 auto 24px;">Factory-direct bulk supply with OEM custom label & packaging. Get a quote today.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="/wholesale-batteries/" class="btn btn-primary">Get Wholesale Price</a>
+        <a href="/oem-battery-manufacturing/" class="btn btn-outline">Start OEM Project</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related models -->
+  {related.length>0 && (
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Related</div><h2>Related Batteries</h2></div>
+      <div class="grid">
+        {related.map(r=>(<a class="card" href={r.url} style="text-decoration:none;">
+          <h3>{r.model}</h3>
+          <p style="color:var(--ink-2);font-size:14px;">{r.voltage} · {r.capacity} · {r.chemistry}</p>
+          <span class="more">View {r.model} →</span>
+        </a>))}
+        <a class="card" href="/button-cell-battery/" style="text-decoration:none;">
+          <h3>All Button Cells</h3>
+          <p style="color:var(--ink-2);font-size:14px;">Browse all {batteries.length} models.</p>
+          <span class="more">View All →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+  )}
+</Layout>

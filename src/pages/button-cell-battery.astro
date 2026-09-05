@@ -1,0 +1,206 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { modelImages } from '../../data/model_images.js';
+import { buttonLines } from '../data/models.js';
+import { brand } from '../data/brand.js';
+import { batteries } from '../data/batteries.js';
+
+// Real button-cell models (exclude the LR20 D cell, which is cylindrical)
+const buttons = batteries.filter(b => b.chemistry && b.slug !== 'lr20-battery');
+const lithium = buttons.filter(b => b.chemistry === 'Lithium');
+const alkaline = buttons.filter(b => b.chemistry === 'Alkaline');
+const silver = buttons.filter(b => b.chemistry === 'Silver Oxide');
+
+// Featured flagship: CR2032 real EU data
+const cr2032 = batteries.find(b => b.model === 'CR2032');
+
+const title = 'Button Cell Battery Manufacturer - CR2032, LR44, SR626 & More | TIANQIU';
+const description = 'Button cell & coin battery factory: CR lithium, AG alkaline and SR silver-oxide cells — CR2032, LR44, CR2025, CR2450 & more. 0% mercury, 14 models, OEM custom label.';
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'Batteries', url: '/button-cell-battery/' }, { name: 'Button Cell Batteries', url: '/button-cell-battery/' }];
+
+const chemTable = [
+  ['Lithium (CR)', '3.0V', 'High energy, low self-discharge', 'Key fobs, CMOS, remotes, AirTag'],
+  ['Alkaline (AG / LR)', '1.5V', 'Budget, everyday', 'Toys, watches, calculators'],
+  ['Silver Oxide (SR)', '1.55V', 'Steady voltage, long life', 'Watches, medical devices'],
+];
+const scenes = [
+  { n: 'Car Key Fob Batteries', u: '/key-fob-battery/', a: 'car key fob battery replacement', d: 'CR2032 & CR2025 for Nissan, Honda, Toyota & more.' },
+  { n: 'Watch Batteries', u: '/watch-battery/', a: 'watch battery replacement', d: '377, 371, 364, SR626SW & silver-oxide watch cells.' },
+  { n: 'CMOS / Motherboard Batteries', u: '/cmos-battery/', a: 'CMOS battery replacement', d: 'CR2032 for Dell, HP, ASUS motherboards & laptops.' },
+];
+
+const faqs = [
+  { q: 'How do I find the right button cell?',
+    a: 'Match the model number printed on your old cell (e.g. CR2032, LR44) and check the compatibility list on each model page.' },
+  { q: 'What button cell sizes do you manufacture?',
+    a: `${buttons.length} models across three chemistries: lithium CR (3.0V), alkaline AG/LR (1.5V) and silver oxide SR (1.55V).` },
+  { q: 'Are your button cells mercury-free?',
+    a: 'Yes. We produce 0% mercury alkaline button cells and mercury-free lithium & silver-oxide button cells on Japanese MITSUBISHI full-automatic lines.' },
+  { q: 'What voltage is a CR2032?',
+    a: `A CR2032 is a 3.0V lithium coin cell, {cr2032.diameter} diameter x {cr2032.thickness}, with {cr2032.capacity} capacity.` },
+  { q: 'Can I get custom label & packaging?',
+    a: 'Yes. Custom brand label, blister and packaging for OEM / ODM and private-label button cell projects.' },
+];
+
+// ItemList of real models
+const itemList = {
+  '@context': 'https://schema.org', '@type': 'ItemList',
+  name: 'Button Cell Batteries by TIANQIU',
+  itemListElement: buttons.map((b, i) => ({
+    '@type': 'ListItem', position: i + 1,
+    item: { '@type': 'Product', name: `${b.model} Battery`, url: brand.domain + b.url },
+  })),
+};
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+---
+
+<Layout title={title} description={description} schema={[itemList, faqSchema]} breadcrumbs={crumbs}>
+  <div class="container breadcrumb">{crumbs.map((c, i) => (<>{i > 0 && <span> / </span>}<a href={c.url}>{c.name}</a></>))}</div>
+
+  <!-- Hero -->
+  <section class="section reveal" style="padding:48px 0 34px;">
+    <div class="container">
+      <div class="product-layout">
+        <div class="img-wrap">
+          <div class="carousel">
+            <div class="car-slides">
+              <img src="/images/catalog/button-pack1.jpg" alt="BUTTON battery blister pack" loading="eager" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);" />
+              <img src="/images/lithium-button-cell-pack.jpg" alt="Button cell and coin batteries from TIANQIU factory" loading="eager"
+               style="width:100%;max-height:340px;object-fit:contain;" />
+              <img src="/images/catalog/button-pack2.jpg" alt="Button cell CR/LR assortment" loading="lazy" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);" />
+            </div>
+            <button class="car-arrow prev" aria-label="Previous">‹</button>
+            <button class="car-arrow next" aria-label="Next">›</button>
+            <div class="car-dots"><span class="on"></span><span></span><span></span></div>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow">Button Cell &amp; Coin Batteries</div>
+          <h1 style="font-size:clamp(42px,4.6vw,58px);">Button Cell &amp; Coin Battery Manufacturer</h1>
+          <p class="lead">Factory-direct CR lithium, AG alkaline and SR silver-oxide button cells — 0% mercury, {buttons.length} interchangeable models, OEM custom label.</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:22px;max-width:430px;">
+            <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">{buttons.length}</div><div style="font-size:13px;color:var(--ink-3);">Models</div></div>
+            <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">0%</div><div style="font-size:13px;color:var(--ink-3);">Mercury</div></div>
+            <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">3V</div><div style="font-size:13px;color:var(--ink-3);">CR Range</div></div>
+          </div>
+          <div style="margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;">
+            <a href="#models" class="btn btn-primary">Browse All Button Cells</a>
+            <a href="/oem-battery-manufacturing/" class="btn btn-outline">OEM Button Cells</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chemistry comparison -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Compare Chemistries</div><h2>Button Cell Chemistry Comparison</h2></div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Chemistry</th><th>Voltage</th><th>Key Benefit</th><th>Typical Use</th></tr></thead>
+          <tbody>{chemTable.map(r => (<tr><td><strong>{r[0]}</strong></td><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td></tr>))}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured flagship CR2032 (real EU data) -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="content-block">
+        <div class="sec-title"><div class="ic"><i class="fa-solid fa-battery-three-quarters"></i></div><h2>Featured: CR2032 Lithium Coin Cell</h2></div>
+        <div style="display:flex;gap:28px;align-items:center;flex-wrap:wrap;">
+          <img src="/images/products/cr2032.png" alt="CR2032 lithium coin cell battery" loading="lazy"
+               style="width:180px;height:160px;object-fit:contain;background:var(--surface-alt);border-radius:12px;" />
+          <div style="min-width:240px;flex:1;">
+            <p class="lead" style="margin-bottom:14px;">The best-selling 3.0V button cell: {cr2032.diameter} x {cr2032.thickness}, {cr2032.capacity}, 0% mercury, compatible with {cr2032.compatList.join(' / ')}.</p>
+            <div style="overflow-x:auto;">
+              <table>
+                <thead><tr><th>Capacity</th><th>MAD</th><th>App. duration</th></tr></thead>
+                <tbody>{cr2032.eu.perf.rows.slice(0, 3).map(r => (<tr><td>{r[0]}</td><td>{r[1]}</td><td>{r[2]}</td></tr>))}</tbody>
+              </table>
+            </div>
+            <p style="font-size:13px;color:var(--ink-3);margin-top:10px;">EU Declaration No. {cr2032.eu.docNo} · Compliant with Regulation (EU) 2023/1542 · {cr2032.eu.shelf}.</p>
+          </div>
+        </div>
+        <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="/battery-type/cr2032-battery/" class="btn btn-outline btn-sm">CR2032 Battery</a>
+          <a href="/battery-type/cr2025-battery/" class="btn btn-outline btn-sm">CR2025 Battery</a>
+          <a href="/battery-type/cr2450-battery/" class="btn btn-outline btn-sm">CR2450 Battery</a>
+          <a href="/key-fob-battery/" class="btn btn-outline btn-sm">Key Fob Batteries</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- All models -->
+  <section class="section reveal" id="models">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">All Models</div><h2>Every Button Cell We Manufacture</h2></div>
+
+      <div class="eyebrow" style="margin-top:28px;">Lithium (3.0V)</div>
+      <div class="grid">{lithium.map(b => (
+        <a class="card" href={b.url} style="text-decoration:none;"><h3>{b.model} Battery</h3><p style="color:var(--ink-2);font-size:13px;">{b.voltage} · {b.diameter} x {b.thickness} · {b.capacity}</p><span class="more">View {b.model} →</span></a>
+      ))}</div>
+
+      <div class="eyebrow" style="margin-top:28px;">Alkaline (1.5V)</div>
+      <div class="grid">{alkaline.map(b => (
+        <a class="card" href={b.url} style="text-decoration:none;"><h3>{b.model} Battery</h3><p style="color:var(--ink-2);font-size:13px;">{b.voltage} · {b.diameter} x {b.thickness} · {b.capacity}</p><span class="more">View {b.model} →</span></a>
+      ))}</div>
+
+      <div class="eyebrow" style="margin-top:28px;">Silver Oxide (1.55V)</div>
+      <div class="grid">{silver.map(b => (
+        <a class="card" href={b.url} style="text-decoration:none;"><h3>{b.model} Battery</h3><p style="color:var(--ink-2);font-size:13px;">{b.voltage} · {b.diameter} x {b.thickness} · {b.capacity}</p><span class="more">View {b.model} →</span></a>
+      ))}</div>
+    </div>
+  </section>
+
+  <!-- Applications / scene links -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Applications</div><h2>Where Button Cells Are Used</h2></div>
+      <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));">
+        {scenes.map(s => (
+          <a class="card" href={s.u} style="text-decoration:none;"><h3>{s.n}</h3><p style="color:var(--ink-2);font-size:14px;">{s.d}</p><span class="more">{s.a} →</span></a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section reveal" id="faq">
+    <div class="container container-narrow">
+      <div class="headline-group"><div class="eyebrow">FAQ</div><h2>Button Cell Battery FAQs</h2></div>
+      {faqs.map(f => (<details><summary>{f.q}</summary><div class="a">{f.a}</div></details>))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-alt reveal">
+    <div class="container" style="text-align:center;">
+      <h2>Get Button Cell Wholesale Pricing</h2>
+      <p class="lead" style="margin:0 auto 24px;">0% mercury button cells with OEM custom label &amp; packaging. Get a quote today.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="/wholesale-batteries/" class="btn btn-primary">Bulk Button Cells</a>
+        <a href="/oem-battery-manufacturing/" class="btn btn-outline">Custom Label</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODEL OVERVIEW -->
+  <section class="section reveal" style="background:var(--soft);">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Available Models</div><h2>Button Cell Models We Manufacture</h2>
+      <p class="lead">Browse the full button-cell range. Models with a full specification sheet link to their detail page; others are available on request.</p></div>
+      {buttonLines.map(l=>(<div style="margin-top:34px;">
+        <div class="eyebrow">{l.line}</div>
+        <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:14px;">
+          {l.models.map(([name,slug,img])=>( slug ? <a class="card" href={`/battery-info/${slug}`} style="text-align:center;padding:16px 12px;text-decoration:none;"><img src={(modelImages[(name||"").toUpperCase()]||[])[0] || img} alt={name} style="width:100%;height:96px;object-fit:contain;background:var(--soft);padding:8px;display:block;border-radius:8px;margin-bottom:6px;"><div style="font-weight:800;font-size:18px;color:var(--primary);">{name}</div><div style="font-size:13px;color:var(--ink-2);margin-top:4px;">View specs →</div></a> : <div class="card" style="text-align:center;padding:16px 12px;opacity:.72;"><img src={(modelImages[(name||"").toUpperCase()]||[])[0] || img} alt={name} style="width:100%;height:96px;object-fit:contain;background:var(--soft);padding:8px;display:block;border-radius:8px;margin-bottom:6px;"><div style="font-weight:700;font-size:18px;color:var(--ink);">{name}</div><div style="font-size:13px;color:var(--muted);margin-top:4px;">On request</div></div> ))}
+        </div>
+      </div>))}
+    </div>
+  </section>
+
+</Layout>

@@ -1,0 +1,142 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { vehicles } from '../data/vehicles.js';
+import { batteries } from '../data/batteries.js';
+
+const title = 'Car Key Fob Battery Replacement - By Brand & Model | TIANQIU';
+const description = 'How to replace a car key fob battery. Car key fob battery by brand (Nissan, Honda, Toyota, Ford, Mazda) and type (CR2032, CR2025, CR2450) with step-by-step DIY.';
+const crumbs = [{ name:'Home', url:'/' }, { name:'Car Key Fob Batteries', url:'/key-fob-battery/' }];
+
+// Model quick-reference (real Tianqiu data)
+const modelSlugs = ['cr2032-battery','cr2025-battery','cr2450-battery','cr2016-battery','cr1632-battery'];
+const modelQuick = modelSlugs.map(s => batteries.find(b => b.slug === s)).filter(Boolean);
+
+// Brand cards (real vehicle data)
+const brandCards = vehicles.map(v => ({ ...v, bat: batteries.find(b => b.url === v.batteryUrl) }));
+
+const faqs = [
+  { q:'How do I open my key fob to change the battery?', a:'Look for a thumb slot or small seam and pry gently with a flat-head screwdriver, or use the built-in key to release the two halves of the fob.' },
+  { q:'What battery does a Nissan, Honda or Toyota key fob take?', a:'Most Nissan, Honda, Toyota and Mazda key fobs use a CR2032 coin cell; many Ford fobs use a CR2450. Check the number printed on the old cell before ordering.' },
+  { q:'How long do key fob batteries last?', a:'Typically 2–3 years of normal use. When the remote range drops, change the cell.' },
+  { q:'Why does my key fob not work after a battery change?', a:'Check the new cell is the right size and voltage, is inserted with the correct polarity, and that no dirt covers the contacts. Reseat the cell if needed.' },
+  { q:'Where can I buy a key fob battery?', a:'Factory direct from TIANQIU in bulk or for OEM / private label, plus the individual CR2032, CR2025 and CR2450 coin cells.' },
+];
+const pg = [{ '@context':'https://schema.org', '@type':'FAQPage', 'mainEntity': faqs.map(f=>({'@type':'Question','name':f.q,'acceptedAnswer':{'@type':'Answer','text':f.a}})) }];
+
+const identifySteps = [
+  { n:'01', h:'Find the fob model', p:'Look for a model number on the fob or the sticker inside the cover.' },
+  { n:'02', h:'Read the old cell', p:'The cell is usually marked CR2032, CR2025 or CR2450 — match it exactly.' },
+  { n:'03', h:'Check the manual', p:'Your car manual or the brand table below confirms the right size for your model and year.' },
+];
+const diySteps = [
+  { n:'01', h:'Open the fob', p:'Pry the seam with a flat-head screwdriver or use the built-in key slot.' },
+  { n:'02', h:'Note the polarity', p:'Check which side of the old cell faces up — usually the + faces out.' },
+  { n:'03', h:'Remove the cell', p:'Lift the old coin cell out with a small tool or tweezers.' },
+  { n:'04', h:'Insert the new battery', p:'Fit the new coin cell with the correct polarity and re-seat it.' },
+  { n:'05', h:'Close & test', p:'Snap the case closed and test the remote lock/unlock and start buttons.' },
+];
+---
+
+<Layout title={title} description={description} schema={pg} breadcrumbs={crumbs}>
+  <div class="container breadcrumb">{crumbs.map((c,i)=>(<>{i>0 && <span> / </span>}<a href={c.url}>{c.name}</a></>))}</div>
+
+  <section class="hero hero-keyfob"><div class="container" style="max-width:880px;">
+    <div class="eyebrow">Car Key Fob Batteries · Factory Direct</div>
+    <h1>Car Key Fob Battery Replacement by Brand</h1>
+    <p class="lead">Find your car brand, get the correct key fob coin cell and swap it in minutes. Lithium coin cells, factory direct with bulk &amp; OEM supply for auto brands.</p>
+    <div class="trustbar">
+      <div class="t"><b>{brandCards.length}</b><span>Car Brands</span></div>
+      <div class="t"><b>3.0V</b><span>Lithium Cell</span></div>
+      <div class="t"><b>2–3 yr</b><span>Typical Life</span></div>
+      <div class="t"><b>OEM</b><span>Auto Label</span></div>
+    </div>
+    <div style="margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;"><a href="#find" class="btn btn-primary">Find Your Battery</a><a href="/wholesale-batteries/" class="btn btn-outline">Bulk Supply</a></div>
+  </div></section>
+
+  <!-- Brand navigation -->
+  <section class="section reveal" id="find"><div class="container">
+    <div class="headline-group"><div class="eyebrow">By Car Brand</div><h2>Find Your Key Fob Battery by Car Brand</h2>
+    <p class="lead">Pick your car brand to jump to the exact key fob battery it uses and the replacement guide.</p></div>
+    <div class="grid">
+      {brandCards.map(v=>(<a class="card" href={v.url} style="text-decoration:none;">
+        <div style="font-size:30px;font-weight:800;color:var(--primary);margin-bottom:6px;">{v.brand}</div>
+        <p style="color:var(--ink-2);font-size:15px;">Most {v.brand} key fobs use a <strong>{v.battery}</strong> cell.</p>
+        <span class="more">{v.brand} key fob battery guide →</span>
+      </a>))}
+    </div>
+    <div style="margin-top:22px;font-size:15px;color:var(--ink-3);">Looking for the cell itself? See the <a href="/button-cell-battery/">button cell battery</a> range.</div>
+  </div></section>
+
+  <!-- Model quick-reference -->
+  <section class="section section-alt reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">Common Batteries</div><h2>Most Common Key Fob Batteries</h2>
+    <p class="lead">CR2032 is the standard for key fobs, with CR2025 and CR2450 used by specific brands and models.</p></div>
+    <div class="grid">
+      {modelQuick.map(b=>(<a class="card" href={b.url} style="text-decoration:none;">
+        <div style="font-size:22px;font-weight:800;color:var(--primary);">{b.model}</div>
+        <p style="color:var(--ink-2);font-size:14px;">{b.voltage} · {b.diameter} · {b.chemistry}</p>
+        <span class="more">View {b.model} battery →</span>
+      </a>))}
+    </div>
+  </div></section>
+
+  <!-- How to identify -->
+  <section class="section reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">How-To</div><h2>How to Identify Your Key Fob Battery</h2></div>
+    <div class="steps-grid" style="grid-template-columns:repeat(3,1fr);">
+      {identifySteps.map(s=>(<div class="step"><div class="sn">{s.n}</div><h4>{s.h}</h4><p>{s.p}</p></div>))}
+    </div>
+  </div></section>
+
+  <!-- Brand × model table -->
+  <section class="section section-alt reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">Brand Guide</div><h2>Key Fob Battery by Brand (Quick Lookup)</h2></div>
+    <div style="overflow-x:auto;"><table>
+      <thead><tr><th>Car Brand</th><th>Common Battery</th><th>Voltage</th><th>Guide</th></tr></thead>
+      <tbody>{brandCards.map(v=>(<tr>
+        <td><strong>{v.brand}</strong></td>
+        <td><a href={v.batteryUrl} style="font-weight:700;">{v.battery}</a></td>
+        <td>{v.bat ? v.bat.voltage : ''}</td>
+        <td><a href={v.url}>View →</a></td>
+      </tr>))}</tbody>
+    </table></div>
+    <div class="panel-note" style="margin-top:18px;">Always confirm the exact cell printed inside your fob. Model years vary — for Ford, check whether your fob takes a CR2450 or a CR2032.</div>
+  </div></section>
+
+  <!-- Generic replacement steps -->
+  <section class="section reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">DIY Replacement</div><h2>How to Replace a Key Fob Battery</h2>
+    <p class="lead">Tools: a flat-head screwdriver or the built-in key slot, plus a small tool or tweezers.</p></div>
+    <div class="steps-grid">
+      {diySteps.map(s=>(<div class="step"><div class="sn">{s.n}</div><h4>{s.h}</h4><p>{s.p}</p></div>))}
+    </div>
+  </div></section>
+
+  <!-- FAQ -->
+  <section class="section section-alt reveal"><div class="container container-narrow">
+    <div class="headline-group"><div class="eyebrow">FAQ</div><h2>Key Fob Battery FAQs</h2></div>
+    <div class="content-block">
+      {faqs.map(f=>(<details><summary>{f.q}</summary><div class="a">{f.a}</div></details>))}
+    </div>
+  </div></section>
+
+  <!-- Related -->
+  <section class="section reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">Related</div><h2>Related Key Fob Battery Guides</h2></div>
+    <div class="grid">
+      <a class="card" href="/battery-type/cr2032-battery/" style="text-decoration:none;"><h3>CR2032 Battery</h3><p style="color:var(--ink-2);font-size:15px;">The standard 20mm lithium coin cell for most key fobs.</p><span class="more">View CR2032 →</span></a>
+      <a class="card" href="/battery-type/cr2025-battery/" style="text-decoration:none;"><h3>CR2025 Battery</h3><p style="color:var(--ink-2);font-size:15px;">Thinner 20mm cell used by some fobs and remotes.</p><span class="more">View CR2025 →</span></a>
+      <a class="card" href="/battery-type/cr2450-battery/" style="text-decoration:none;"><h3>CR2450 Battery</h3><p style="color:var(--ink-2);font-size:15px;">Larger 24.5mm cell for Ford and other fobs.</p><span class="more">View CR2450 →</span></a>
+      <a class="card" href="/watch-battery/" style="text-decoration:none;"><h3>Watch Battery</h3><p style="color:var(--ink-2);font-size:15px;">Silver-oxide watch battery replacement guide.</p><span class="more">Watch guide →</span></a>
+      <a class="card" href="/cmos-battery/" style="text-decoration:none;"><h3>CMOS Battery</h3><p style="color:var(--ink-2);font-size:15px;">CR2032 motherboard CMOS battery replacement guide.</p><span class="more">CMOS guide →</span></a>
+      <a class="card" href="/button-cell-battery/" style="text-decoration:none;"><h3>All Button Cells</h3><p style="color:var(--ink-2);font-size:15px;">Browse every coin cell model from the TIANQIU factory.</p><span class="more">View all →</span></a>
+    </div>
+  </div></section>
+
+  <!-- CTA -->
+  <section class="section section-alt reveal"><div class="container" style="text-align:center;">
+    <h2>Buy Key Fob Batteries in Bulk</h2>
+    <p class="lead" style="margin:0 auto 24px;">Factory-direct CR2032, CR2025 &amp; CR2450 coin cells for key fobs and automotive wholesale. Get a quote today.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;"><a href="/wholesale-batteries/" class="btn btn-primary">Get Wholesale Price</a><a href="/oem-battery-manufacturing/" class="btn btn-outline">OEM for Auto Brands</a></div>
+  </div></section>
+</Layout>

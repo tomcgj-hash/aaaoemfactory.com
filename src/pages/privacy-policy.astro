@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { brand } from '../data/brand.js';
+const title = 'Privacy Policy | TIANQIU';
+const description = 'Privacy policy for ' + brand.name;
+---
+<Layout title={title} description={description}>
+  <section class="section reveal"><div class="container container-narrow">
+    <div class="eyebrow">Legal</div>
+    <h1>Privacy Policy</h1>
+    <p class="lead">We respect your privacy. This policy explains what information we collect and how we use it.</p>
+    <h2>Information We Collect</h2>
+    <p style="color:var(--ink-2);font-size:17px;">When you contact us, we collect your name, email, company and any message you send. We use this only to respond to your inquiry.</p>
+    <h2>How We Use Your Information</h2>
+    <p style="color:var(--ink-2);font-size:17px;">We use your information to answer your questions, provide quotes and improve our services. We do not sell your data.</p>
+    <h2>Cookies</h2>
+    <p style="color:var(--ink-2);font-size:17px;">We may use basic cookies to improve site functionality. You can disable cookies in your browser.</p>
+    <h2>Contact</h2>
+    <p style="color:var(--ink-2);font-size:17px;">For privacy questions, contact us at <a href={`mailto:${brand.email}`}>{brand.email}</a>.</p>
+  </div></section>
+</Layout>

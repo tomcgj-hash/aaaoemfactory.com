@@ -1,0 +1,30 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { posts } from '../../data/posts.js';
+
+export function getStaticPaths() {
+  return posts.map(p => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props;
+const crumbs = [{ name:'Home', url:'/' }, { name:'Blog', url:'/blog/' }, { name:p.cnTitle, url:`/blog/${p.slug}/` }];
+const pg = [{ '@context':'https://schema.org','@type':'BlogPosting','headline':p.title,'keywords':p.kw,'datePublished':'2026-09-01','author':{'@type':'Organization','name':'TIANQIU'} }];
+---
+
+<Layout title={`${p.title} | TIANQIU Battery Guide`} description={`${p.kw} — a guide by TIANQIU battery manufacturer. Learn about battery specs, life, replacement and more.`} schema={pg} breadcrumbs={crumbs}>
+  <div class="container breadcrumb"><a href="/">Home</a> <span>/</span> <a href="/blog/">Blog</a> <span>/</span> {p.cnTitle}</div>
+  <section class="hero hero-eco"><div class="container" style="max-width:820px;">
+    <div class="eyebrow">Battery Guide</div>
+    <h1>{p.title}</h1>
+    <p class="lead">Target keyword: {p.kw} · {p.type}</p>
+  </div></section>
+  <section class="section reveal"><div class="container container-narrow">
+    {p.points.map((pt,i)=>(<p style="font-size:17px;color:var(--ink-2);line-height:1.8;">{i+1}. {pt}</p>))}
+    <div style="margin-top:28px;background:var(--surface);border:1px solid var(--border-light);border-radius:14px;padding:26px;text-align:center;">
+      <h3>Factory-Direct Batteries From TIANQIU</h3>
+      <p style="color:var(--ink-2);font-size:15px;">Get certified OEM batteries for your project.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:14px;">
+        <a href="/contact-us/" class="btn btn-primary">Request a Quote</a>
+      </div>
+    </div>
+  </div></section>
+</Layout>

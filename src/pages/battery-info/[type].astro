@@ -1,0 +1,215 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { tianqiuProducts } from '../../data/tianqiu_products.js';
+import { euCompliance } from '../../data/eu_compliance.js';
+import { modelImages } from '../../data/model_images.js';
+
+export function getStaticPaths() {
+  return tianqiuProducts.map(p => ({ params: { type: p.type }, props: { p } }));
+}
+const { p } = Astro.props;
+const ec = euCompliance;
+const crumbs = [{ name:'Home', url:'/' }, { name:'Battery Products', url:'/button-cell-battery/' }, { name:p.model, url:`/battery-info/${p.type}/` }];
+const pg = [{
+  '@context':'https://schema.org','@type':'Product',
+  name:`${p.model} Battery`, description:`${p.model} ${p.chem} ${p.voltage} battery. ${p.capDoc}. Compliant with EU 2023/1542.`,
+  brand:{'@type':'Brand', name:'TIANQIU'},
+  offers:{'@type':'AggregateOffer', priceCurrency:'USD', availability:'https://schema.org/InStock'},
+}];
+const img = `/images/products/${p.type}.png`;
+const specs = [
+  ...(p.batteryName ? [{ i:'fa-cube', l:'Battery Name', v:p.batteryName }] : []),
+  ...(p.model ? [{ i:'fa-mobile', l:'Model', v:p.model }] : []),
+  ...(p.category ? [{ i:'fa-layer-group', l:'Category', v:p.category }] : []),
+  { i:'fa-flask', l:'Chemistry', v:p.chem },
+  { i:'fa-bolt', l:'Nominal Voltage', v:p.voltage },
+  ...(p.capDoc ? [{ i:'fa-gauge-high', l:'Capacity', v:p.capDoc }] : []),
+  ...(p.weight ? [{ i:'fa-weight-hanging', l:'Weight', v:p.weight }] : []),
+  ...(p.shelf ? [{ i:'fa-clock', l:'Shelf Life', v:p.shelf }] : []),
+  ...(p.prod ? [{ i:'fa-calendar-days', l:'Production Date', v:p.prod }] : []),
+  ...(p.country ? [{ i:'fa-flag', l:'Country of Origin', v:p.country }] : []),
+  { i:'fa-tag', l:'Trade / Brand', v: p.brand || 'TIANQIU / OEM' },
+];
+const pt = p.perf || {};
+const man = ec.manufacturer || {};
+const rep = ec.euRep || {};
+const symbols = [
+  { img:'/images/eu-ce.png', t:'CE marking' },
+  { img:'/images/eu-rubish.png', t:'Separate collection' },
+  { img:'/images/staty-away-child.png', t:'Keep out of reach' },
+  { img:'/images/no-recharge.png', t:'Do not recharge' },
+];
+---
+
+<Layout title={`${p.model} Battery - ${p.voltage} ${p.chem.split(' ')[0]} | TIANQIU`} description={`${p.model} ${p.chem} ${p.voltage} battery. ${p.capDoc}. Factory-direct from TIANQIU, EU 2023/1542 compliant.`} schema={pg} breadcrumbs={crumbs}>
+  <div class="container breadcrumb">{crumbs.map((c,i)=>(<>{i>0 && <span> / </span>}<a href={c.url}>{c.name}</a></>))}</div>
+
+  <!-- Hero -->
+  <section class="section reveal" style="background:linear-gradient(180deg,var(--surface-alt),#fff);padding:40px 0 18px;">
+    <div class="container">
+      <div class="product-layout">
+        <div class="img-wrap" style="display:flex;align-items:center;justify-content:center;">
+          <div class="carousel">
+            <div class="car-slides">
+              {(modelImages[p.type.toUpperCase()]||[]).map(m=>(<img src={m} alt={p.model+" "+p.chem+" battery packaging"} loading="eager" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);padding:10px;" onerror="this.style.display='none';" />))}
+              <img src={img} alt={p.model+" "+p.chem+" battery"} loading="lazy" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);" onerror="this.style.display='none';this.parentElement.outerHTML='<div style=&quot;height:300px;display:flex;align-items:center;justify-content:center;color:#a1a1a6;font-size:14px;&quot;>Battery product image</div>'" />
+            </div>
+            <button class="car-arrow prev" aria-label="Previous">‹</button>
+            <button class="car-arrow next" aria-label="Next">›</button>
+            <div class="car-dots">{[...Array(1+(modelImages[p.type.toUpperCase()]||[]).length).keys()].map(()=>(<span></span>))}</div>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow">{p.chem}</div>
+          <h1 style="font-size:44px;">{p.model} Battery</h1>
+          <p class="lead" style="max-width:52ch;">{p.name}. {p.capDoc ? p.capDoc + ' capacity, ' : ''}{p.voltage} nominal — factory-direct from TIANQIU with OEM custom label &amp; packaging, compliant with EU 2023/1542.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;">
+            {['UL','UN38.3','CE','EU 2023/1542'].map(c=>(<span class="badge" style="font-size:13px;padding:7px 14px;"><i class="fa-solid fa-badge-check"></i>{c}</span>))}
+          </div>
+          <div style="margin-top:18px;display:flex;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--ink-2);">
+            <span><i class="fa-solid fa-droplet-slash"></i> 0% mercury</span>
+            <span><i class="fa-solid fa-tags"></i> OEM / custom label</span>
+            <span><i class="fa-solid fa-clipboard-check"></i> MOQ &amp; quote on request</span>
+          </div>
+          <div style="margin-top:28px;display:flex;gap:14px;flex-wrap:wrap;">
+            <a href="/wholesale-batteries/" class="btn btn-primary">Buy in Bulk</a>
+            <a href="/oem-battery-manufacturing/" class="btn btn-outline">Customize / OEM</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specifications -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Specifications</div><h2>{p.model} Battery Specs</h2></div>
+      <div style="max-width:680px;">
+        <table>
+          <tbody>
+            {(p.batteryName) && <tr><th style="width:200px;">Battery Name</th><td>{p.batteryName}</td></tr>}
+            {(p.model) && <tr><th>Model</th><td>{p.model}</td></tr>}
+            {(p.category) && <tr><th>Category</th><td>{p.category}</td></tr>}
+            {(p.chem) && <tr><th>Chemistry system</th><td>{p.chem}</td></tr>}
+            {(p.weight) && <tr><th>Weight</th><td>{p.weight}</td></tr>}
+            {(p.brand) && <tr><th>Trade / Brand</th><td>{p.brand}</td></tr>}
+            {(p.shelf) && <tr><th>Shelf Life</th><td>{p.shelf}</td></tr>}
+            {(p.prod) && <tr><th>Production Date</th><td style="font-size:15px;line-height:1.7;">{p.prod}</td></tr>}
+            {(p.country) && <tr><th>Country of Origin</th><td>{p.country}</td></tr>}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Performance -->
+  {pt.rows && pt.rows.length > 0 && (
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Performance</div><h2>Battery Characteristics</h2></div>
+      <div style="overflow-x:auto;background:#fff;border-radius:var(--radius);border:1px solid var(--border);padding:6px;">
+        <table>
+          <thead><tr>{pt.headers ? pt.headers.map(h=>(<th>{h}</th>)) : ''}</tr></thead>
+          <tbody>{pt.rows.map(r=>(<tr>{r.map(c=>(<td>{c}</td>))}</tr>))}</tbody>
+        </table>
+      </div>
+      {(pt.note1||pt.note2) && <div style="margin-top:18px;">{pt.note1 && <div class="panel-note">{pt.note1}</div>}{pt.note2 && <div class="panel-note" style="margin-top:10px;">{pt.note2}</div>}</div>}
+    </div>
+  </section>
+  )}
+
+  <!-- Manufacturer + EU Rep -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="cols2">
+        <div class="panel">
+          <div class="feat-icon"><i class="fa-solid fa-industry"></i></div>
+          <h3 style="font-size:20px;">{man.title || 'Manufacturer'}</h3>
+          <ul class="clean" style="font-size:15px;">{(man.details||[]).map(d=>(<li><strong style="color:var(--ink);">{d.label}</strong> <span set:html={d.value} /></li>))}</ul>
+        </div>
+        <div class="panel">
+          <div class="feat-icon"><i class="fa-solid fa-user-tie"></i></div>
+          <h3 style="font-size:20px;">{rep.title || 'EU Authorized Representative'}</h3>
+          <ul style="list-style:none;padding:0;font-size:15px;color:var(--ink-2);line-height:1.9;">
+            {rep.name && <li><strong style="color:var(--ink);">Representative:</strong> {rep.name}</li>}
+            {rep.address && <li><strong style="color:var(--ink);">Address:</strong> {rep.address}</li>}
+            {rep.contact && <li><strong style="color:var(--ink);">Contact:</strong> {rep.contact}</li>}
+            {rep.postcode && <li><strong style="color:var(--ink);">Postal Code:</strong> {rep.postcode}</li>}
+            {rep.email && <li><strong style="color:var(--ink);">Email:</strong> <a href={`mailto:${rep.email}`}>{rep.email}</a></li>}
+            {rep.tel && <li><strong style="color:var(--ink);">Tel:</strong> {rep.tel}</li>}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Materials -->
+  {p.critical && (
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Materials</div><h2>Critical Raw Materials</h2></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">{p.critical.split(/,\s*/).map(m=>(<span class="badge"><i class="fa-solid fa-gem"></i>{m.trim()}</span>))}</div>
+    </div>
+  </section>
+  )}
+
+  <!-- Compliance (accordion) -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Safety & Compliance</div><h2>Compliance &amp; Documents</h2></div>
+      <details open>
+        <summary>Hazardous Substances Statement <span class="badge" style="margin-left:auto;">EU 2023/1542</span></summary>
+        <div class="a"><div set:html={ec.hazardousBase} /><p style="margin-top:14px;font-size:15px;color:var(--ink-2);"><strong>Usable extinguishing agent:</strong> {ec.extinguisher?.text}</p></div>
+      </details>
+      <details open>
+        <summary>Labels &amp; Marking</summary>
+        <div class="a"><div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px;">{symbols.map(s=>(<div style="text-align:center;padding:14px;background:var(--surface-2);border-radius:14px;"><img src={s.img} alt={s.t} loading="lazy" style="height:52px;object-fit:contain;margin:0 auto 8px;" onerror="this.style.display='none'"/><div style="font-size:13px;color:var(--ink-2);">{s.t}</div></div>))}</div></div>
+      </details>
+
+      <details open>
+        <summary class="safety-summary">⚠️ Warning &amp; Caution</summary>
+        <div class="safety-warn">
+          <div class="sw-label">⚠️ WARNING</div>
+          <ul style="font-size:15px;color:var(--ink-2);padding-left:20px;line-height:1.9;margin-top:12px;">{(ec.warning?.items||[]).map(w=>(<li>{w}</li>))}</ul>
+          <div class="sw-label" style="margin-top:14px;">📛 CAUTION</div>
+          <ul style="font-size:15px;color:var(--ink-2);padding-left:20px;line-height:1.9;margin-top:4px;">{(ec.warning?.caution||[]).map(w=>(<li>{w}</li>))}</ul>
+        </div>
+      </details>
+      <details>
+        <summary>Waste Battery Information</summary>
+        <div class="a" style="font-size:15px;color:var(--ink-2);" set:html={ec.waste?.html} />
+      </details>
+      <details open>
+        <summary>Conformity with Legislation</summary>
+        <div class="a">
+          <div style="font-size:15px;color:var(--ink-2);" set:html={ec.conformity?.text} />
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">{p.standards.map(s=>(<span class="badge">{s.code}</span>))}</div>
+          {p.docNo && <p style="margin-top:14px;font-size:13px;color:var(--ink-3);">EU Declaration No. {p.docNo}</p>}
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-alt reveal">
+    <div class="container" style="text-align:center;">
+      <h2>Get {p.model} Wholesale Pricing</h2>
+      <p class="lead" style="margin:0 auto 26px;">Factory-direct with OEM custom label &amp; packaging. Samples available.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="/wholesale-batteries/" class="btn btn-primary btn-lg">Get a Quote</a>
+        <a href="/contact-us/" class="btn btn-outline btn-lg">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related docs -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Downloads</div><h2>Related Documents</h2></div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;">
+        <a class="btn btn-outline" href={p.docUrl ? `https://www.tmmq.top/${p.docUrl}` : '/'} target="_blank" rel="noopener"><i class="fa-solid fa-file-lines"></i> Declaration of Compliance</a>
+        <a class="btn btn-outline" href={p.tdcUrl ? `https://www.tmmq.top/${p.tdcUrl}` : '/'} target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf"></i> Technical Documentation</a>
+      </div>
+    </div>
+  </section>
+</Layout>

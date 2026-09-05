@@ -1,0 +1,111 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { vehicles } from '../../data/vehicles.js';
+import { batteries } from '../../data/batteries.js';
+
+export function getStaticPaths() {
+  return vehicles.map(v => ({ params: { brand: v.slug }, props: { v } }));
+}
+const { v } = Astro.props;
+const bat = batteries.find(b => b.url === v.batteryUrl);
+const crumbs = [{ name:'Home', url:'/' }, { name:'Car Key Fob Batteries', url:'/key-fob-battery/' }, { name:v.brand, url:v.url }];
+
+const faqs = [
+  { q:`What battery does a ${v.brand} key fob use?`, a:`Most ${v.brand} key fobs use a ${v.battery} button cell${bat ? ` (${bat.voltage}, ${bat.diameter})` : ''}. Check the number on the old cell to confirm your model year.` },
+  { q:`How do I replace the battery in a ${v.brand} key fob?`, a:`Pry the fob open with a flat-head screwdriver at the seam (or use the built-in key slot), note the polarity, remove the old cell, insert a fresh ${v.battery} and snap the case shut.` },
+  { q:`How long does a ${v.brand} key fob battery last?`, a:`Typically 2–3 years of normal use. When the remote range drops, replace the cell.` },
+  { q:`Why is my ${v.brand} key fob not working after a battery change?`, a:`Confirm the new cell is the right size and voltage, that the polarity is correct and the contacts are clean. Reseat the cell if needed.` },
+];
+const pg = [{ '@context':'https://schema.org', '@type':'FAQPage', 'mainEntity': faqs.map(f=>({'@type':'Question','name':f.q,'acceptedAnswer':{'@type':'Answer','text':f.a}})) }];
+
+const steps = [
+  'Open the key fob with a flat-head screwdriver at the seam or the built-in key slot',
+  'Note the battery orientation before removing it',
+  `Remove the old ${v.battery} cell with a small tool or tweezers`,
+  `Insert the new ${v.battery} battery with the correct polarity`,
+  'Snap the case closed and test the lock/unlock and start buttons',
+];
+const otherModels = batteries.filter(b=>['cr2032-battery','cr2025-battery','cr2450-battery'].includes(b.slug));
+---
+
+<Layout title={`${v.brand} Key Fob Battery - What Battery & How to Replace | TIANQIU`} description={`Replace a ${v.brand} car key fob battery. Most ${v.brand} fobs use a ${v.battery} button cell. OEM battery manufacturer, factory direct and bulk available.`} schema={pg} breadcrumbs={crumbs}>
+  <div class="container breadcrumb">{crumbs.map((c,i)=>(<>{i>0 && <span> / </span>}<a href={c.url}>{c.name}</a></>))}</div>
+
+  <section class="hero hero-ind"><div class="container" style="max-width:880px;">
+    <div class="eyebrow">{v.brand} Key Fob Battery</div>
+    <h1>{v.brand} Key Fob Battery Replacement</h1>
+    <p class="lead">{v.note} We supply the correct OEM battery factory direct, with bulk and custom label for auto brands.</p>
+    <div class="trustbar">
+      <div class="t"><b>{v.battery}</b><span>Common Cell</span></div>
+      {bat && <div class="t"><b>{bat.voltage}</b><span>Voltage</span></div>}
+      {bat && <div class="t"><b>{bat.diameter}</b><span>Diameter</span></div>}
+      <div class="t"><b>OEM</b><span>Auto Label</span></div>
+    </div>
+    <div style="margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;"><a href={v.batteryUrl} class="btn btn-primary">Get the {v.battery} Battery</a><a href="/wholesale-batteries/" class="btn btn-outline">Bulk Supply</a></div>
+  </div></section>
+
+  <!-- The battery -->
+  <section class="section reveal" id="battery"><div class="container">
+    <div class="headline-group"><div class="eyebrow">Battery Type</div><h2>The {v.brand} Key Fob Battery: {v.battery}</h2></div>
+    {bat && (
+    <div class="content-block">
+      <div class="sec-title"><div class="ic"><i class="fa-solid fa-car"></i></div><h3>{v.battery} Specifications</h3></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:640px;">
+        <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">{bat.voltage}</div><div style="font-size:13px;color:var(--ink-3);">Voltage</div></div>
+        <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">{bat.diameter}</div><div style="font-size:13px;color:var(--ink-3);">Diameter</div></div>
+        <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">{bat.chemistry}</div><div style="font-size:13px;color:var(--ink-3);">Chemistry</div></div>
+      </div>
+      <p style="color:var(--ink-2);font-size:15px;margin-top:18px;">A {bat.diameter}, {bat.voltage} lithium coin cell. Equivalent to <strong>{bat.compat}</strong>.</p>
+      <p style="color:var(--ink-2);font-size:15px;">Capacity: {bat.capacity} · Thickness: {bat.thickness}.</p>
+      <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;"><a href={v.batteryUrl} class="btn btn-primary btn-sm">View {v.battery} Specs &amp; Bulk</a><a href="/oem-battery-manufacturing/" class="btn btn-outline btn-sm">OEM for Auto Brands</a></div>
+    </div>
+    )}
+  </div></section>
+
+  <!-- Replacement steps -->
+  <section class="section section-alt reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">How-To</div><h2>How to Replace a {v.brand} Key Fob Battery</h2></div>
+    <div class="content-block">
+      <ol style="font-size:16px;color:var(--ink-2);line-height:1.9;padding-left:24px;margin-bottom:0;">
+        {steps.map(s=>(<li>{s}</li>))}
+      </ol>
+      <div class="panel-note" style="margin-top:20px;">Check the model year — some {v.brand} fobs take a different cell. Always match the number printed on your old battery.</div>
+    </div>
+  </div></section>
+
+  <!-- Other key fob battery models -->
+  <section class="section reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">Key Fob Batteries</div><h2>Other Key Fob Battery Types</h2></div>
+    <div class="grid">
+      {otherModels.map(b=>(<a class="card" href={b.url} style="text-decoration:none;">
+        <div style="font-size:22px;font-weight:800;color:var(--primary);">{b.model}</div>
+        <p style="color:var(--ink-2);font-size:14px;">{b.voltage} · {b.diameter} · {b.chemistry}</p>
+        <span class="more">View {b.model} battery →</span>
+      </a>))}
+      <a class="card" href="/button-cell-battery/" style="text-decoration:none;"><h3>All Button Cells</h3><p style="color:var(--ink-2);font-size:15px;">Browse every coin cell model from the TIANQIU factory.</p><span class="more">View all →</span></a>
+    </div>
+  </div></section>
+
+  <!-- FAQ -->
+  <section class="section section-alt reveal"><div class="container container-narrow">
+    <div class="headline-group"><div class="eyebrow">FAQ</div><h2>{v.brand} Key Fob Battery FAQs</h2></div>
+    <div class="content-block">
+      {faqs.map(f=>(<details><summary>{f.q}</summary><div class="a">{f.a}</div></details>))}
+    </div>
+  </div></section>
+
+  <!-- Other brands -->
+  <section class="section reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">More Brands</div><h2>Key Fob Batteries by Car Brand</h2></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      {vehicles.map(x=>(<a href={x.url} style={`background:#fff;border:1px solid var(--border);padding:10px 18px;border-radius:999px;font-size:15px;text-decoration:none;color:var(--ink);${x.slug===v.slug?'border-color:var(--primary);color:var(--primary);font-weight:600;':''}`}>{x.brand}</a>))}
+    </div>
+  </div></section>
+
+  <!-- CTA -->
+  <section class="section section-alt reveal"><div class="container" style="text-align:center;">
+    <h2>Buy {v.battery} Key Fob Batteries in Bulk</h2>
+    <p class="lead" style="margin:0 auto 24px;">Factory-direct {v.battery} cells for key fobs and automotive wholesale. Get a quote today.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;"><a href="/wholesale-batteries/" class="btn btn-primary">Get Wholesale Price</a><a href="/oem-battery-manufacturing/" class="btn btn-outline">OEM for Auto Brands</a></div>
+  </div></section>
+</Layout>

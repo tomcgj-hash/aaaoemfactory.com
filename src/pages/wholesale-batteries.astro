@@ -1,0 +1,177 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { company } from '../data/company.js';
+import { brand } from '../data/brand.js';
+
+const title = 'Wholesale Batteries - Bulk AA, AAA, D, Button Cell | TIANQIU Factory Direct';
+const description = 'Wholesale batteries from China factory: AA, AAA, D, button cell & rechargeable. Bulk pricing, low MOQ, private label available. UL/UN38.3 certified.';
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'Wholesale Batteries', url: '/wholesale-batteries/' }];
+
+const faqs = [
+  { q: 'What is your wholesale MOQ?',
+    a: 'MOQ depends on the product, typically from 5,000 to 10,000 pcs for button and cylindrical cells. Custom packs are quoted per project after sampling.' },
+  { q: 'Do you have stock ready to ship?',
+    a: 'Yes. Common models — including CR2032, LR44, AA and AAA — are kept in ready stock for fast dispatch. Confirm current availability when you enquire.' },
+  { q: 'How is pricing set for 100K AA batteries?',
+    a: 'Pricing is quoted per spec, chemistry, quantity and packaging. Bulk tiers and volume discounts are confirmed in the price list we send.' },
+  { q: 'Can you ship to an Amazon FBA warehouse?',
+    a: 'Yes. We can prep shipment for Amazon FBA — labeling, bundling and direct-to-warehouse delivery. Tell us how you want it packed.' },
+  { q: 'What payment methods do you accept?',
+    a: 'We accept standard trade payment terms. Confirm payment method, Incoterms and shipping details with our sales team on your order.' },
+  { q: 'Can I get my own brand on wholesale batteries?',
+    a: 'Yes. Our private label and OEM program puts your logo on every cell and on the packaging — perfect for distributors and retailers.' },
+];
+
+const lines = [
+  { p: 'AA / AAA alkaline', m: 'MOQ 10,000 pcs', lead: 'Factory direct, custom label' },
+  { p: 'D / C batteries', m: 'MOQ 5,000 pcs', lead: 'Industrial & heavy-duty' },
+  { p: 'Button cell (CR / AG / SR)', m: 'MOQ 10,000 pcs', lead: 'Huge range, 15+ models' },
+  { p: 'Rechargeable NiMH & USB', m: 'MOQ 5,000 pcs', lead: 'Long cycle life' },
+  { p: 'Custom battery packs', m: 'Project-based', lead: 'BMS & connectors, OEM/ODM' },
+];
+
+const tiers = [
+  { qty: '100,000 pcs', title: 'Wholesale', note: 'Bulk tier pricing, fast turnaround' },
+  { qty: '500,000 pcs', title: 'Best value', note: 'Priority production & logistics' },
+  { qty: '1,000,000 pcs', title: 'Factory direct', note: 'Maximum volume pricing' },
+];
+
+const staff = ['AA / AAA alkaline','Button & coin cells','D / C high capacity','Rechargeable NiMH','Private label & OEM','Blister / card / box packaging'];
+
+const services = ['Private label & custom logo','Blister / card / box packaging','Sea & air freight (FBA available)','Certifications & shipping docs','Custom MOQ for distributors','OEM & ODM programs'];
+
+const logistics = ['Sea freight (FOB / CIF)','Air freight & express','Amazon FBA prep','Customs documentation','DDP options','Multiple ports'];
+
+const quality = ['UL & UN38.3 certified','IEC 60086 & EU 2023/1542','ISO 9001 QC','Batch inspection','Maritime & air transport cert','SGS / PONY 3rd-party test'];
+
+const schema = [
+  { '@context': 'https://schema.org', '@type': 'Product',
+    name: 'Wholesale Batteries — AA, AAA, D, Button Cell & Rechargeable',
+    description: description,
+    brand: { '@type': 'Brand', name: brand.name },
+    offers: { '@type': 'AggregateOffer', priceCurrency: 'USD', availability: 'https://schema.org/InStock' } },
+  { '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+
+<Layout title={title} description={description} schema={schema} breadcrumbs={crumbs}>
+  <div class="container breadcrumb"><a href="/">Home</a> <span>/</span> <a href="/wholesale-batteries/">Wholesale Batteries</a></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container" style="max-width:920px;padding:0 32px;">
+      <div class="eyebrow left">Wholesale Batteries</div>
+      <h1 style="font-size:clamp(38px,4.6vw,54px);">Wholesale Batteries — Factory Direct Bulk Supply</h1>
+      <p class="lead">Buy AA, AAA, D, C, button cell &amp; rechargeable batteries at factory-direct wholesale prices. Private label, low MOQ, certified for shipping.</p>
+      <div class="trustbar">
+        <div class="t"><b>{company.exports.length}+</b><span>Export Countries</span></div>
+        <div class="t"><b>UL/UN38.3</b><span>Certified</span></div>
+        <div class="t"><b>Private Label</b><span>Available</span></div>
+        <div class="t"><b>{'100,000m²'}</b><span>Factory Area</span></div>
+      </div>
+      <div style="margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;">
+        <a href="/contact-us/" class="btn btn-primary btn-lg">Download Price List</a>
+        <a href="/oem-battery-manufacturing/" class="btn btn-outline btn-lg">Private Label / OEM</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wholesale product lines -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Wholesale Lines</div><h2>Wholesale Product Lines</h2><p class="lead">Every battery you distribute, from a single certified factory.</p></div>
+      <div style="overflow-x:auto;background:#fff;border:1px solid var(--border-light);border-radius:14px;padding:0 8px;">
+        <table>
+          <thead><tr><th>Product Line</th><th>MOQ</th><th>Key Benefit</th></tr></thead>
+          <tbody>{lines.map(l=>(<tr><td><strong>{l.p}</strong></td><td>{l.m}</td><td>{l.lead}</td></tr>))}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Price tiers -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group hl-center"><div class="eyebrow">Volume Pricing</div><h2>Wholesale Price Tiers</h2><p class="lead">Volume-based wholesale pricing — request the full price list for exact figures.</p></div>
+      <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));">
+        {tiers.map(t=>(<div class="card" style="text-align:center;"><div style="font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);">{t.title}</div><div style="font-size:26px;font-weight:800;color:var(--primary);margin:8px 0;">{t.qty}</div><div style="font-size:14px;color:var(--ink-2);">{t.note}</div><div style="margin-top:14px;"><a href="/contact-us/" class="btn btn-sm btn-outline">Get Price</a></div></div>))}
+      </div>
+      <p style="margin-top:18px;color:var(--ink-2);font-size:15px;text-align:center;">Exact pricing is quoted per spec, chemistry, quantity and packaging. Request the price list for a full quote.</p>
+      <div style="margin-top:18px;text-align:center;"><a href="/contact-us/" class="btn btn-primary">Request Price List</a></div>
+    </div>
+  </section>
+
+  <!-- Ready stock -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Ready Stock</div><h2>MOQ &amp; Ready Stock</h2><p class="lead">Common models are stocked for fast dispatch — keep your shelves full without long lead times.</p></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        {staff.map(s=>(<span class="badge" style="font-size:15px;padding:10px 20px;"><i class="fa-solid fa-boxes-stacked"></i>{s}</span>))}
+      </div>
+      <p style="margin-top:16px;color:var(--ink-2);font-size:15px;">Confirm current availability when you enquire — we hold a regular stock of high-volume models.</p>
+    </div>
+  </section>
+
+  <!-- Private label & OEM -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Private Label</div><h2>Private Label &amp; OEM Wholesale</h2><p class="lead">Put your own brand on every cell — custom logo, label, blister and box packaging for wholesale and distribution programs.</p></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        {services.map(s=>(<span class="badge" style="font-size:15px;padding:10px 20px;"><i class="fa-solid fa-check"></i>{s}</span>))}
+      </div>
+      <div style="margin-top:24px;"><a href="/oem-battery-manufacturing/" class="btn btn-primary">Explore Private Label / OEM</a></div>
+    </div>
+  </section>
+
+  <!-- Logistics -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Logistics</div><h2>Shipping &amp; Logistics Solutions</h2><p class="lead">From our port to your warehouse — flexible freight and customs handling for bulk orders.</p></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        {logistics.map(l=>(<span class="badge" style="font-size:15px;padding:10px 20px;"><i class="fa-solid fa-truck-fast"></i>{l}</span>))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quality -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Quality</div><h2>Quality Assurance &amp; Certifications</h2><p class="lead">Every wholesale order ships certified — with QC and documentation your customers can trust.</p></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        {quality.map(q=>(<span class="badge" style="font-size:15px;padding:10px 20px;"><i class="fa-solid fa-badge-check"></i>{q}</span>))}
+      </div>
+      <div style="margin-top:24px;"><a href="/battery-certifications/" class="btn btn-outline">View Certifications</a></div>
+    </div>
+  </section>
+
+  <!-- Case / distributor -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Distribution</div><h2>Trusted by Distributors &amp; Brands</h2><p class="lead">Long-standing supply and distribution relationships with leading names.</p></div>
+      <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr));">
+        {company.partners.map(p=>(<div class="card"><div style="font-size:20px;font-weight:700;color:var(--primary);margin-bottom:8px;">{p.name}</div><div class="badge" style="margin-bottom:10px;">{p.type}</div><p>{p.desc}</p></div>))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Download price list CTA -->
+  <section class="section section-alt reveal">
+    <div class="container" style="text-align:center;">
+      <h2>Download the Wholesale Price List</h2>
+      <p class="lead" style="margin:0 auto 24px;">Get factory-direct bulk pricing for AA, AAA, D, button cell &amp; rechargeable batteries — private label available.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="/contact-us/" class="btn btn-primary">Request Price List</a>
+        <a href="/oem-battery-manufacturing/" class="btn btn-outline">Private Label / OEM</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section reveal">
+    <div class="container container-narrow">
+      <div class="headline-group"><div class="eyebrow">FAQ</div><h2>Wholesale Batteries FAQs</h2></div>
+      {faqs.map(f=>(<details><summary>{f.q}</summary><div class="a">{f.a}</div></details>))}
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,200 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { modelImages } from '../../data/model_images.js';
+import { aaaLine } from '../data/models.js';
+import { brand } from '../data/brand.js';
+
+// Real TIANQIU EU data (tianqiu_products.js)
+const lr03 = {
+  model: 'LR03 (AAA)', voltage: '1.5V', capacity: '1020mAh ~ 1260mAh', shelf: 'Five years',
+  perf: [
+    ['Blue - Basic', '10.3g', '1020mAh', '18.0 hours'],
+    ['Golden - Normal', '11.0g', '1200mAh', '21.0 hours'],
+    ['Black - Extra', '11.1g', '1230mAh', '22.5 hours'],
+    ['Ultral', '11.2g', '1260mAh', '24.5 hours'],
+  ],
+  note1: 'Capacity test condition: 75Ω 4h/day to 0.9V @ 20±2℃',
+  note2: 'Digital audio duration condition: 50mA 1h/day to 0.9V @ 20±2℃',
+  docNo: 'TQ-EUDOC-LR03-20260622',
+};
+const r03 = {
+  model: 'R03 (AAA carbon)', voltage: '1.5V', capacity: '400mAh (0.6Wh)', shelf: 'Three years',
+  perf: [
+    ['PVC / Aluminum film', '7.5g', '400mAh', '21.0 hours'],
+    ['Metal', '8.5g', '400mAh', '21.0 hours'],
+  ],
+  note1: 'Capacity & radio duration condition: 75Ω 4h/day to 0.9V @ 20±2℃',
+  docNo: 'TQ-EUDOC-R03-20260701',
+};
+
+const title = 'AAA Batteries Manufacturer (LR03/R03) - Alkaline, Rechargeable & OEM | TIANQIU';
+const description = 'AAA batteries manufacturer: alkaline LR03 (1020-1260mAh) & carbon-zinc R03. 0% mercury, 5-year shelf, OEM custom label & bulk from China factory.';
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'Batteries', url: '/aaa-battery/' }, { name: 'AAA Batteries (LR03)', url: '/aaa-battery/' }];
+
+const chemTable = [
+  ['Alkaline (LR03)', '1.5V', '1020-1260mAh', '5-year shelf', '0% mercury'],
+  ['Carbon Zinc (R03)', '1.5V', '400mAh', '3-year shelf', 'Budget light-duty'],
+  ['Rechargeable NiMH', '1.2V', 'Rechargeable', 'Long cycle life', 'Eco-friendly'],
+];
+const sizeTable = [
+  ['AAA (LR03)', '1.5V', '1020-1260mAh', 'Remotes, small electronics, wearables'],
+  ['AA (LR6)', '1.5V', '2150-2600mAh', 'Everyday, digital & high-drain'],
+  ['D (LR20)', '1.5V', '18000mAh', 'Flashlights, industrial, emergency'],
+];
+const apps = ['Remote controls', 'Small electronics', 'Wearables', 'Pens & tools', 'Sensor devices', 'Clocks'];
+
+const faqs = [
+  { q: 'Is a AAA battery the same voltage as AA?',
+    a: 'Yes. A TIANQIU alkaline AAA (LR03) is 1.5V nominal like an AA, but with lower capacity (1020-1260mAh vs 2150-2600mAh).' },
+  { q: 'What is the capacity of a AAA battery?',
+    a: `TIANQIU LR03 alkaline cells range from 1020mAh (Blue) to 1260mAh (Ultral); a carbon-zinc R03 is 400mAh (0.6Wh).` },
+  { q: 'How long does a AAA battery last?',
+    a: `An LR03 alkaline has a 5-year shelf life and runs 18-24.5 hours in digital audio under test; an R03 runs 21.0 hours.` },
+  { q: 'Are your AAA batteries mercury-free?',
+    a: 'Yes. Our alkaline AAA batteries are 0% mercury, made on Japanese MITSUBISHI full-automatic lines.' },
+  { q: 'Can you custom pack AAA batteries for my brand?',
+    a: 'Yes. We offer custom label, blister and box packaging for OEM / ODM and private-label AAA battery projects.' },
+];
+
+const productSchema = {
+  '@context': 'https://schema.org', '@type': 'Product',
+  name: 'AAA Batteries (LR03 / R03)',
+  description: 'Alkaline LR03 (1020-1260mAh) and carbon-zinc R03 AAA batteries. 1.5V, 0% mercury, 5-year shelf life. OEM / ODM custom label available.',
+  brand: { '@type': 'Brand', name: brand.name },
+  offers: { '@type': 'AggregateOffer', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
+};
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+---
+
+<Layout title={title} description={description} schema={[productSchema, faqSchema]} breadcrumbs={crumbs}>
+  <div class="container breadcrumb">{crumbs.map((c, i) => (<>{i > 0 && <span> / </span>}<a href={c.url}>{c.name}</a></>))}</div>
+
+  <!-- Hero -->
+  <section class="section reveal" style="padding:48px 0 34px;">
+    <div class="container">
+      <div class="product-layout">
+        <div class="img-wrap">
+          <div class="carousel">
+            <div class="car-slides">
+              <img src="/images/catalog/aaa-pack.jpg" alt="AAA battery blister pack" loading="eager" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);" />
+              <img src="/images/philips-power-alkaline.jpg" alt="AAA batteries LR03 alkaline cylindrical from TIANQIU factory" loading="eager"
+               style="width:100%;max-height:340px;object-fit:contain;" />
+              <img src="/images/catalog/aaa-2.jpg" alt="AAA alkaline cylindrical cells" loading="lazy" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);" />
+            </div>
+            <button class="car-arrow prev" aria-label="Previous">‹</button>
+            <button class="car-arrow next" aria-label="Next">›</button>
+            <div class="car-dots"><span class="on"></span><span></span><span></span></div>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow">AAA Batteries (LR03 / R03)</div>
+          <h1 style="font-size:clamp(42px,4.6vw,58px);">AAA Batteries - Alkaline &amp; Carbon-Zinc</h1>
+          <p class="lead">Factory-direct AAA batteries: alkaline LR03 (1020-1260mAh) and carbon-zinc R03, 0% mercury, 5-year shelf life, custom label &amp; packaging.</p>
+          <div style="margin-top:24px;display:flex;gap:14px;flex-wrap:wrap;">
+            <a href="/wholesale-batteries/" class="btn btn-primary">AAA Batteries Wholesale</a>
+            <a href="/oem-battery-manufacturing/" class="btn btn-outline">Custom AAA / OEM</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specifications -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Specifications</div><h2>AAA Battery Specifications &amp; Capacity</h2></div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Grade</th><th>Weight</th><th>Capacity</th><th>Digital Audio</th></tr></thead>
+          <tbody>{lr03.perf.map(r => (<tr><td><strong>{r[0]}</strong></td><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <p style="font-size:14px;color:var(--ink-3);margin-top:12px;">{lr03.model} – {lr03.note1} · {lr03.note2}</p>
+      <div class="content-block" style="margin-top:26px;">
+        <div class="sec-title"><div class="ic"><i class="fa-solid fa-bolt"></i></div><h3>Carbon-Zinc AAA (R03)</h3></div>
+        <p class="lead">The budget light-duty option: 1.5V, 400mAh (0.6Wh), 3-year shelf life, for small electronics.{' '}
+          <span style="font-size:14px;color:var(--ink-3);">Test condition: {r03.note1}.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chemistry comparison -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Compare</div><h2>AAA Battery Chemistry &amp; Capacity Comparison</h2></div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Chemistry</th><th>Voltage</th><th>Capacity</th><th>Shelf / Life</th><th>Best For</th></tr></thead>
+          <tbody>{chemTable.map(r => (<tr><td><strong>{r[0]}</strong></td><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td><td>{r[4]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <div style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="/rechargeable-battery/" class="btn btn-outline btn-sm">Rechargeable AAA Batteries</a>
+        <a href="/aa-battery/" class="btn btn-outline btn-sm">AA Batteries</a>
+        <a href="/d-battery/" class="btn btn-outline btn-sm">D Batteries</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Applications -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Applications</div><h2>Where AAA Batteries Are Used</h2></div>
+      <div class="grid">{apps.map(a => (
+        <div class="card"><div class="feat-icon"><i class="fa-solid fa-battery-half"></i></div><h3>{a}</h3><p style="color:var(--ink-2);font-size:15px;">Powered by a TIANQIU LR03 alkaline AAA cell — compact, everyday output.</p></div>
+      ))}</div>
+    </div>
+  </section>
+
+  <!-- Size / model comparison -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Size Guide</div><h2>AAA vs AA vs D Battery Capacity</h2></div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Size</th><th>Voltage</th><th>Capacity</th><th>Typical Uses</th></tr></thead>
+          <tbody>{sizeTable.map(r => (<tr><td><strong>{r[0]}</strong></td><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <div style="margin-top:22px;"><strong style="font-size:15px;">More sizes:</strong>{' '}
+        <a href="/aa-battery/" style="font-weight:600;">AA batteries</a> ·{' '}
+        <a href="/d-battery/" style="font-weight:600;">D batteries</a> ·{' '}
+        <a href="/battery-pack/" style="font-weight:600;">custom battery pack</a></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section reveal" id="faq">
+    <div class="container container-narrow">
+      <div class="headline-group"><div class="eyebrow">FAQ</div><h2>AAA Battery FAQs</h2></div>
+      {faqs.map(f => (<details><summary>{f.q}</summary><div class="a">{f.a}</div></details>))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-alt reveal">
+    <div class="container" style="text-align:center;">
+      <h2>Get AAA Battery Wholesale Pricing</h2>
+      <p class="lead" style="margin:0 auto 24px;">Factory-direct AAA batteries with OEM custom label &amp; packaging. Get a quote today.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="/wholesale-batteries/" class="btn btn-primary">AAA Batteries Wholesale</a>
+        <a href="/oem-battery-manufacturing/" class="btn btn-outline">Start AAA OEM Project</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" style="background:var(--soft);">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Available Models</div><h2>Battery Models We Manufacture</h2>
+      <p class="lead">Browse the full range. Models with a specification sheet link to their detail page; others are available on request.</p></div>
+      {aaaLine.map(l=>(<div style="margin-top:34px;">
+        <div class="eyebrow">{l.line}</div>
+        <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:14px;">
+          {l.models.map(([name,slug,img])=>( slug ? <a class="card" href={'/battery-info/'+slug} style="text-align:center;padding:16px 12px;text-decoration:none;"><img src={(modelImages[(name||"").toUpperCase()]||[])[0] || img} alt={name} style="width:100%;height:96px;object-fit:contain;background:var(--soft);padding:8px;display:block;border-radius:8px;margin-bottom:6px;"><div style="font-weight:800;font-size:18px;color:var(--primary);">{name}</div><div style="font-size:13px;color:var(--ink-2);margin-top:4px;">View specs \u2192</div></a> : <div class="card" style="text-align:center;padding:16px 12px;opacity:.72;"><img src={(modelImages[(name||"").toUpperCase()]||[])[0] || img} alt={name} style="width:100%;height:96px;object-fit:contain;background:var(--soft);padding:8px;display:block;border-radius:8px;margin-bottom:6px;"><div style="font-weight:700;font-size:18px;color:var(--ink);">{name}</div><div style="font-size:13px;color:var(--muted);margin-top:4px;">On request</div></div> ))}
+        </div>
+      </div>))}
+    </div>
+  </section>
+
+</Layout>

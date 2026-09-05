@@ -1,0 +1,140 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { company } from '../data/company.js';
+import { brand } from '../data/brand.js';
+
+const title = 'Battery Certifications & Compliance - UL, UN38.3, IEC, CE, RoHS | TIANQIU';
+const description = 'Batteries meeting UL, UN38.3, IEC 60086, CE & RoHS. Full certification documents for OEM projects and shipping. ISO 9001, ISO 45001, BSCI, SGS certified factory.';
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'Battery Certifications', url: '/battery-certifications/' }];
+
+const faqs = [
+  { q: 'Which certifications do your batteries have?',
+    a: 'We hold ISO 9001, ISO 45001, BSCI, UL, UN38.3, CE, RoHS, SGS and PONY, plus maritime and air transport certification for safe worldwide shipping.' },
+  { q: 'How do I get the UN38.3 test report?',
+    a: 'Request the UN38.3 test report along with your OEM or wholesale inquiry. For lithium cells we provide the transport test report needed for air and sea freight.' },
+  { q: 'Are your batteries UL certified?',
+    a: 'UL covers specific product lines. Tell us the exact cell or pack for your project and we confirm UL coverage and provide the relevant documentation.' },
+  { q: 'What is IEC 60086?',
+    a: 'IEC 60086 is the international primary-battery standard covering dimensions, electrical performance and safety. Our button and cylindrical cells are manufactured and tested to this series.' },
+  { q: 'Can you provide CE / RoHS documents?',
+    a: 'Yes. For the EU market we provide CE and RoHS documentation, plus battery information sheets in line with EU Regulation 2023/1542.' },
+];
+
+const rows = [
+  { cert: 'ISO 9001:2015', scope: 'Quality management system', apps: 'All battery production', icon: 'fa-certificate' },
+  { cert: 'ISO 45001:2018', scope: 'Occupational health & safety', apps: 'Factory operations', icon: 'fa-shield-halved' },
+  { cert: 'BSCI', scope: 'Business social compliance', apps: 'Ethical manufacturing', icon: 'fa-handshake' },
+  { cert: 'UL', scope: 'Consumer safety standard', apps: 'Selected battery lines', icon: 'fa-shield' },
+  { cert: 'UN38.3', scope: 'Lithium battery transport safety', apps: 'Lithium button cell shipping', icon: 'fa-plane' },
+  { cert: 'CE', scope: 'European conformity', apps: 'Batteries sold in the EU', icon: 'fa-check-circle' },
+  { cert: 'RoHS', scope: 'Restriction of hazardous substances', apps: 'EU market', icon: 'fa-leaf' },
+  { cert: 'SGS / PONY', scope: 'Third-party testing', apps: 'Quality verification', icon: 'fa-vial' },
+  { cert: 'Maritime / Air Transport', scope: 'Safe shipping certification', apps: 'Export worldwide', icon: 'fa-ship' },
+];
+
+const unTest = ['T1 Altitude simulation','T2 Thermal cycling','T3 Vibration','T4 Shock','T5 External short circuit','T6 Impact / crush','T7 Overcharge','T8 Forced discharge'];
+
+const schema = [
+  { '@context': 'https://schema.org', '@type': 'Service',
+    name: 'Battery Certifications & Compliance',
+    serviceType: 'UL, UN38.3, IEC 60086, CE, RoHS battery compliance & documentation',
+    provider: { '@type': 'Organization', name: brand.nameFull, url: brand.domain },
+    description: description },
+  { '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+
+<Layout title={title} description={description} schema={schema} breadcrumbs={crumbs}>
+  <div class="container breadcrumb"><a href="/">Home</a> <span>/</span> <a href="/battery-certifications/">Battery Certifications &amp; Compliance</a></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container" style="max-width:920px;padding:0 32px;">
+      <div class="eyebrow left">Quality &amp; Compliance</div>
+      <h1 style="font-size:clamp(38px,4.6vw,54px);">Battery Certifications &amp; Compliance</h1>
+      <p class="lead">Certified, safe and compliant batteries for OEM projects and global shipping. Multiple certifications across every product line.</p>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:34px;font-size:26px;color:#fff;">
+        <span><i class="fa-solid fa-shield-halved"></i> UL</span>
+        <span><i class="fa-solid fa-plane"></i> UN38.3</span>
+        <span><i class="fa-solid fa-certificate"></i> ISO 9001</span>
+        <span><i class="fa-solid fa-circle-check"></i> CE / RoHS</span>
+        <span><i class="fa-solid fa-leaf"></i> BSCI</span>
+      </div>
+      <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px;">
+        {[1,2,3,4,5].map(n=>(<div class="card" style="padding:0;overflow:hidden;"><img src={`/images/catalog/cert-${n}.jpg`} alt="TIANQIU battery certification certificate" loading="lazy" style="width:100%;height:220px;object-fit:contain;background:var(--soft);padding:12px;"></div>))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Certification overview -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Certification Overview</div><h2>Full Certification List</h2><p class="lead">The certifications we hold, what each covers and where it applies.</p></div>
+      <div style="overflow-x:auto;background:#fff;border:1px solid var(--border-light);border-radius:14px;padding:0 8px;">
+        <table>
+          <thead><tr><th>Certification</th><th>What It Covers</th><th>Applies To</th></tr></thead>
+          <tbody>{rows.map(r=>(<tr><td><strong><i class="fa-solid {r.icon}" style="color:var(--primary);margin-right:8px;"></i>{r.cert}</strong></td><td>{r.scope}</td><td>{r.apps}</td></tr>))}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- UL -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">UL</div><h2>UL Certification for Consumer Safety</h2><p class="lead">Selected battery lines are UL-certified to meet North American consumer-safety standards — a key trust marker for US and Canadian importers.</p></div>
+      <div class="grid" style="grid-template-columns:1fr 1fr;">
+        <div class="card"><div class="feat-icon"><i class="fa-solid fa-shield"></i></div><h3>What UL Covers</h3><p>Safety testing for the specific line, including leakage, over-temperature and cell-level safety.</p></div>
+        <div class="card"><div class="feat-icon"><i class="fa-solid fa-list-check"></i></div><h3>Which Lines</h3><p>Certification is per product line — tell us the exact cell and we confirm UL coverage for your project.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UN38.3 -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Shipping Safety</div><h2>UN38.3 Lithium Battery Transport</h2><p class="lead">Our lithium button and cylindrical cells are tested to UN38.3 for safe air and sea transport, across the 8 required tests.</p></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        {unTest.map(t=>(<span class="badge" style="font-size:14px;padding:8px 16px;"><i class="fa-solid fa-check"></i>{t}</span>))}
+      </div>
+      <p style="margin-top:20px;color:var(--ink-2);font-size:15px;">Maritime and air transport certification is available on request — request the UN38.3 test report with your inquiry.</p>
+      <div style="margin-top:22px;"><a href="/contact-us/" class="btn btn-outline">Request UN38.3 Test Report</a></div>
+    </div>
+  </section>
+
+  <!-- IEC 60086 -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">IEC 60086</div><h2>IEC 60086 Primary Battery Standards</h2><p class="lead">Our button cells are manufactured and tested to the IEC 60086 series for primary batteries.</p></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        {['IEC 60086-1 General','IEC 60086-2 Physical & electrical','IEC 60086-3 Watch batteries','IEC 60086-4 Lithium safety','IEC 60086-5 Aqueous safety'].map(t=>(<span class="badge" style="font-size:14px;padding:8px 16px;"><i class="fa-solid fa-check"></i>{t}</span>))}
+      </div>
+      <p style="margin-top:20px;color:var(--ink-2);font-size:15px;">Battery characteristics data sheets per model are available, compliant with EU Regulation 2023/1542.</p>
+    </div>
+  </section>
+
+  <!-- CE / RoHS + Mercury-free -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Environmental</div><h2>Mercury-Free &amp; EU Compliant</h2><p class="lead">We produce 0% mercury alkaline button cells and provide the compliance documentation required for the EU market.</p></div>
+      <div class="grid" style="grid-template-columns:1fr 1fr;">
+        <div class="card"><div class="feat-icon"><i class="fa-solid fa-leaf"></i></div><h3>0% Mercury (Hg)</h3><p>We produce <strong>0% mercury</strong> alkaline button cells, in line with modern environmental standards.</p></div>
+        <div class="card"><div class="feat-icon"><i class="fa-solid fa-circle-check"></i></div><h3>EU Regulation 2023/1542</h3><p>Battery information is provided in compliance with EU Regulation 2023/1542, with CE and RoHS documentation available.</p></div>
+      </div>
+      <div style="margin-top:28px;text-align:center;">
+        <a href="/contact-us/" class="btn btn-primary">Request Certification Documents</a>
+        <a href="/oem-battery-manufacturing/" class="btn btn-outline">Battery OEM Service</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-alt reveal">
+    <div class="container container-narrow">
+      <div class="headline-group"><div class="eyebrow">FAQ</div><h2>Certification FAQs</h2></div>
+      {faqs.map(f=>(<details><summary>{f.q}</summary><div class="a">{f.a}</div></details>))}
+      <div style="margin-top:28px;text-align:center;"><a href="/oem-battery-manufacturing/" class="btn btn-primary">Start an OEM Project</a></div>
+    </div>
+  </section>
+</Layout>

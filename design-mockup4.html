@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TIANQIU — 卡片内版式对比</title>
+<style>
+body{font-family:-apple-system,'Segoe UI',Roboto,Arial,'PingFang SC',sans-serif;margin:0;background:#eef1f5;padding:26px;}
+.wrap{max-width:1180px;margin:0 auto;}
+.h{font-size:26px;font-weight:800;color:#1a2b45;text-align:center;margin:10px 0 24px;}
+.tag{display:inline-block;background:#1746a2;color:#fff;padding:5px 14px;border-radius:999px;font-size:12px;font-weight:700;margin-bottom:12px;}
+.stage{position:relative;height:560px;border-radius:18px;overflow:hidden;margin-bottom:46px;box-shadow:0 16px 46px rgba(20,44,82,.2);background:#17253d;}
+.stage .bg{position:absolute;inset:0;background:url('./public/images/hero-main.jpg') center/cover;}
+.stage .dim{position:absolute;inset:0;background:rgba(12,27,48,.22);}
+.stage .c{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);width:540px;max-width:90%;background:rgba(13,27,46,.34);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:42px 46px;color:#fff;backdrop-filter:blur(18px);}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#a6c9ec;margin-bottom:12px;}
+h1{font-size:34px;line-height:1.12;margin:0 0 12px;color:#fff;font-weight:800;letter-spacing:-.02em;}
+p{font-size:16px;line-height:1.55;color:#dde9f6;margin:0 0 22px;}
+.btn{display:inline-block;background:#ea5b0b;color:#fff;padding:13px 28px;border-radius:8px;font-weight:700;font-size:15px;}
+.btn.o{background:transparent;border:1px solid rgba(255,255,255,.6);margin-left:10px;}
+.d{display:flex;gap:8px;flex-wrap:wrap;}
+.di{font-size:15px;color:#dde9f6;padding:7px 14px;border:1px solid rgba(255,255,255,.16);border-radius:999px;}
+.stat{display:grid;grid-template-columns:repeat(2,1fr);gap:18px 16px;border-top:1px solid rgba(255,255,255,.2);padding-top:18px;margin-top:24px;}
+.stat .t{border-left:3px solid #6ba3d6;padding-left:12px;}
+.stat .t b{font-size:24px;display:block;color:#fff;}
+.stat .t span{font-size:12.5px;color:#bcd6ee;}
+.center{text-align:center;}
+.center .eyebrow,.center h1,.center p{margin-left:auto;margin-right:auto;}
+.center .stat{grid-template-columns:repeat(2,1fr);}
+</style></head><body><div class="wrap">
+<h2 class="h">▼ 四种卡片内版式（同图，挑一个）▼</h2>
+
+<!-- A 左对齐经典 -->
+<div><div class="tag">A · 左对齐经典（当前）</div>
+<div class="stage"><div class="bg"></div><div class="dim"></div><div class="c">
+  <div class="eyebrow">Battery OEM / ODM</div><h1>Custom batteries, engineered to your brand.</h1>
+  <p>One certified factory takes you from spec to shelf.</p>
+  <div><a class="btn" href="#">Start Your Project</a><a class="btn o" href="#">OEM Service</a></div>
+  <div class="stat"><div class="t"><b>100,000m²</b><span>Factory</span></div><div class="t"><b>500+</b><span>Products</span></div></div>
+</div></div></div>
+
+<!-- B 居中 -->
+<div><div class="tag">B · 居中版（文字/按钮全部居中）</div>
+<div class="stage"><div class="bg"></div><div class="dim"></div><div class="c center">
+  <div class="eyebrow">Battery OEM / ODM</div><h1>Custom batteries, engineered to your brand.</h1>
+  <p>One certified factory takes you from spec to shelf.</p>
+  <div><a class="btn" href="#">Start Your Project</a><a class="btn o" href="#">OEM Service</a></div>
+  <div class="stat"><div class="t"><b>100,000m²</b><span>Factory</span></div><div class="t"><b>500+</b><span>Products</span></div></div>
+</div></div></div>
+
+<!-- C 顶部数据带 -->
+<div><div class="tag">C · 顶部数据带（数据在上面，标题在下）</div>
+<div class="stage"><div class="bg"></div><div class="dim"></div><div class="c">
+  <div class="stat" style="border-top:none;padding-top:0;margin-top:0;margin-bottom:22px;">
+    <div class="t"><b>100,000m²</b><span>Factory</span></div><div class="t"><b>500+</b><span>Products</span></div>
+    <div class="t"><b>UL/UN38.3</b><span>Certified</span></div><div class="t"><b>31+ yrs</b><span>Experience</span></div>
+  </div>
+  <div class="eyebrow">Battery OEM / ODM</div><h1>Custom batteries, engineered to your brand.</h1>
+  <p>One certified factory takes you from spec to shelf.</p><a class="btn" href="#">Start Your Project</a>
+</div></div></div>
+
+<!-- D 品牌徽章 -->
+<div><div class="tag">D · 授权品牌徽章（标题 + 授权品牌小徽章 + 按钮）</div>
+<div class="stage"><div class="bg"></div><div class="dim"></div><div class="c">
+  <div class="eyebrow">Licensed OEM</div><h1>Custom batteries, engineered to your brand.</h1>
+  <p>Manufactured under license for globally recognized brands.</p>
+  <div class="d" style="margin-bottom:24px;"><span class="di">PHILIPS</span><span class="di">MITSUBISHI</span><span class="di">SEIZI</span><span class="di">SOXEY</span></div>
+  <a class="btn" href="#">Start Your Project</a>
+</div></div></div>
+
+</div></body></html>

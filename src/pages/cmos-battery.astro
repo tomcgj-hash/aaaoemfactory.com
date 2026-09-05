@@ -1,0 +1,138 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { cmosBrands } from '../data/cmos_brands.js';
+import { batteries } from '../data/batteries.js';
+
+const title = 'CMOS Battery - Motherboard Battery Replacement Guide | TIANQIU';
+const description = 'CMOS battery guide: what it is, which cell to buy, where it sits on the motherboard and how to replace it (Dell, HP, ASUS) — plus buy the right CR2032.';
+const crumbs = [{ name:'Home', url:'/' }, { name:'CMOS / Motherboard Batteries', url:'/cmos-battery/' }];
+
+const cr2032 = batteries.find(b => b.slug === 'cr2032-battery');
+const brandCards = cmosBrands.map(c => ({ ...c, bat: batteries.find(b => b.url === c.batteryUrl) }));
+
+const faqs = [
+  { q:'What happens when the CMOS battery dies?', a:'The system clock resets to factory and BIOS settings are lost on boot, often showing a "wrong system time" or "CMOS checksum" error. Replace the cell to restore normal boot.' },
+  { q:'What type of battery does my motherboard use?', a:'Over 90% of desktop and laptop motherboards use a CR2032 3V lithium coin cell (20mm × 3.2mm).' },
+  { q:'Where is the CMOS battery on my motherboard?', a:'On a desktop it sits in a coin-cell holder near the chipset or battery slot. On a laptop it is usually under the bottom cover or in a small compartment, sometimes on a small connector.' },
+  { q:'How do I replace the CMOS battery on a Dell or HP?', a:'Power off and unplug the PC, ground yourself, open the case, release the metal clip on the CR2032 holder, remove the old cell, insert a fresh CR2032 and re-seat the clip. Reset the BIOS clock on boot.' },
+  { q:'How often should I replace a CMOS battery?', a:'Typically every 3–5 years, or when you see clock/BIOS errors or the time keeps resetting after a power loss.' },
+];
+const pg = [{ '@context':'https://schema.org', '@type':'FAQPage', 'mainEntity': faqs.map(f=>({'@type':'Question','name':f.q,'acceptedAnswer':{'@type':'Answer','text':f.a}})) }];
+
+const replaceSteps = [
+  { n:'01', h:'Power down & unplug', p:'Shut down the PC, unplug power and open the case. Ground yourself first.' },
+  { n:'02', h:'Locate the cell', p:'Find the coin-cell holder on the motherboard, near the chipset or battery slot.' },
+  { n:'03', h:'Release the clip', p:'Push the metal clip and lift out the old CR2032 cell.' },
+  { n:'04', h:'Insert the new cell', p:'Fit a fresh CR2032 with the + side up and re-seat the clip.' },
+  { n:'05', h:'Boot & reset clock', p:'Reassemble, boot the PC and set the correct date and time in the BIOS.' },
+];
+---
+
+<Layout title={title} description={description} schema={pg} breadcrumbs={crumbs}>
+  <div class="container breadcrumb">{crumbs.map((c,i)=>(<>{i>0 && <span> / </span>}<a href={c.url}>{c.name}</a></>))}</div>
+
+  <section class="hero hero-cmos"><div class="container" style="max-width:860px;">
+    <div class="eyebrow">CMOS / Motherboard Battery · Factory Direct</div>
+    <h1>CMOS &amp; Motherboard Battery Replacement</h1>
+    <p class="lead">The CMOS battery keeps your PC clock and BIOS settings alive. Most motherboards run on a CR2032 coin cell — find it, replace it and get your PC booting cleanly.</p>
+    <div class="trustbar">
+      {cr2032 && <div class="t"><b>{cr2032.voltage}</b><span>Standard CMOS Cell</span></div>}
+      {cr2032 && <div class="t"><b>{cr2032.diameter}</b><span>Coin Cell</span></div>}
+      <div class="t"><b>90%</b><span>Of Boards Use CR2032</span></div>
+      <div class="t"><b>3–5 yr</b><span>Cell Life</span></div>
+    </div>
+    <div style="margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;"><a href="/battery-type/cr2032-battery/" class="btn btn-primary">Get the CR2032 Battery</a><a href="/oem-battery-manufacturing/" class="btn btn-outline">OEM for PC Brands</a></div>
+  </div></section>
+
+  <!-- What is a CMOS battery -->
+  <section class="section reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">What It Is</div><h2>What Is a CMOS Battery?</h2>
+    <p class="lead">The CMOS cell powers the small memory that stores your BIOS settings and real-time clock when the PC is switched off.</p></div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <div class="card"><div class="feat-icon"><i class="fa-solid fa-microchip"></i></div><h3>Keeps BIOS Settings</h3><p style="color:var(--ink-2);font-size:15px;">Boot order, hardware configuration and other settings are held in volatile memory that the CMOS cell keeps powered.</p></div>
+      <div class="card"><div class="feat-icon"><i class="fa-solid fa-clock"></i></div><h3>Keeps the System Clock</h3><p style="color:var(--ink-2);font-size:15px;">Without it the clock resets and your OS logs the wrong time every time the power is lost.</p></div>
+    </div>
+    <div class="panel-note" style="margin-top:18px;">Symptoms of a dead CMOS battery: the time resets, BIOS settings are lost, boot errors or a "CMOS checksum" message appears.</div>
+  </div></section>
+
+  <!-- Which cell to buy -->
+  <section class="section section-alt reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">Which Cell to Buy</div><h2>Which CMOS Battery Should You Buy?</h2>
+    <p class="lead">Over 90% of motherboards use a CR2032 3V lithium coin cell — it is the correct and safest default.</p></div>
+    {cr2032 && (
+    <div class="content-block">
+      <div class="sec-title"><div class="ic"><i class="fa-solid fa-battery-three-quarters"></i></div><h3>CR2032 — Recommended Motherboard Cell</h3></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:640px;">
+        <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">{cr2032.voltage}</div><div style="font-size:13px;color:var(--ink-3);">Voltage</div></div>
+        <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">{cr2032.diameter}</div><div style="font-size:13px;color:var(--ink-3);">Diameter</div></div>
+        <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">{cr2032.thickness}</div><div style="font-size:13px;color:var(--ink-3);">Thickness</div></div>
+      </div>
+      <p style="color:var(--ink-2);font-size:15px;margin-top:18px;">Capacity: {cr2032.capacity} · Equivalent to <strong>{cr2032.compat}</strong>.</p>
+      <p style="font-size:14px;color:var(--ink-3);">Specs for reference — final values per OEM project.</p>
+      <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;"><a href="/battery-type/cr2032-battery/" class="btn btn-primary btn-sm">Get CR2032 in Bulk</a><a href="/oem-battery-manufacturing/" class="btn btn-outline btn-sm">OEM for PC Brands</a></div>
+    </div>
+    )}
+    <div style="margin-top:18px;font-size:15px;color:var(--ink-3);">Some compact or tablet motherboards use a smaller cell (e.g. <a href="/battery-type/cr2025-battery/">CR2025</a>). Confirm the holder size before ordering.</div>
+  </div></section>
+
+  <!-- By brand -->
+  <section class="section reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">By Brand</div><h2>CMOS Battery by Brand</h2>
+    <p class="lead">Jump to the CMOS battery guide for your PC brand.</p></div>
+    <div class="grid">
+      {brandCards.map(c=>(<a class="card" href={c.url} style="text-decoration:none;">
+        <div style="font-size:30px;font-weight:800;color:var(--primary);margin-bottom:6px;">{c.brand}</div>
+        <p style="color:var(--ink-2);font-size:15px;">{c.brand} motherboards use a <strong>{c.battery}</strong> CMOS cell.</p>
+        <span class="more">{c.brand} CMOS battery guide →</span>
+      </a>))}
+    </div>
+    <div style="overflow-x:auto;margin-top:24px;"><table>
+      <thead><tr><th>Brand</th><th>Common Battery</th><th>Voltage</th><th>Guide</th></tr></thead>
+      <tbody>{brandCards.map(c=>(<tr><td><strong>{c.brand}</strong></td><td><a href={c.batteryUrl} style="font-weight:700;">{c.battery}</a></td><td>{c.bat ? c.bat.voltage : ''}</td><td><a href={c.url}>View →</a></td></tr>))}</tbody>
+    </table></div>
+  </div></section>
+
+  <!-- Location -->
+  <section class="section section-alt reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">Location</div><h2>Where the CMOS Battery Is on Your Motherboard</h2></div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <div class="card"><div class="feat-icon"><i class="fa-solid fa-desktop"></i></div><h3>Desktop PC</h3><p style="color:var(--ink-2);font-size:15px;">Look for a small coin-cell holder on the motherboard, near the chipset or the battery slot, usually labelled CR2032.</p></div>
+      <div class="card"><div class="feat-icon"><i class="fa-solid fa-laptop"></i></div><h3>Laptop</h3><p style="color:var(--ink-2);font-size:15px;">Often beneath the bottom cover or inside a small service compartment, sometimes on a short connector rather than a clip holder.</p></div>
+    </div>
+  </div></section>
+
+  <!-- Replacement steps -->
+  <section class="section reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">How-To</div><h2>How to Replace a CMOS Battery</h2></div>
+    <div class="steps-grid">
+      {replaceSteps.map(s=>(<div class="step"><div class="sn">{s.n}</div><h4>{s.h}</h4><p>{s.p}</p></div>))}
+    </div>
+    <div class="panel-note" style="margin-top:24px;">Discharge static by touching a metal part of the case before handling the battery. Never use metal tools on the contacts.</div>
+  </div></section>
+
+  <!-- FAQ -->
+  <section class="section section-alt reveal"><div class="container container-narrow">
+    <div class="headline-group"><div class="eyebrow">FAQ</div><h2>CMOS Battery FAQs</h2></div>
+    <div class="content-block">
+      {faqs.map(f=>(<details><summary>{f.q}</summary><div class="a">{f.a}</div></details>))}
+    </div>
+  </div></section>
+
+  <!-- Related -->
+  <section class="section reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">Related</div><h2>Related Battery Guides</h2></div>
+    <div class="grid">
+      <a class="card" href="/battery-type/cr2032-battery/" style="text-decoration:none;"><h3>CR2032 Battery</h3><p style="color:var(--ink-2);font-size:15px;">The standard 3V lithium cell for motherboards and CMOS.</p><span class="more">View CR2032 →</span></a>
+      <a class="card" href="/key-fob-battery/" style="text-decoration:none;"><h3>Key Fob Battery</h3><p style="color:var(--ink-2);font-size:15px;">CR2032/CR2025/CR2450 coin cells for car key fobs.</p><span class="more">Key fob guide →</span></a>
+      <a class="card" href="/watch-battery/" style="text-decoration:none;"><h3>Watch Battery</h3><p style="color:var(--ink-2);font-size:15px;">Silver-oxide watch battery replacement guide.</p><span class="more">Watch guide →</span></a>
+      <a class="card" href="/button-cell-battery/" style="text-decoration:none;"><h3>All Button Cells</h3><p style="color:var(--ink-2);font-size:15px;">Browse every coin cell model from the TIANQIU factory.</p><span class="more">View all →</span></a>
+    </div>
+  </div></section>
+
+  <!-- CTA -->
+  <section class="section section-alt reveal"><div class="container" style="text-align:center;">
+    <h2>Buy CMOS CR2032 Batteries in Bulk</h2>
+    <p class="lead" style="margin:0 auto 24px;">Factory-direct CR2032 coin cells for motherboards, OEM &amp; PC brand programs. Get a quote today.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;"><a href="/battery-type/cr2032-battery/" class="btn btn-primary">Get CR2032</a><a href="/oem-battery-manufacturing/" class="btn btn-outline">OEM for PC Brands</a><a href="/button-cell-battery/" class="btn btn-outline">All Button Cells</a></div>
+  </div></section>
+</Layout>

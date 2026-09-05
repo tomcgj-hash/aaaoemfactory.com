@@ -1,0 +1,201 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { modelImages } from '../../data/model_images.js';
+import { aaLine } from '../data/models.js';
+import { brand } from '../data/brand.js';
+
+// Real TIANQIU EU data (tianqiu_products.js)
+const lr6 = {
+  model: 'LR6 (AA)', name: 'LR6 Alkaline Zn-MnO₂ Cylindrical', voltage: '1.5V',
+  capacity: '2150mAh ~ 2600mAh', shelf: 'Five years',
+  perf: [
+    ['Blue - Basic', '20.0g', '2150mAh', '38.0 hours'],
+    ['Golden - Normal', '22.5g', '2400mAh', '45.0 hours'],
+    ['Black - Extra', '23.0g', '2500mAh', '50.0 hours'],
+    ['Ultral', '23.5g', '2600mAh', '55.5 hours'],
+  ],
+  note1: 'Capacity test condition: 43Ω 4h/day to 0.9V @ 20±2℃',
+  note2: 'Digital audio duration condition: 50mA 1h/8h 24h/day to 1.0V @ 20±2℃',
+  critical: 'Manganese, Graphite, Copper', docNo: 'TQ-EUDOC-LR6-20260622',
+};
+const r6p = {
+  model: 'R6P (AA carbon)', voltage: '1.5V', capacity: '900mAh (1.35Wh)', shelf: 'Three years',
+  perf: [
+    ['PVC / Aluminum film', '13.5g', '900mAh', '27.0 hours'],
+    ['Metal', '16.5g', '900mAh', '27.0 hours'],
+  ],
+  note1: 'Capacity & radio duration condition: 43Ω 4h/day to 0.9V @ 20±2℃',
+  docNo: 'TQ-EUDOC-R6P-20260701',
+};
+
+const title = 'AA Batteries Manufacturer (LR6/R6) - Alkaline, Rechargeable & OEM | TIANQIU';
+const description = 'AA batteries manufacturer: alkaline LR6 (2150-2600mAh) & carbon-zinc R6P. 0% mercury, 5-year shelf, OEM custom label & bulk from China factory.';
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'Batteries', url: '/aa-battery/' }, { name: 'AA Batteries (LR6)', url: '/aa-battery/' }];
+
+const chemTable = [
+  ['Alkaline (LR6)', '1.5V', '2150-2600mAh', '5-year shelf', '0% mercury'],
+  ['Carbon Zinc (R6P)', '1.5V', '900mAh', '3-year shelf', 'Budget heavy-duty'],
+  ['Rechargeable NiMH', '1.2V', 'Rechargeable', 'Long cycle life', 'Eco-friendly'],
+];
+const sizeTable = [
+  ['AA (LR6)', '1.5V', '2150-2600mAh', 'Everyday, digital & high-drain'],
+  ['AAA (LR03)', '1.5V', '1020-1260mAh', 'Remotes, small electronics'],
+  ['D (LR20)', '1.5V', '18000mAh', 'Flashlights, industrial, emergency'],
+];
+const apps = ['Remote controls', 'Toys', 'Flashlights', 'Clocks', 'Game controllers', 'Portable audio'];
+
+const faqs = [
+  { q: 'What voltage is an AA battery?',
+    a: `A fresh TIANQIU alkaline AA (LR6) is 1.5V nominal; a rechargeable NiMH AA runs at 1.2V.` },
+  { q: 'What is the capacity of an AA battery?',
+    a: `TIANQIU LR6 alkaline cells deliver 2150-2600mAh depending on grade (Blue/Golden/Black/Ultral), while a carbon-zinc R6P is 900mAh (1.35Wh).` },
+  { q: 'How long does an AA battery last?',
+    a: `An LR6 alkaline carries a 5-year shelf life and runs 38-55.5 hours in a digital audio device under test; an R6P lasts 27.0 hours. Shelf life varies by storage.` },
+  { q: 'Are your AA batteries mercury-free?',
+    a: `Yes. Our alkaline cylindrical batteries are 0% mercury and made on Japanese MITSUBISHI full-automatic lines.` },
+  { q: 'Can you OEM or private label AA batteries?',
+    a: `Yes. We provide custom brand label, blister and box packaging for OEM / ODM and private-label AA battery projects.` },
+];
+
+// Product schema for the AA line
+const productSchema = {
+  '@context': 'https://schema.org', '@type': 'Product',
+  name: 'AA Batteries (LR6 / R6)',
+  description: 'Alkaline LR6 (2150-2600mAh) and carbon-zinc R6P AA batteries. 1.5V, 0% mercury, 5-year shelf life. OEM / ODM custom label available.',
+  brand: { '@type': 'Brand', name: brand.name },
+  offers: { '@type': 'AggregateOffer', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
+};
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+---
+
+<Layout title={title} description={description} schema={[productSchema, faqSchema]} breadcrumbs={crumbs}>
+  <div class="container breadcrumb">{crumbs.map((c, i) => (<>{i > 0 && <span> / </span>}<a href={c.url}>{c.name}</a></>))}</div>
+
+  <!-- Hero -->
+  <section class="section reveal" style="padding:48px 0 34px;">
+    <div class="container">
+      <div class="product-layout">
+        <div class="img-wrap">
+          <div class="carousel">
+            <div class="car-slides">
+              <img src="/images/catalog/aa-pack.jpg" alt="AA battery blister pack R6P 4-BP" loading="eager" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);" />
+              <img src="/images/philips-power-alkaline.jpg" alt="AA batteries LR6 alkaline cylindrical from TIANQIU factory" loading="lazy" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);" />
+              <img src="/images/catalog/aa-2.jpg" alt="AA alkaline cells factory" loading="lazy" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);" />
+            </div>
+            <button class="car-arrow prev" aria-label="Previous">‹</button>
+            <button class="car-arrow next" aria-label="Next">›</button>
+            <div class="car-dots"><span class="on"></span><span></span><span></span></div>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow">AA Batteries (LR6 / R6)</div>
+          <h1 style="font-size:clamp(42px,4.6vw,58px);">AA Batteries - Alkaline &amp; Carbon-Zinc</h1>
+          <p class="lead">Factory-direct AA batteries: alkaline LR6 (2150-2600mAh) and carbon-zinc R6P, 0% mercury, 5-year shelf life, custom label &amp; blister packaging.</p>
+          <div style="margin-top:24px;display:flex;gap:14px;flex-wrap:wrap;">
+            <a href="/wholesale-batteries/" class="btn btn-primary">AA Batteries Wholesale</a>
+            <a href="/oem-battery-manufacturing/" class="btn btn-outline">Custom AA / OEM</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specifications -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Specifications</div><h2>AA Battery Specifications &amp; Capacity</h2></div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Grade</th><th>Weight</th><th>Capacity</th><th>Digital Audio</th></tr></thead>
+          <tbody>{lr6.perf.map(r => (<tr><td><strong>{r[0]}</strong></td><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <p style="font-size:14px;color:var(--ink-3);margin-top:12px;">{lr6.model} – {lr6.note1} · {lr6.note2}</p>
+      <div class="content-block" style="margin-top:26px;">
+        <div class="sec-title"><div class="ic"><i class="fa-solid fa-bolt"></i></div><h3>Carbon-Zinc AA (R6P)</h3></div>
+        <p class="lead">The budget heavy-duty option: 1.5V, 900mAh (1.35Wh), 3-year shelf life, for low-drain devices.{' '}
+          <span style="font-size:14px;color:var(--ink-3);">Test condition: {r6p.note1}.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chemistry comparison -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Compare</div><h2>AA Battery Chemistry &amp; Capacity Comparison</h2></div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Chemistry</th><th>Voltage</th><th>Capacity</th><th>Shelf / Life</th><th>Best For</th></tr></thead>
+          <tbody>{chemTable.map(r => (<tr><td><strong>{r[0]}</strong></td><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td><td>{r[4]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <div style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="/rechargeable-battery/" class="btn btn-outline btn-sm">Rechargeable AA Batteries</a>
+        <a href="/usb-rechargeable-battery/" class="btn btn-outline btn-sm">USB Rechargeable Batteries</a>
+        <a href="/aaa-battery/" class="btn btn-outline btn-sm">AAA Batteries</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Applications -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Applications</div><h2>Where AA Batteries Are Used</h2></div>
+      <div class="grid">{apps.map(a => (
+        <div class="card"><div class="feat-icon"><i class="fa-solid fa-battery-three-quarters"></i></div><h3>{a}</h3><p style="color:var(--ink-2);font-size:15px;">Powered by a TIANQIU LR6 alkaline AA cell — reliable everyday output.</p></div>
+      ))}</div>
+    </div>
+  </section>
+
+  <!-- Size / model comparison -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Size Guide</div><h2>AA vs AAA vs D Battery Capacity</h2></div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Size</th><th>Voltage</th><th>Capacity</th><th>Typical Uses</th></tr></thead>
+          <tbody>{sizeTable.map(r => (<tr><td><strong>{r[0]}</strong></td><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <div style="margin-top:22px;"><strong style="font-size:15px;">More sizes:</strong>{' '}
+        <a href="/aaa-battery/" style="font-weight:600;">AAA batteries</a> ·{' '}
+        <a href="/d-battery/" style="font-weight:600;">D batteries</a> ·{' '}
+        <a href="/battery-pack/" style="font-weight:600;">custom battery pack</a></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section reveal" id="faq">
+    <div class="container container-narrow">
+      <div class="headline-group"><div class="eyebrow">FAQ</div><h2>AA Battery FAQs</h2></div>
+      {faqs.map(f => (<details><summary>{f.q}</summary><div class="a">{f.a}</div></details>))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-alt reveal">
+    <div class="container" style="text-align:center;">
+      <h2>Get AA Battery Wholesale Pricing</h2>
+      <p class="lead" style="margin:0 auto 24px;">Factory-direct AA batteries with OEM custom label &amp; packaging. Get a quote today.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="/wholesale-batteries/" class="btn btn-primary">AA Batteries Wholesale</a>
+        <a href="/oem-battery-manufacturing/" class="btn btn-outline">Start AA OEM Project</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" style="background:var(--soft);">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Available Models</div><h2>Battery Models We Manufacture</h2>
+      <p class="lead">Browse the full range. Models with a specification sheet link to their detail page; others are available on request.</p></div>
+      {aaLine.map(l=>(<div style="margin-top:34px;">
+        <div class="eyebrow">{l.line}</div>
+        <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:14px;">
+          {l.models.map(([name,slug,img])=>( slug ? <a class="card" href={'/battery-info/'+slug} style="text-align:center;padding:16px 12px;text-decoration:none;"><img src={(modelImages[(name||"").toUpperCase()]||[])[0] || img} alt={name} style="width:100%;height:96px;object-fit:contain;background:var(--soft);padding:8px;display:block;border-radius:8px;margin-bottom:6px;"><div style="font-weight:800;font-size:18px;color:var(--primary);">{name}</div><div style="font-size:13px;color:var(--ink-2);margin-top:4px;">View specs \u2192</div></a> : <div class="card" style="text-align:center;padding:16px 12px;opacity:.72;"><img src={(modelImages[(name||"").toUpperCase()]||[])[0] || img} alt={name} style="width:100%;height:96px;object-fit:contain;background:var(--soft);padding:8px;display:block;border-radius:8px;margin-bottom:6px;"><div style="font-weight:700;font-size:18px;color:var(--ink);">{name}</div><div style="font-size:13px;color:var(--muted);margin-top:4px;">On request</div></div> ))}
+        </div>
+      </div>))}
+    </div>
+  </section>
+
+</Layout>

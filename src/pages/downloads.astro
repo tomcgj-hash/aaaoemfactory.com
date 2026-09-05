@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+const title = 'Downloads - Product Catalog & Docs | TIANQIU';
+const description = 'Download TIANQIU product catalog, capability sheet, price list and certification documents.';
+const crumbs = [{ name:'Home', url:'/' }, { name:'Downloads', url:'/downloads/' }];
+const items = [
+  {n:'Battery Product Catalog',d:'Full product range',c:'PDF'},
+  {n:'Capability Sheet',d:'OEM/ODM capabilities',c:'PDF'},
+  {n:'Wholesale Price List',d:'Bulk pricing',c:'Request'},
+  {n:'Certification Documents',d:'UL/UN38.3/CE',c:'Request'},
+];
+---
+<Layout title={title} description={description} breadcrumbs={crumbs}>
+  <div class="container breadcrumb"><a href="/">Home</a> <span>/</span> Downloads</div>
+  <section class="hero hero-eco"><div class="container" style="max-width:860px;"><div class="eyebrow">Resources</div><h1>Downloads &amp; Documentation</h1><p class="lead">Request our product catalog, capability sheet, price list and certifications.</p></div></section>
+  <section class="section reveal"><div class="container">
+    <div class="grid">
+      {items.map(i=>(<div class="card"><h3>{i.n}</h3><p style="color:var(--ink-2);font-size:15px;">{i.d}</p><span class="more"><a href="/contact-us/" style="color:var(--primary);font-weight:600;">Request {i.c} →</a></span></div>))}
+    </div>
+  </div></section>
+</Layout>

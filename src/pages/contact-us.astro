@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { brand } from '../data/brand.js';
+const title = 'Contact Us - Get a Battery Quote | TIANQIU';
+const description = 'Contact TIANQIU to get a battery quote or OEM project. Email, WhatsApp & inquiry form. Fast response.';
+const crumbs = [{ name:'Home', url:'/' }, { name:'Contact', url:'/contact-us/' }];
+const pg = [{ '@context':'https://schema.org','@type':'ContactPage','name':'Contact TIANQIU' }];
+---
+
+<Layout title={title} description={description} schema={pg} breadcrumbs={crumbs}>
+  <div class="container breadcrumb"><a href="/">Home</a> <span>/</span> Contact Us</div>
+  <section class="hero hero-eco"><div class="container" style="max-width:880px;">
+    <div class="eyebrow">Get in Touch</div>
+    <h1>Contact Us</h1>
+    <p class="lead">Tell us your battery requirements and we'll get back to you with a quote.</p>
+  </div></section>
+  <section class="section reveal"><div class="container" style="display:grid;grid-template-columns:1.4fr 1fr;gap:40px;">
+    <div>
+      <form action="https://web3forms.com/submit" method="POST" id="contactForm">
+        <input type="hidden" name="access_key" value="a532024b-8305-428d-a12e-5fcc5958d36a" />
+        <div class="form-row"><label>Name *</label><input type="text" name="name" required /></div>
+        <div class="form-row"><label>Email *</label><input type="email" name="email" required /></div>
+        <div class="form-row"><label>Company</label><input type="text" name="company" /></div>
+        <div class="form-row"><label>Product Type</label><select name="product_type"><option value="">Select a product...</option><option>Button / Coin Cell</option><option>AA / AAA</option><option>C / D / 9V</option><option>Rechargeable / USB</option><option>Battery Pack</option><option>Other / Not sure</option></select></div>
+        <div class="form-row"><label>Estimated Annual Volume</label><input type="text" name="annual_volume" placeholder="e.g. 100,000 units" /></div>
+        <div class="form-row"><label>Target Market</label><input type="text" name="target_market" placeholder="e.g. USA, Europe" /></div>
+        <div class="form-row"><label>Message *</label><textarea name="message" rows="5" required placeholder="Your battery requirements (voltage, capacity, size, packaging, etc.)"></textarea></div>
+        <input type="hidden" name="subject" value="Battery OEM Inquiry from TIANQIU website" />
+        <button class="btn btn-primary" type="submit" style="width:100%;">Send Message</button>
+        <p id="cMsg" style="margin-top:12px;font-size:14px;"></p>
+      </form>
+    </div>
+    <div class="cta-panel">
+      <h3 style="font-size:20px;">Contact Details</h3>
+      <p style="color:var(--ink-2);font-size:15px;"><strong>Email:</strong><br /><a href={`mailto:${brand.email}`}>{brand.email}</a></p>
+      <p style="color:var(--ink-2);font-size:15px;"><strong>Phone / WhatsApp:</strong><br />{brand.phone}</p>
+      <p style="color:var(--ink-2);font-size:15px;"><strong>Address:</strong><br />{brand.address}</p>
+    </div>
+  </div></section>
+</Layout>
+<script is:inline>
+  document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault(); const form=e.target, msg=document.getElementById('cMsg');
+    const btn=form.querySelector('button'); btn.disabled=true; btn.textContent='Sending...';
+    try { const d=await (await fetch(form.action,{method:'POST',body:new FormData(form)})).json();
+      if(d.success){ msg.innerHTML='Thank you! Your message has been sent.'; form.reset(); } else msg.textContent='Please try again.'; }
+    catch(e){ msg.textContent='Network error. Please try again.'; }
+    btn.disabled=false; btn.textContent='Send Message';
+  });
+</script>

@@ -1,0 +1,161 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { brand } from '../data/brand.js';
+import { company } from '../data/company.js';
+
+const title = 'USB Rechargeable Battery Manufacturer - Rechargeable AA/AAA (NiMH) | TIANQIU';
+const description = 'USB rechargeable AA & AAA batteries — charge via any USB port, reusable, long cycle life, eco-friendly. NiMH. OEM/ODM custom label from China.';
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'Batteries', url: '/usb-rechargeable-battery/' }, { name: 'USB Rechargeable Batteries', url: '/usb-rechargeable-battery/' }];
+
+const features = [
+  { i: 'fa-usb', t: 'Built-in USB Charging', d: 'Charge directly via any USB port — phone adapter, laptop, power bank. No separate charger needed.' },
+  { i: 'fa-battery-three-quarters', t: 'NiMH Chemistry', d: 'Nickel-Metal Hydride rechargeable cells, the eco-friendly standard for reusable AA & AAA.' },
+  { i: 'fa-recycle', t: 'Reusable & Eco-Friendly', d: 'Recharge and reuse again and again to cut single-use battery waste.' },
+  { i: 'fa-industry', t: 'OEM / ODM Ready', d: 'Custom capacity, label and packaging under your brand, from spec to mass production.' },
+];
+
+const compareTable = [
+  ['USB Rechargeable (NiMH)', '1.2V', 'USB charging, reusable', 'Eco-friendly, convenient'],
+  ['Standard Alkaline', '1.5V', 'Single-use', 'Everyday convenience'],
+  ['Standard NiMH', '1.2V', 'Charger required', 'High-use devices'],
+];
+const apps = ['Travel & outdoor', 'Wireless devices', 'Clocks & remotes', 'Cameras', 'Toys', 'Emergency kits'];
+
+const trustStats = [
+  { num: '500+', lab: 'Product Types' },
+  { num: '100,000 m²', lab: 'Factory Area' },
+  { num: '31+ yr', lab: 'Experience' },
+  { num: '500+', lab: 'Staff' },
+];
+
+const faqs = [
+  { q: 'How do you charge a USB rechargeable battery?',
+    a: 'Plug the built-in USB connector into any USB port or adapter (phone charger, laptop, power bank). No separate charger needed.' },
+  { q: 'What voltage is a USB rechargeable battery?',
+    a: 'A NiMH USB rechargeable AA/AAA is 1.2V nominal.' },
+  { q: 'How many times can it be recharged?',
+    a: 'USB rechargeable cells are designed to be charged and reused many times. Exact cycle performance depends on the cell, charger and load — we tune it to your project.' },
+  { q: 'Are USB rechargeable batteries eco-friendly?',
+    a: 'Yes. Because they are reusable, they greatly reduce the number of single-use cells ending up in landfill.' },
+  { q: 'Can you OEM my USB rechargeable brand?',
+    a: 'Yes. We provide custom capacity, label and packaging for OEM / ODM and private-label USB rechargeable projects.' },
+];
+
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+const productSchema = {
+  '@context': 'https://schema.org', '@type': 'Product',
+  name: 'USB Rechargeable AA & AAA Batteries (NiMH)',
+  description: 'USB rechargeable AA & AAA NiMH batteries with built-in USB charging, reusable and eco-friendly. OEM / ODM custom label from TIANQIU.',
+  brand: { '@type': 'Brand', name: brand.name },
+  offers: { '@type': 'AggregateOffer', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
+};
+---
+
+<Layout title={title} description={description} schema={[productSchema, faqSchema]} breadcrumbs={crumbs}>
+  <div class="container breadcrumb">{crumbs.map((c, i) => (<>{i > 0 && <span> / </span>}<a href={c.url}>{c.name}</a></>))}</div>
+
+  <!-- Hero -->
+  <section class="section reveal" style="padding:48px 0 34px;">
+    <div class="container">
+      <div class="product-layout">
+        <div class="img-wrap">
+          <img src="/images/tianqiu-energy-storage-2.jpg" alt="USB rechargeable AA and AAA batteries from TIANQIU" loading="eager"
+               style="width:100%;max-height:340px;object-fit:contain;" />
+        </div>
+        <div>
+          <div class="eyebrow">USB Rechargeable Batteries (NiMH)</div>
+          <h1 style="font-size:clamp(42px,4.6vw,58px);">USB Rechargeable Batteries</h1>
+          <p class="lead">Charge anywhere, reuse again and again. Built-in USB port, NiMH chemistry — no separate charger, eco-friendly, OEM/ODM custom.</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:22px;max-width:430px;">
+            <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">USB</div><div style="font-size:13px;color:var(--ink-3);">Built-in</div></div>
+            <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">1.2V</div><div style="font-size:13px;color:var(--ink-3);">NiMH</div></div>
+            <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">Reuse</div><div style="font-size:13px;color:var(--ink-3);">Rechargeable</div></div>
+          </div>
+          <div style="margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;">
+            <a href="/contact-us/" class="btn btn-primary">Start Your Project</a>
+            <a href="/rechargeable-battery/" class="btn btn-outline">All Rechargeable</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">What You Get</div><h2>USB Rechargeable, Built to Last</h2><p class="lead">Built-in USB charging, Nickel-Metal Hydride chemistry for reusability — power your brand with fewer single-use cells.</p></div>
+      <div class="grid">{features.map(x => (
+        <div class="card"><div class="feat-icon"><i class={`fa-solid ${x.i}`}></i></div><h3>{x.t}</h3><p style="color:var(--ink-2);font-size:15px;">{x.d}</p></div>
+      ))}</div>
+    </div>
+  </section>
+
+  <!-- Compare -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Compare</div><h2>USB Rechargeable vs Other Battery Types</h2></div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Type</th><th>Voltage</th><th>Charging</th><th>Best For</th></tr></thead>
+          <tbody>{compareTable.map(r => (<tr><td><strong>{r[0]}</strong></td><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <div style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="/rechargeable-battery/" class="btn btn-outline btn-sm">Rechargeable Batteries</a>
+        <a href="/aa-battery/" class="btn btn-outline btn-sm">AA Batteries</a>
+        <a href="/aaa-battery/" class="btn btn-outline btn-sm">AAA Batteries</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Factory stats (real company data) -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="stats-band">
+        <div class="inner">
+          {trustStats.map(s => (<div class="item"><div class="num">{s.num}</div><div class="lab">{s.lab}</div></div>))}
+        </div>
+      </div>
+      <div class="content-block" style="margin-top:26px;">
+        <div class="sec-title"><div class="ic"><i class="fa-solid fa-industry"></i></div><h2>Your Brand, Our Rechargeable</h2></div>
+        <p class="lead">{company.products} products across {company.factoryArea} of factory, {company.history} in business with {company.staff} staff. Custom label, capacity and packaging under your brand, with IEC / CE / RoHS compliance.</p>
+        <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="/oem-battery-manufacturing/" class="btn btn-outline btn-sm">USB Battery OEM</a>
+          <a href="/battery-certifications/" class="btn btn-outline btn-sm">Certifications</a>
+          <a href="/wholesale-batteries/" class="btn btn-outline btn-sm">Bulk Supply</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Applications -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Applications</div><h2>Where USB Rechargeable Batteries Are Used</h2></div>
+      <div class="grid">{apps.map(a => (
+        <div class="card"><div class="feat-icon"><i class="fa-solid fa-usb"></i></div><h3>{a}</h3><p style="color:var(--ink-2);font-size:15px;">Recharge a TIANQIU USB cell anywhere — no charger needed.</p></div>
+      ))}</div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section reveal" id="faq">
+    <div class="container container-narrow">
+      <div class="headline-group"><div class="eyebrow">FAQ</div><h2>USB Rechargeable FAQs</h2></div>
+      {faqs.map(f => (<details><summary>{f.q}</summary><div class="a">{f.a}</div></details>))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-alt reveal">
+    <div class="container" style="text-align:center;">
+      <h2>Get USB Rechargeable Wholesale Pricing</h2>
+      <p class="lead" style="margin:0 auto 24px;">OEM &amp; bulk USB rechargeable batteries with custom branding. Get a quote today.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="/wholesale-batteries/" class="btn btn-primary">Get Wholesale Price</a>
+        <a href="/oem-battery-manufacturing/" class="btn btn-outline">Custom OEM</a>
+      </div>
+    </div>
+  </section>
+</Layout>

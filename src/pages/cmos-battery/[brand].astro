@@ -1,0 +1,102 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { cmosBrands } from '../../data/cmos_brands.js';
+import { batteries } from '../../data/batteries.js';
+
+export function getStaticPaths() {
+  return cmosBrands.map(c => ({ params: { brand: c.slug }, props: { c } }));
+}
+const { c } = Astro.props;
+const bat = batteries.find(b => b.url === c.batteryUrl);
+const crumbs = [{ name:'Home', url:'/' }, { name:'CMOS / Motherboard Batteries', url:'/cmos-battery/' }, { name:c.brand, url:c.url }];
+
+const faqs = [
+  { q:`What battery does a ${c.brand} motherboard use?`, a:`Most ${c.brand} desktops and laptops use a ${c.battery} 3V lithium coin cell${bat ? ` (${bat.diameter}, ${bat.thickness})` : ''}.` },
+  { q:`How do I replace the CMOS battery on a ${c.brand} PC?`, a:`Power off and unplug the PC, ground yourself, open the case, locate the coin-cell holder, release the clip, remove the old ${c.battery}, insert a fresh cell, then boot and reset the BIOS clock.` },
+  { q:`Why does my ${c.brand} PC reset the time?`, a:`A dead CMOS battery makes the clock reset and BIOS settings drop on boot. Replacing the ${c.battery} cell fixes it.` },
+];
+const pg = [{ '@context':'https://schema.org', '@type':'FAQPage', 'mainEntity': faqs.map(f=>({'@type':'Question','name':f.q,'acceptedAnswer':{'@type':'Answer','text':f.a}})) }];
+
+const steps = [
+  'Turn off the PC and unplug the mains power',
+  'Ground yourself, then open the case to reach the motherboard',
+  'Locate the coin-cell CMOS battery near the chipset or battery slot',
+  `Release the metal clip and remove the old ${c.battery} cell`,
+  `Insert a fresh ${c.battery} with the + side up and re-seat the clip`,
+  'Boot the PC and reset the date and time in the BIOS',
+];
+---
+
+<Layout title={`${c.brand} CMOS Battery - Motherboard Replacement | TIANQIU`} description={`Replace the ${c.brand} motherboard CMOS battery. ${c.brand} motherboards use a ${c.battery} coin cell. Factory-direct CR2032 supply, OEM & bulk.`} schema={pg} breadcrumbs={crumbs}>
+  <div class="container breadcrumb">{crumbs.map((x,i)=>(<>{i>0 && <span> / </span>}<a href={x.url}>{x.name}</a></>))}</div>
+
+  <section class="hero hero-ind"><div class="container" style="max-width:860px;">
+    <div class="eyebrow">{c.brand} CMOS Battery</div>
+    <h1>{c.brand} Motherboard CMOS Battery Replacement</h1>
+    <p class="lead">{c.note} We supply the correct CMOS battery factory direct, with bulk and custom label for PC brands.</p>
+    <div class="trustbar">
+      {bat && <div class="t"><b>{bat.voltage}</b><span>Voltage</span></div>}
+      <div class="t"><b>{c.battery}</b><span>Common Cell</span></div>
+      {bat && <div class="t"><b>{bat.diameter}</b><span>Diameter</span></div>}
+      <div class="t"><b>OEM</b><span>PC Label</span></div>
+    </div>
+    <div style="margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;"><a href={c.batteryUrl} class="btn btn-primary">Get the {c.battery} CMOS Battery</a><a href="/cmos-battery/" class="btn btn-outline">All CMOS Batteries</a></div>
+  </div></section>
+
+  <!-- The battery -->
+  <section class="section reveal" id="battery"><div class="container">
+    <div class="headline-group"><div class="eyebrow">Battery Type</div><h2>The {c.brand} CMOS Battery: {c.battery}</h2></div>
+    {bat && (
+    <div class="content-block">
+      <div class="sec-title"><div class="ic"><i class="fa-solid fa-microchip"></i></div><h3>{c.battery} Specifications</h3></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:640px;">
+        <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">{bat.voltage}</div><div style="font-size:13px;color:var(--ink-3);">Voltage</div></div>
+        <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">{bat.diameter}</div><div style="font-size:13px;color:var(--ink-3);">Diameter</div></div>
+        <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">{bat.thickness}</div><div style="font-size:13px;color:var(--ink-3);">Thickness</div></div>
+      </div>
+      <p style="color:var(--ink-2);font-size:15px;margin-top:18px;">Capacity: {bat.capacity} · Equivalent to <strong>{bat.compat}</strong>.</p>
+      <p style="font-size:14px;color:var(--ink-3);">Specs for reference — final values per OEM project.</p>
+      <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;"><a href={c.batteryUrl} class="btn btn-primary btn-sm">Get {c.battery} CMOS Cell</a><a href="/oem-battery-manufacturing/" class="btn btn-outline btn-sm">OEM for PC Brands</a></div>
+    </div>
+    )}
+  </div></section>
+
+  <!-- Replacement steps -->
+  <section class="section section-alt reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">How-To</div><h2>How to Replace a {c.brand} CMOS Battery</h2></div>
+    <div class="content-block">
+      <ol style="font-size:16px;color:var(--ink-2);line-height:1.9;padding-left:24px;margin-bottom:0;">
+        {steps.map(s=>(<li>{s}</li>))}
+      </ol>
+      <div class="panel-note" style="margin-top:20px;">Laptop models may keep the CMOS cell on a short connector instead of a clip holder — unplug it gently and reseat the new cell.</div>
+    </div>
+  </div></section>
+
+  <!-- Other CMOS brands -->
+  <section class="section reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">CMOS Batteries</div><h2>CMOS Battery by Brand</h2></div>
+    <div class="grid">
+      {cmosBrands.map(x=>(<a class="card" href={x.url} style="text-decoration:none;">
+        <div style="font-size:30px;font-weight:800;color:var(--primary);margin-bottom:6px;">{x.brand}</div>
+        <p style="color:var(--ink-2);font-size:15px;">{x.brand} motherboards use a <strong>{x.battery}</strong> CMOS cell.</p>
+        <span class="more">{x.brand} CMOS battery guide →</span>
+      </a>))}
+      <a class="card" href="/battery-type/cr2032-battery/" style="text-decoration:none;"><h3>CR2032 Battery</h3><p style="color:var(--ink-2);font-size:15px;">The standard 3V lithium cell for motherboards and CMOS.</p><span class="more">View CR2032 →</span></a>
+    </div>
+  </div></section>
+
+  <!-- FAQ -->
+  <section class="section section-alt reveal"><div class="container container-narrow">
+    <div class="headline-group"><div class="eyebrow">FAQ</div><h2>{c.brand} CMOS Battery FAQs</h2></div>
+    <div class="content-block">
+      {faqs.map(f=>(<details><summary>{f.q}</summary><div class="a">{f.a}</div></details>))}
+    </div>
+  </div></section>
+
+  <!-- CTA -->
+  <section class="section reveal"><div class="container" style="text-align:center;">
+    <h2>Buy {c.battery} CMOS Batteries in Bulk</h2>
+    <p class="lead" style="margin:0 auto 24px;">Factory-direct {c.battery} coin cells for motherboards, OEM &amp; PC brand programs. Get a quote today.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;"><a href="/wholesale-batteries/" class="btn btn-primary">Get Wholesale Price</a><a href="/oem-battery-manufacturing/" class="btn btn-outline">OEM for PC Brands</a></div>
+  </div></section>
+</Layout>

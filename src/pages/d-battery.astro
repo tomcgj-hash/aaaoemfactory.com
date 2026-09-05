@@ -1,0 +1,186 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { modelImages } from '../../data/model_images.js';
+import { dLine, nineVoltLine } from '../data/models.js';
+import { brand } from '../data/brand.js';
+import { batteries } from '../data/batteries.js';
+
+// Real TIANQIU data (batteries.js LR20)
+const lr20 = batteries.find(b => b.model === 'LR20');
+const dVoltage = lr20.voltage;
+const dCapacity = lr20.capacity;
+const dDiameter = lr20.diameter;
+const dHeight = lr20.thickness;
+const dWeight = lr20.weight;
+const dApps = lr20.applicationsEn;
+const dCompat = lr20.compat;
+
+const title = 'D Batteries Manufacturer (LR20/R20) - Alkaline High-Capacity | TIANQIU';
+const description = 'D batteries manufacturer: alkaline LR20 (18000mAh) high-capacity cells for flashlights, industrial & emergency lighting. Bulk & OEM from China factory.';
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'Batteries', url: '/d-battery/' }, { name: 'D Batteries (LR20)', url: '/d-battery/' }];
+
+const chemTable = [
+  ['Alkaline (LR20)', '1.5V', '18000mAh', 'Very high capacity', 'High-drain & industrial'],
+  ['Carbon Zinc (R20)', '1.5V', 'Heavy-duty', 'Budget option', 'Low-drain, industrial'],
+];
+const sizeTable = [
+  ['D (LR20)', '1.5V', '18000mAh', 'Flashlights, radios, industrial, emergency'],
+  ['AA (LR6)', '1.5V', '2150-2600mAh', 'Everyday, digital & high-drain'],
+  ['AAA (LR03)', '1.5V', '1020-1260mAh', 'Remotes, small electronics'],
+];
+
+const faqs = [
+  { q: 'What is a D battery?',
+    a: `A D cell (LR20 / R20) is a large 1.5V battery used for high-drain devices like flashlights, radios and industrial equipment.` },
+  { q: 'What is the capacity of a D battery?',
+    a: `The TIANQIU LR20 alkaline D cell delivers {dCapacity} — roughly 7-8 times an AA (LR6).` },
+  { q: 'What is the size of a D battery?',
+    a: `The LR20 is {dDiameter} in diameter and {dHeight} tall, weighing about {dWeight}.` },
+  { q: 'Is LR20 the same as a D cell?',
+    a: `Yes. {dCompat} — the same 1.5V cell under different names.` },
+  { q: 'Can you supply D batteries in bulk or pack them?',
+    a: 'Yes. Factory-direct bulk supply, and D cells can be assembled into custom battery packs for OEM equipment.' },
+];
+
+const productSchema = {
+  '@context': 'https://schema.org', '@type': 'Product',
+  name: 'D Batteries (LR20 / R20)',
+  description: `Alkaline LR20 D cell: 1.5V, ${dCapacity} capacity, ${dDiameter} x ${dHeight}. Very high capacity for flashlights, industrial & emergency lighting. OEM / ODM available.`,
+  brand: { '@type': 'Brand', name: brand.name },
+  offers: { '@type': 'AggregateOffer', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
+};
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+---
+
+<Layout title={title} description={description} schema={[productSchema, faqSchema]} breadcrumbs={crumbs}>
+  <div class="container breadcrumb">{crumbs.map((c, i) => (<>{i > 0 && <span> / </span>}<a href={c.url}>{c.name}</a></>))}</div>
+
+  <!-- Hero -->
+  <section class="section reveal" style="padding:48px 0 34px;">
+    <div class="container">
+      <div class="product-layout">
+        <div class="img-wrap">
+          <div class="carousel">
+            <div class="car-slides">
+              <img src="/images/catalog/d-pack.jpg" alt="D battery blister pack" loading="eager" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);" />
+              <img src="/images/stove-aa-battery.jpg" alt="D battery LR20 high-capacity cell from TIANQIU factory" loading="eager"
+               style="width:100%;max-height:340px;object-fit:contain;" />
+              <img src="/images/catalog/d-2.jpg" alt="D battery LR20 alkaline cell" loading="lazy" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);" />
+            </div>
+            <button class="car-arrow prev" aria-label="Previous">‹</button>
+            <button class="car-arrow next" aria-label="Next">›</button>
+            <div class="car-dots"><span class="on"></span><span></span><span></span></div>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow">D Batteries (LR20 / R20)</div>
+          <h1 style="font-size:clamp(42px,4.6vw,58px);">D Batteries - Alkaline High-Capacity</h1>
+          <p class="lead">Factory-direct D-cell batteries: the TIANQIU LR20 alkaline (18000mAh) for high-drain &amp; industrial applications, plus heavy-duty R20 for budget use.</p>
+          <div style="margin-top:24px;display:flex;gap:14px;flex-wrap:wrap;">
+            <a href="/wholesale-batteries/" class="btn btn-primary">D Batteries Bulk</a>
+            <a href="/oem-battery-manufacturing/" class="btn btn-outline">Industrial D OEM</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specifications -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Specifications</div><h2>D Battery (LR20) Specifications</h2></div>
+      <div style="max-width:640px;">
+        <table><tbody>
+          <tr><th style="width:150px;">Chemistry</th><td>Alkaline Zn-MnO₂</td></tr>
+          <tr><th>Voltage</th><td>{dVoltage}</td></tr>
+          <tr><th>Diameter</th><td>{dDiameter}</td></tr>
+          <tr><th>Height</th><td>{dHeight}</td></tr>
+          <tr><th>Capacity</th><td>{dCapacity}</td></tr>
+          <tr><th>Weight</th><td>{dWeight}</td></tr>
+          <tr><th>Compatible</th><td>{dCompat}</td></tr>
+        </tbody></table>
+        <p style="font-size:14px;color:var(--ink-3);margin-top:12px;">Specs for reference — final values per OEM project.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chemistry comparison -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Compare</div><h2>D Battery Chemistry Comparison</h2></div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Chemistry</th><th>Voltage</th><th>Capacity</th><th>Key Benefit</th><th>Best For</th></tr></thead>
+          <tbody>{chemTable.map(r => (<tr><td><strong>{r[0]}</strong></td><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td><td>{r[4]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <div style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="/battery-pack/" class="btn btn-outline btn-sm">Custom Battery Pack</a>
+        <a href="/aa-battery/" class="btn btn-outline btn-sm">AA Batteries</a>
+        <a href="/battery-type/lr20-battery/" class="btn btn-outline btn-sm">LR20 Battery</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Applications -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Applications</div><h2>Where D Batteries Are Used</h2></div>
+      <div class="grid">{dApps.map(a => (
+        <div class="card"><div class="feat-icon"><i class="fa-solid fa-battery-full"></i></div><h3>{a}</h3><p style="color:var(--ink-2);font-size:15px;">Powered by a TIANQIU LR20 alkaline D cell — maximum capacity for heavy-duty devices.</p></div>
+      ))}</div>
+    </div>
+  </section>
+
+  <!-- Size / model comparison -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Size Guide</div><h2>D vs AA vs AAA Battery Capacity</h2></div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Size</th><th>Voltage</th><th>Capacity</th><th>Typical Uses</th></tr></thead>
+          <tbody>{sizeTable.map(r => (<tr><td><strong>{r[0]}</strong></td><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <div style="margin-top:22px;"><strong style="font-size:15px;">More sizes:</strong>{' '}
+        <a href="/aa-battery/" style="font-weight:600;">AA batteries</a> ·{' '}
+        <a href="/aaa-battery/" style="font-weight:600;">AAA batteries</a> ·{' '}
+        <a href="/battery-pack/" style="font-weight:600;">custom battery pack</a></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section reveal" id="faq">
+    <div class="container container-narrow">
+      <div class="headline-group"><div class="eyebrow">FAQ</div><h2>D Battery FAQs</h2></div>
+      {faqs.map(f => (<details><summary>{f.q}</summary><div class="a">{f.a}</div></details>))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-alt reveal">
+    <div class="container" style="text-align:center;">
+      <h2>Get D Battery Wholesale Pricing</h2>
+      <p class="lead" style="margin:0 auto 24px;">Factory-direct D batteries with OEM custom label &amp; packaging. Get a quote today.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="/wholesale-batteries/" class="btn btn-primary">D Batteries Bulk</a>
+        <a href="/oem-battery-manufacturing/" class="btn btn-outline">Start Industrial D OEM</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" style="background:var(--soft);">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Available Models</div><h2>Battery Models We Manufacture</h2>
+      <p class="lead">Browse the full range. Models with a specification sheet link to their detail page; others are available on request.</p></div>
+      {[...dLine, ...nineVoltLine].map(l=>(<div style="margin-top:34px;">
+        <div class="eyebrow">{l.line}</div>
+        <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:14px;">
+          {l.models.map(([name,slug,img])=>( slug ? <a class="card" href={'/battery-info/'+slug} style="text-align:center;padding:16px 12px;text-decoration:none;"><img src={(modelImages[(name||"").toUpperCase()]||[])[0] || img} alt={name} style="width:100%;height:96px;object-fit:contain;background:var(--soft);padding:8px;display:block;border-radius:8px;margin-bottom:6px;"><div style="font-weight:800;font-size:18px;color:var(--primary);">{name}</div><div style="font-size:13px;color:var(--ink-2);margin-top:4px;">View specs \u2192</div></a> : <div class="card" style="text-align:center;padding:16px 12px;opacity:.72;"><img src={(modelImages[(name||"").toUpperCase()]||[])[0] || img} alt={name} style="width:100%;height:96px;object-fit:contain;background:var(--soft);padding:8px;display:block;border-radius:8px;margin-bottom:6px;"><div style="font-weight:700;font-size:18px;color:var(--ink);">{name}</div><div style="font-size:13px;color:var(--muted);margin-top:4px;">On request</div></div> ))}
+        </div>
+      </div>))}
+    </div>
+  </section>
+
+</Layout>

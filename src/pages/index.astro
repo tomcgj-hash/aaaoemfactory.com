@@ -1,0 +1,160 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { productLines, productLines as pl } from '../data/productLines.js';
+import { company } from '../data/company.js';
+import { brand } from '../data/brand.js';
+const title = 'Battery OEM Manufacturer & Custom Battery Solutions - AA, AAA, Button Cell & PACK | TIANQIU';
+const description = 'China battery OEM manufacturer: custom AA, AAA, D, button cell & battery pack. OEM/ODM from spec to packaging. UL/UN38.3 certified. Licensed OEM for global brands.';
+const ws = [{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'TIANQIU', url: brand.domain }];
+const stats = [
+  { n: '31', l: 'Years making batteries' },
+  { n: '100,000 m²', l: 'One factory' },
+  { n: '500+', l: 'Product types' },
+  { n: `${company.exports.length}+`, l: 'Countries shipped to' },
+];
+// Non-symmetric hero product features — real photos, no icon cards
+const features = [
+  { flip:false, img:'/images/lithium-button-cell-pack.jpg', kw:'Button cells', name:'CR2032, LR44, SR626', text:'The coin cells behind car key fobs, watches, motherboards and the Apple AirTag. 26 interchangeable models, 0% mercury.', url:'/button-cell-battery/', cta:'Browse button cells' },
+  { flip:true, img:'/images/philips-power-alkaline.jpg', kw:'Alkaline', name:'The AA your brand sells', text:'2,150–2,600 mAh alkaline AA and AAA, poured on a Japanese MITSUBISHI line and wrapped in your label.', url:'/aa-battery/', cta:'See AA & AAA' },
+  { flip:false, img:'/images/tianrui-lithium-module.jpg', kw:'Rechargeable & packs', name:'Cells that can take a charge', text:'NiMH AA/AAA plus lithium modules and custom packs — a real cycle-life spec, not a vague promise.', url:'/rechargeable-battery/', cta:'See rechargeable' },
+];
+const factory = [
+  { n:'100,000 m²', l:'Industrial park' },
+  { n:'RMB 1.5 bn', l:'Investment' },
+  { n:'500+', l:'Staff' },
+  { n:'31 yrs', l:'Since 1994' },
+];
+const why = [
+  { n:'26', l:'Interchangeable button-cell models' },
+  { n:'30+', l:'Countries on our export list' },
+  { n:'3', l:'Japanese & European license partners' },
+  { n:'0%', l:'Mercury in our alkaline button cells' },
+];
+const industries = [{n:'Car key fobs',img:'/images/hero-keyfob.jpg'},{n:'Watches',img:'/images/hero-watch.jpg'},{n:'Motherboards',img:'/images/hero-cmos.jpg'},{n:'Medical devices',img:'/images/ind-medical.jpg'},{n:'Smart locks',img:'/images/ind-smartlock.jpg'},{n:'Toys',img:'/images/ind-toys.jpg'},{n:'Hearing aids',img:'/images/ind-hearing.jpg'},{n:'IoT & sensors',img:'/images/ind-iot.jpg'},{n:'Energy storage',img:'/images/hero-pack.jpg'}];
+---
+<Layout title={title} description={description} schema={ws}>
+  <!-- HERO — real photo + frosted card (kept) -->
+  <section class="hero hero-home">
+    <div class="hero-content">
+      <div class="hero-card">
+        <div class="eyebrow">Battery manufacturer &amp; licensed OEM</div>
+        <h1>Custom batteries, engineered to your brand.</h1>
+        <p class="lead">We make the cells, wrap them and ship them under your name — the same way we do for PHILIPS, MITSUBISHI, SEIZI &amp; SOXEY.</p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;">
+          <a href="/contact-us/" class="btn btn-primary btn-lg">Start Your Project</a>
+          <a href="/oem-battery-manufacturing/" class="btn btn-outline btn-lg">OEM Service</a>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:30px;padding-top:24px;border-top:1px solid rgba(255,255,255,.16);">
+          {stats.map(s=>(<div><div style="font-size:22px;font-weight:800;color:#fff;">{s.n}</div><div style="font-size:12px;color:rgba(255,255,255,.75);">{s.l}</div></div>))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS — non-symmetric real-photo rows -->
+  <section class="section reveal" style="padding-top:28px;">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">What we build</div><h2>Batteries, poured on a real line.</h2></div>
+      {features.map(f=>(
+        <div class="cols2" style="align-items:center;margin-bottom:56px;">
+          <div class="reveal" style={f.flip?'order:2':''}><img src={f.img} alt={f.name} loading="lazy" onerror="this.style.opacity=.3" style="width:100%;border-radius:18px;object-fit:cover;aspect-ratio:3/2;border:1px solid var(--border-light);box-shadow:var(--shadow-sm);" /></div>
+          <div class="reveal" style={f.flip?'order:1':''}>
+            <div class="eyebrow left">{f.kw}</div>
+            <h3 style="font-size:34px;margin-bottom:12px;font-weight:900;">{f.name}</h3>
+            <p class="lead" style="font-size:18px;margin-bottom:22px;">{f.text}</p>
+            <a href={f.url} class="btn btn-outline">{f.cta} →</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- FACTORY — real photo + numbers -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="cols2" style="align-items:center;">
+        <div class="reveal">
+          <div class="eyebrow">The factory</div>
+          <h2>One factory, end to end.</h2>
+          <p class="lead">From raw materials to a finished battery in your brand's wrapper — poured, tested and shipped under one roof. That's how global brands keep their supply simple.</p>
+          <a href="/about-us/" class="btn btn-primary" style="margin-top:26px;">About Our Factory</a>
+        </div>
+        <div class="reveal"><img src="/images/hero-industrial.jpg" alt="TIANQIU 100,000 m² battery factory" loading="eager" style="width:100%;height:auto;object-fit:contain;border-radius:18px;border:1px solid var(--border-light);box-shadow:var(--shadow-sm);" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY — numbers, no icon cards -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group"><div class="eyebrow">Why TIANQIU</div><h2>Numbers a buyer can check.</h2></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;border-top:1px solid var(--border-light);padding-top:28px;">
+        {why.map(w=>(<div><div style="font-size:50px;font-weight:900;color:var(--primary);line-height:1;letter-spacing:-.03em;">{w.n}</div><div style="font-size:15px;color:var(--ink-2);margin-top:10px;">{w.l}</div></div>))}
+      </div>
+      <p class="lead" style="margin-top:30px;font-size:18px;">Certified: ISO 9001 · ISO 45001 · BSCI · UL · UN38.3 · CE · RoHS · EU 2023/1542. The paperwork your compliance team asks for — it exists.</p>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="headline-group hl-center"><div class="eyebrow">Industries</div><h2>Where our cells end up</h2></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+        {industries.map(i=>(<div class="card" style="text-align:center;padding:0;overflow:hidden;border:1px solid var(--border-light);">{i.img ? <img src={i.img} alt={i.n} loading="lazy" style="width:100%;height:110px;object-fit:cover;display:block;"/> : <div class="feat-icon" style="width:100%;height:110px;border-radius:0;justify-content:center;"><i class={`fa-solid ${i.ic}`}></i></div>}<div style="padding:10px;font-weight:600;font-size:15px;color:var(--ink);">{i.n}</div></div>))}
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTHORIZED + CERTIFICATION — real letters -->
+  <section class="section reveal">
+    <div class="container">
+      <div class="headline-group hl-center"><div class="eyebrow">Authorized &amp; certified</div><h2>Licenses and certificates, not claims.</h2></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:900px;margin:0 auto;">
+        <div class="card"><img src="/images/partner-philips-mitsubishi.jpg" alt="PHILIPS &amp; MITSUBISHI authorization letters" loading="lazy" style="width:100%;max-height:220px;object-fit:contain;background:var(--soft);border-radius:12px;"><p style="font-size:14px;color:var(--ink-2);margin-top:10px;text-align:center;">PHILIPS &amp; MITSUBISHI authorization letters</p></div>
+        <div class="card"><img src="/images/partner-seizi-authorization.jpg" alt="SEIZI Japan exclusive agency agreement" loading="lazy" style="width:100%;max-height:220px;object-fit:contain;background:var(--soft);border-radius:12px;"><p style="font-size:14px;color:var(--ink-2);margin-top:10px;text-align:center;">SEIZI (Japan) exclusive agency agreement</p></div>
+      </div>
+      <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+        {company.certifications.map(c=>(<span class="badge" style="font-size:14px;font-weight:600;"><i class="fa-solid fa-badge-check"></i>{c}</span>))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section section-alt reveal">
+    <div class="container">
+      <div class="cols2" style="align-items:center;">
+        <div>
+          <div class="eyebrow left">Start a project</div>
+          <h2>Tell us the cell. We'll build it.</h2>
+          <p class="lead" style="font-size:18px;margin-bottom:24px;">Send voltage, capacity, size and your logo — we'll quote it, sample it and scale it.</p>
+          <div class="contact-item"><div class="ci"><i class="fa-solid fa-envelope"></i></div><div><div class="l">Email</div><div class="v">{brand.email}</div></div></div>
+          <div class="contact-item"><div class="ci"><i class="fa-solid fa-phone"></i></div><div><div class="l">Phone / WhatsApp</div><div class="v">{brand.phone}</div></div></div>
+          <div style="margin-top:22px;"><a href="/contact-us/" class="btn btn-primary">Contact Us</a></div>
+        </div>
+        <div class="panel reveal">
+          <form action="https://web3forms.com/submit" method="POST" id="homeForm">
+            <input type="hidden" name="access_key" value="a532024b-8305-428d-a12e-5fcc5958d36a" />
+            <div class="form-row"><label>Name *</label><input type="text" name="name" required /></div>
+            <div class="form-row"><label>Email *</label><input type="email" name="email" required /></div>
+            <div class="form-row"><label>Message *</label><textarea name="message" rows="4" required placeholder="Your battery requirements..."></textarea></div>
+            <button class="btn btn-primary btn-block" type="submit">Send Inquiry</button>
+            <p id="homeMsg" style="margin-top:12px;font-size:14px;"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+<script is:inline>
+  (()=>{ const els=document.querySelectorAll('.reveal'); if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return;}
+    const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+    els.forEach(e=>io.observe(e)); })();
+  document.getElementById('homeForm').addEventListener('submit', async (e) => {
+    e.preventDefault(); const f=e.target, m=document.getElementById('homeMsg');
+    const b=f.querySelector('button'); b.disabled=true; b.textContent='Sending...';
+    try{ const r=await (await fetch(f.action,{method:'POST',body:new FormData(f)})).json();
+      if(r.success){ m.textContent='Thank you! Your inquiry has been sent.'; f.reset(); } else m.textContent='Please try again.'; }
+    catch(err){ m.textContent='Network error. Please try again.'; }
+    b.disabled=false; b.textContent='Send Inquiry';
+  });
+</script>

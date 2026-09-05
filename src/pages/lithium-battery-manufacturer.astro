@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { tianqiuProducts } from '../data/tianqiu_products.js';
+const title = 'Lithium Battery Manufacturer - Li-ion & LiFePO4 OEM | TIANQIU';
+const description = 'Lithium battery manufacturer for OEM/ODM: Li-ion, LiFePO4 and CR button cells. ISO 9001, UL/UN38.3 certified. Custom packs & BMS.';
+const crs = tianqiuProducts.filter(p=>p.chem && /Li-MnO₂/i.test(p.chem)).slice(0,6);
+---
+<Layout title={title} description={description}>
+  <section class="hero"><div class="hero-content"><div class="hero-card">
+    <div class="eyebrow">Lithium Battery Manufacturer</div>
+    <h1>Lithium batteries, manufactured to your spec.</h1>
+    <p class="lead">Li-ion, LiFePO4 and CR lithium button cells — OEM/ODM with UL, UN38.3 & ISO 9001 certification. Factory direct.</p>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;">
+      <a href="/contact-us/" class="btn btn-primary btn-lg">Get A Quote</a>
+      <a href="/battery-certifications/" class="btn btn-outline btn-lg">Certifications</a>
+    </div>
+  </div></div></section>
+
+  <section class="section reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">Compositions</div><h2>Li-ion · LiFePO4 · CR Button</h2><p class="lead">Three lithium chemistries to fit your device, from coin cells to packs.</p></div>
+    <div class="grid">
+      {crs.map(p=>(<a class="prod-card" href={`/battery-info/${p.type}/`} style="text-decoration:none;display:block;">
+        <img src={p.img||'/images/products/cr2032.png'} alt={p.model} loading="lazy" onerror="this.style.opacity=.3"/>
+        <div class="sub">3V Lithium</div><h3>{p.model} Battery</h3><p>{p.voltage} · {p.capacity||''}</p><span class="more">View Specs →</span>
+      </a>))}
+    </div>
+  </div></section>
+
+  <section class="section section-alt reveal"><div class="container"><div class="cols2" style="align-items:center;">
+    <div><div class="eyebrow">Why TIANQIU</div><h2>Certified lithium manufacturing.</h2>
+      <ul class="clean">{['ISO 9001 & UL certified','UN38.3 transport compliance','Custom LIXI & BMS','Maritime & air shipping','OEM / ODM & private label'].map(c=>(<li>{c}</li>))}</ul></div>
+    <div class="panel"><div class="eyebrow">Get Started</div><p style="font-size:17px;color:var(--ink-2);">Tell us your voltage, capacity and chemistry — we'll engineer the right lithium solution under your brand.</p>
+      <a href="/contact-us/" class="btn btn-primary" style="margin-top:14px;">Request A Quote</a></div>
+  </div></div></section>
+</Layout>
