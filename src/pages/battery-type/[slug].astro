@@ -214,7 +214,8 @@ const crumbs = [
             <div style="border-left:3px solid var(--primary);padding-left:14px;"><div style="font-size:32px;font-weight:800;color:var(--primary);">{b.diameter}</div><div style="font-size:13px;color:var(--ink-3);">Diameter</div></div>
           </div>
           <div style="margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;">
-            <a href="/wholesale-batteries/" class="btn btn-primary">Buy {b.model} in Bulk</a>
+            <a href={`/contact-us/?subject=${encodeURIComponent('Quote for '+b.model)}&product_type=${encodeURIComponent(b.model)}&sample=1`} class="btn btn-primary">Request Quote / Sample</a>
+            <a href="/wholesale-batteries/" class="btn btn-outline">Buy {b.model} in Bulk</a>
             <a href="/oem-battery-manufacturing/" class="btn btn-outline">Customize Your {b.model}</a>
           </div>
         </div>

@@ -72,7 +72,8 @@ const symbols = [
             <span><i class="fa-solid fa-clipboard-check"></i> MOQ &amp; quote on request</span>
           </div>
           <div style="margin-top:28px;display:flex;gap:14px;flex-wrap:wrap;">
-            <a href="/wholesale-batteries/" class="btn btn-primary">Buy in Bulk</a>
+            <a href={`/contact-us/?subject=${encodeURIComponent('Quote for '+p.model)}&product_type=${encodeURIComponent(p.type)}&sample=1`} class="btn btn-primary">Request Quote / Sample</a>
+            <a href="/wholesale-batteries/" class="btn btn-outline">Buy in Bulk</a>
             <a href="/oem-battery-manufacturing/" class="btn btn-outline">Customize / OEM</a>
           </div>
         </div>

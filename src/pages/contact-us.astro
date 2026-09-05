@@ -17,6 +17,7 @@ const pg = [{ '@context':'https://schema.org','@type':'ContactPage','name':'Cont
   <section class="section reveal"><div class="container" style="display:grid;grid-template-columns:1.4fr 1fr;gap:40px;">
     <div>
       <form action="https://web3forms.com/submit" method="POST" id="contactForm">
+<div style="margin-bottom:22px;"><div style="display:inline-flex;align-items:center;gap:8px;background:#eef4fb;border:1px solid #d9e6f7;border-radius:12px;padding:12px 16px;font-size:14.5px;color:var(--ink);"><i class="fa-solid fa-bolt" style="color:var(--primary);"></i> <strong>We reply within 24 hours</strong> &nbsp;·&nbsp; sales@aaaoemfactory.com &nbsp;·&nbsp; WhatsApp</div></div>
         <input type="hidden" name="access_key" value="a532024b-8305-428d-a12e-5fcc5958d36a" />
         <div class="form-row"><label>Name *</label><input type="text" name="name" required /></div>
         <div class="form-row"><label>Email *</label><input type="email" name="email" required /></div>
@@ -24,6 +25,9 @@ const pg = [{ '@context':'https://schema.org','@type':'ContactPage','name':'Cont
         <div class="form-row"><label>Product Type</label><select name="product_type"><option value="">Select a product...</option><option>Button / Coin Cell</option><option>AA / AAA</option><option>C / D / 9V</option><option>Rechargeable / USB</option><option>Battery Pack</option><option>Other / Not sure</option></select></div>
         <div class="form-row"><label>Estimated Annual Volume</label><input type="text" name="annual_volume" placeholder="e.g. 100,000 units" /></div>
         <div class="form-row"><label>Target Market</label><input type="text" name="target_market" placeholder="e.g. USA, Europe" /></div>
+        <div class="form-row"><label>MOQ / Order Size</label><select name="moq"><option value="">Select...</option><option>Under 10,000 pcs</option><option>10,000 - 50,000</option><option>50,000 - 200,000</option><option>200,000+</option></select></div>
+        <div class="form-row"><label>Sample Required?</label><select name="sample"><option value="no">No, ready to order</option><option value="yes">Yes, please send a sample</option></select></div>
+        <div class="form-row"><label>Target Lead Time</label><input type="text" name="lead_time" placeholder="e.g. 30 days" /></div>
         <div class="form-row"><label>Message *</label><textarea name="message" rows="5" required placeholder="Your battery requirements (voltage, capacity, size, packaging, etc.)"></textarea></div>
         <input type="hidden" name="subject" value="Battery OEM Inquiry from TIANQIU website" />
         <button class="btn btn-primary" type="submit" style="width:100%;">Send Message</button>
@@ -47,4 +51,14 @@ const pg = [{ '@context':'https://schema.org','@type':'ContactPage','name':'Cont
     catch(e){ msg.textContent='Network error. Please try again.'; }
     btn.disabled=false; btn.textContent='Send Message';
   });
+</script>
+
+<script>
+  (function(){
+    var q=new URLSearchParams(location.search);
+    var sub=q.get('subject'), pt=q.get('product_type');
+    document.querySelectorAll('input[name="subject"]').forEach(function(e){ if(sub) e.value=sub; });
+    document.querySelectorAll('select[name="product_type"]').forEach(function(e){ if(pt){ Array.from(e.options).forEach(function(o){ if(o.value===pt){ e.value=pt; } }); } });
+    document.querySelectorAll('input[name="product_type"]').forEach(function(e){ if(pt) e.value=pt; });
+  })();
 </script>
