@@ -108,20 +108,22 @@ const industries = [{n:'Car key fobs',img:'/images/hero-keyfob.jpg'},{n:'Watches
     </div>
   </section>
 
-  <!-- AUTHORIZED + CERTIFICATION — real letters -->
-  <section class="section reveal">
+  <!-- AUTHORIZED + CERTIFICATION — dark trust wall -->
+  <section class="section reveal" style="background:linear-gradient(135deg,#12233c,#1b3a6b);">
     <div class="container">
-      <div class="headline-group hl-center"><div class="eyebrow">Authorized &amp; certified</div><h2>Licenses and certificates, not claims.</h2></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:900px;margin:0 auto;">
-        <div class="card"><img src="/images/partner-philips-mitsubishi.jpg" alt="PHILIPS &amp; MITSUBISHI authorization letters" loading="lazy" style="width:100%;max-height:220px;object-fit:contain;background:var(--soft);border-radius:12px;"><p style="font-size:14px;color:var(--ink-2);margin-top:10px;text-align:center;">PHILIPS &amp; MITSUBISHI authorization letters</p></div>
-        <div class="card"><img src="/images/partner-seizi-authorization.jpg" alt="SEIZI Japan exclusive agency agreement" loading="lazy" style="width:100%;max-height:220px;object-fit:contain;background:var(--soft);border-radius:12px;"><p style="font-size:14px;color:var(--ink-2);margin-top:10px;text-align:center;">SEIZI (Japan) exclusive agency agreement</p></div>
-        <div class="card" style="text-align:center;padding:26px;"><i class="fa-solid fa-flask-vial" style="font-size:28px;color:var(--accent);"></i><div style="font-weight:700;font-size:18px;margin-top:12px;">Samples available</div><div style="font-size:14px;color:var(--ink-2);margin-top:6px;">Request a pre-production sample</div></div>
-        <div class="card" style="text-align:center;padding:26px;"><i class="fa-solid fa-boxes-stacked" style="font-size:28px;color:var(--accent);"></i><div style="font-weight:700;font-size:18px;margin-top:12px;">MOQ from 10,000</div><div style="font-size:14px;color:var(--ink-2);margin-top:6px;">Volume pricing per project</div></div>
-        <div class="card" style="text-align:center;padding:26px;"><i class="fa-solid fa-clock" style="font-size:28px;color:var(--accent);"></i><div style="font-weight:700;font-size:18px;margin-top:12px;">Lead time confirmed</div><div style="font-size:14px;color:var(--ink-2);margin-top:6px;">Confirmed in every quote</div></div>
-        <div class="card" style="text-align:center;padding:26px;"><i class="fa-solid fa-bolt" style="font-size:28px;color:var(--accent);"></i><div style="font-weight:700;font-size:18px;margin-top:12px;">24h response</div><div style="font-size:14px;color:var(--ink-2);margin-top:6px;">Fast, direct engineering reply</div></div>
+      <div class="headline-group hl-center"><div class="eyebrow" style="color:#ffd8a8;">Authorized &amp; certified</div><h2 style="color:#fff;">Licenses and certificates, not claims.</h2><p class="lead" style="color:#cfe0f5;max-width:62ch;">We manufacture under license for globally recognized brands and hold the certifications your compliance team asks for — they exist.</p></div>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:30px;">
+        <div class="card" style="padding:14px;max-width:300px;background:#fff;"><img src="/images/partner-philips-mitsubishi.jpg" alt="PHILIPS &amp; MITSUBISHI authorization letters" loading="lazy" style="width:100%;max-height:170px;object-fit:contain;border-radius:8px;"><p style="font-size:13px;color:var(--ink-2);margin-top:8px;text-align:center;">PHILIPS &amp; MITSUBISHI authorization</p></div>
+        <div class="card" style="padding:14px;max-width:300px;background:#fff;"><img src="/images/partner-seizi-authorization.jpg" alt="SEIZI Japan exclusive agency agreement" loading="lazy" style="width:100%;max-height:170px;object-fit:contain;border-radius:8px;"><p style="font-size:13px;color:var(--ink-2);margin-top:8px;text-align:center;">SEIZI (Japan) exclusive agency</p></div>
       </div>
-      <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
-        {company.certifications.map(c=>(<span class="badge" style="font-size:14px;font-weight:600;"><i class="fa-solid fa-badge-check"></i>{c}</span>))}
+      <div style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+        {company.certifications.map(c=>(<span class="badge" style="font-size:14px;font-weight:600;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.28);"><i class="fa-solid fa-badge-check"></i>{c}</span>))}
+      </div>
+      <div style="display:flex;gap:22px;flex-wrap:wrap;justify-content:center;margin-top:28px;color:#fff;font-size:14px;font-weight:600;">
+        <span><i class="fa-solid fa-flask-vial" style="color:#ffd8a8;margin-right:6px;"></i>Samples available</span>
+        <span><i class="fa-solid fa-boxes-stacked" style="color:#ffd8a8;margin-right:6px;"></i>MOQ from 10,000</span>
+        <span><i class="fa-solid fa-clock" style="color:#ffd8a8;margin-right:6px;"></i>Lead time confirmed</span>
+        <span><i class="fa-solid fa-bolt" style="color:#ffd8a8;margin-right:6px;"></i>24h response</span>
       </div>
     </div>
   </section>
