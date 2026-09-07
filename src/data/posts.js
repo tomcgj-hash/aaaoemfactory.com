@@ -179,7 +179,7 @@ export const posts = [
    "Test under load for accuracy"
   ]
  }
-],
+,
  {
   "slug": "button-cell-battery-guide",
   "title": "Button Cell Batteries: LR vs CR vs SR — How to Choose",
