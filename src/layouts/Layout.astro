@@ -89,7 +89,8 @@ if (breadcrumbs && breadcrumbs.length) {
       ))
     }
     {breadcrumbSchema && <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />}
-  </head>
+  <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+</head>
   <body>
     <header class="nav">
       <div class="nav-inner">
@@ -120,6 +121,7 @@ if (breadcrumbs && breadcrumbs.length) {
           <a href="/about-us/" class={path.includes('about-us') ? 'active' : ''}>About</a>
           <a href="/downloads/" class={path.includes('downloads') ? 'active' : ''}>Resources</a>
         </nav>
+        <div id="search" style="width:220px;"></div>
         <a href="/contact-us/" class="btn btn-primary btn-sm nav-cta">Get a Quote</a>
         <button class="nav-burger" aria-label="Menu">&#9776;</button>
       </div>
@@ -263,5 +265,9 @@ if (breadcrumbs && breadcrumbs.length) {
   var c=document.getElementById('lb-close'); if(c){ c.addEventListener('click',close); }
 })();
 </script>
+<script>
+  window.addEventListener('DOMContentLoaded',function(){ if(window.PagefindUI){ new PagefindUI({ element:'#search', showSubResults:true, showImages:false, translations:{placeholder:'Search models, pages, guides…'} }); } else { var s=document.getElementById('search'); if(s){ s.innerHTML='<input type="text" placeholder="Search…" style="width:100%;padding:9px 12px;border:1px solid var(--border-light);border-radius:8px;font-size:14px;">'; } } });
+</script>
+<script src="/pagefind/pagefind-ui.js"></script>
 </body>
 </html>
