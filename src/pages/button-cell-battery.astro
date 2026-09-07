@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { modelImages } from '../data/model_images.js';
+import { packing } from '../data/packing.js';
 import { buttonLines } from '../data/models.js';
 import { brand } from '../data/brand.js';
 import { batteries } from '../data/batteries.js';
@@ -200,6 +201,12 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage',
     </div>
   </section>
 
+  <section class="section reveal"><div class="container">
+    <div class="headline-group"><div class="eyebrow">Packing Details</div><h2>Standard button-cell packaging</h2><p class="lead">Retail-ready packs and carton specs — customize the card count for your brand.</p></div>
+    <div style="overflow-x:auto;"><table><thead><tr><th>Packing No</th><th>Model</th><th>Dim D×H (mm)</th><th>Pcs/Card</th><th>Inner</th><th>Outer</th><th>Gross (kg)</th></tr></thead><tbody>
+      {packing.map(p=>(<tr><td>{p[0]}</td><td><strong>{p[1]}</strong></td><td>{p[2]} × {p[3]}</td><td>{p[4]}</td><td>{p[5]}</td><td>{p[6]}</td><td>{p[7]}</td></tr>))}
+    </tbody></table></div>
+  </div></section>
   <!-- MODEL OVERVIEW -->
   <section class="section reveal" style="background:var(--soft);">
     <div class="container">
