@@ -1,4 +1,6 @@
 ---
+const factoryImgs=["f0.jpg", "f1.jpg", "f2.jpg", "f3.jpg", "f4.jpg", "f5.jpg", "f6.jpg", "f7.jpg", "f8.jpg"];
+const certImgs=["c0.jpg", "c1.jpg", "c2.jpg", "c3.jpg", "c4.jpg", "c5.jpg", "c6.jpg", "c7.jpg", "c8.jpg", "c9.jpg", "c10.jpg", "c11.jpg", "c12.jpg", "c13.jpg", "c14.jpg", "c15.jpg", "c16.jpg", "c17.jpg", "c18.jpg", "c19.jpg", "c20.jpg", "c21.jpg", "c22.jpg"];
 import Layout from '../layouts/Layout.astro';
 import { productLines, productLines as pl } from '../data/productLines.js';
 import { company } from '../data/company.js';
@@ -85,6 +87,8 @@ const industries = [{n:'Car key fobs',img:'/images/hero-keyfob.jpg'},{n:'Watches
         </div>
       </div>
     </div>
+<div class="section reveal"><div class="container"><div class="headline-group"><div class="eyebrow">Real plant</div><h2>Inside the factory floor</h2></div><p class="lead">A look at where TIANQIU cells are poured, printed and packed.</p><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:14px;margin-top:18px;">{factoryImgs.map(f=>(<img src={"/images/factory/"+f} alt="TIANQIU factory production line" loading="lazy" style="width:100%;object-fit:cover;border-radius:12px;border:1px solid var(--border-light);aspect-ratio:4/3;"/>))}</div></div></div>
+
   </section>
 
   <!-- WHY — numbers, no icon cards -->
@@ -111,7 +115,9 @@ const industries = [{n:'Car key fobs',img:'/images/hero-keyfob.jpg'},{n:'Watches
   <!-- AUTHORIZED + CERTIFICATION — dark trust wall -->
   <section class="section reveal" style="background:linear-gradient(135deg,#12233c,#1b3a6b);">
     <div class="container">
-      <div class="headline-group hl-center"><div class="eyebrow" style="color:#ffd8a8;">Authorized &amp; certified</div><h2 style="color:#fff;">Licenses and certificates, not claims.</h2><p class="lead" style="color:#cfe0f5;max-width:62ch;">We manufacture under license for globally recognized brands and hold the certifications your compliance team asks for — they exist.</p></div>
+      <div class="headline-group hl-center"><div class="eyebrow" style="color:#ffd8a8;">Authorized &amp; certified</div><h2 style="color:#fff;">Licenses and certificates, not claims.</h2><p class="lead" style="color:#cfe0f5;max-width:62ch;">We manufacture under license for globally recognized brands and hold the certifications your compliance team asks for — they exist.</p></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:26px;">{certImgs.map(f=>(<div class="card" style="padding:6px;background:#fff;border-radius:8px;box-shadow:none;"><img src={"/images/cert/"+f} alt="TIANQIU certification" loading="lazy" style="width:100%;aspect-ratio:1.3/1;object-fit:contain;border-radius:6px;"/></div>))}</div>
+<a href="/battery-certifications/" class="btn" style="background:#fff;color:var(--primary);margin-top:20px;">All Certifications</a>
+
       <div style="display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:30px;">
         <div class="card" style="padding:14px;max-width:300px;background:#fff;"><img src="/images/partner-philips-mitsubishi.jpg" alt="PHILIPS &amp; MITSUBISHI authorization letters" loading="lazy" style="width:100%;max-height:170px;object-fit:contain;border-radius:8px;"><p style="font-size:13px;color:var(--ink-2);margin-top:8px;text-align:center;">PHILIPS &amp; MITSUBISHI authorization</p></div>
         <div class="card" style="padding:14px;max-width:300px;background:#fff;"><img src="/images/partner-seizi-authorization.jpg" alt="SEIZI Japan exclusive agency agreement" loading="lazy" style="width:100%;max-height:170px;object-fit:contain;border-radius:8px;"><p style="font-size:13px;color:var(--ink-2);margin-top:8px;text-align:center;">SEIZI (Japan) exclusive agency</p></div>
