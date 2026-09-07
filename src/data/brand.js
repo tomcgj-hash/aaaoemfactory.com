@@ -12,7 +12,7 @@ export const brand = {
   phone: "+8613922702227",                           // 占位
   phoneRaw: "13922702227",
   whatsapp: "8613922702227",                            // 占位
-  address: "9/F, Tianqiu Building, No. 16-30 Heyi Rd., San Yuan Li Ave., Guangzhou, Guangdong, China",
+  address: "BatteryManuFactory Office, Room 310C, Huilange BLDG, No.273 Huangpu Blvd W, Tianhe District, Guangzhou 510620, China",
   founded: "1994",
   employees: "69",
   exportCountries: "Exporting to Europe, the Americas, Africa, the Middle East & Southeast Asia",
