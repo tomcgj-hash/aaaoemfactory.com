@@ -179,4 +179,40 @@ export const posts = [
    "Test under load for accuracy"
   ]
  }
-];
+],
+ {
+  "slug": "button-cell-battery-guide",
+  "title": "Button Cell Batteries: LR vs CR vs SR — How to Choose",
+  "cnTitle": "钮扣电池选型：LR/CR/SR 对比",
+  "kw": "button cell battery types LR vs CR vs SR",
+  "type": "Guide",
+  "related": ["/button-cell-battery/", "/battery-type/cr2032-battery/", "/battery-type/lr44-battery/"],
+  "points": [
+   "CR = lithium 3.0V coin cells (CR2032, CR2450) — long life and stable voltage for high-energy devices",
+   "LR = alkaline 1.5V button cells (LR44, LR41) — economical, great for low-drain devices like watches",
+   "SR = silver-oxide 1.5V cells (SR44, SR626) — steady voltage for precision instruments",
+   "Choose CR for high-energy/backup, LR for economy, SR for accurate low-drain devices",
+   "Many devices list equivalent codes: AG13 = LR44, 357 = SR44 — always match size & voltage",
+   "Fit the cell exactly to the device battery bay before ordering",
+   "TIANQIU manufactures CR, LR & SR button cells with UL/UN38.3/CE and EU 2023/1542 compliance"
+  ]
+ },
+ {
+  "slug": "cr2032-vs-cr2025-vs-cr2016",
+  "title": "CR2032 vs CR2025 vs CR2016: Which Coin Cell Do You Need?",
+  "cnTitle": "CR2032/CR2025/CR2016 对比",
+  "kw": "cr2032 vs cr2025 vs cr2016",
+  "type": "Comparison",
+  "related": ["/battery-type/cr2032-battery/", "/battery-type/cr2025-battery/", "/battery-type/cr2016-battery/"],
+  "points": [
+   "All three are 20mm diameter 3V lithium coin cells — the only real difference is thickness",
+   "CR2032 is 3.2mm thick (most capacity) — car keys, motherboards, remotes",
+   "CR2025 is 2.5mm — slimmer devices, smart watches, some remotes",
+   "CR2016 is 1.6mm — thin devices, calculators, small sensors",
+   "Height matters most: only fit the cell its holder is built for",
+   "Before ordering, match the exact code printed on the old cell",
+   "TIANQIU supplies all three with UL/UN38.3/CE and EU 2023/1542 documentation"
+  ]
+ }
+
+]

@@ -19,7 +19,9 @@ const pg = [{ '@context':'https://schema.org','@type':'BlogPosting','headline':p
   </div></section>
   <section class="section reveal"><div class="container container-narrow">
     {p.points.map((pt,i)=>(<p style="font-size:17px;color:var(--ink-2);line-height:1.8;">{i+1}. {pt}</p>))}
-    <div style="margin-top:28px;background:var(--surface);border:1px solid var(--border-light);border-radius:14px;padding:26px;text-align:center;">
+    
+    <div style="margin-top:26px;"><div class="eyebrow">Related</div><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">{p.related.map(u=>(<a href={u} class="btn btn-outline btn-sm" style="font-size:13px;">{u.split('/').filter(Boolean).pop()} →</a>))}</div></div>
+        <div style="margin-top:28px;background:var(--surface);border:1px solid var(--border-light);border-radius:14px;padding:26px;text-align:center;">
       <h3>Factory-Direct Batteries From TIANQIU</h3>
       <p style="color:var(--ink-2);font-size:15px;">Get certified OEM batteries for your project.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:14px;">
