@@ -399,6 +399,6 @@ body{background-image:radial-gradient(rgba(23,70,162,.06) 1px,transparent 1px);b
 .section td:first-child,article td:first-child{font-weight:600;color:var(--ink);}
 
 /* 悬浮询盘按钮 */
-.floating-quote{position:fixed;bottom:26px;right:26px;z-index:900;background:linear-gradient(135deg,#fb923c,#ea5b0b);color:#fff;font-weight:700;font-size:14.5px;padding:14px 20px;border-radius:50px;box-shadow:0 8px 24px rgba(234,91,11,.35);text-decoration:none;display:flex;align-items:center;gap:6px;transition:transform .2s;}
-.floating-quote:hover{transform:translateY(-3px);}
-@media(max-width:600px){.floating-quote{right:16px;bottom:74px;padding:12px 16px;font-size:13px;}}
+.floating-quote{position:fixed;bottom:24px;right:20px;z-index:900;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#fb923c,#ea5b0b);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(234,91,11,.35);text-decoration:none;transition:transform .2s;}
+.floating-quote:hover{transform:scale(1.07);}
+@media(max-width:600px){.floating-quote{right:14px;bottom:78px;width:50px;height:50px;font-size:20px;}}
