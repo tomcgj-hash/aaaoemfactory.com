@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { buttonLines, aaLine, aaaLine, dLine, nineVoltLine } from '../data/models.js';
+import { modelImages } from '../data/model_images.js';
 const title = 'All Battery Models | TIANQIU Battery Catalog';
 const description = 'Browse every TIANQIU battery model by category, voltage and size: CR lithium, LR alkaline and SR silver-oxide button cells, plus AA / AAA / C / D / 9V cylindrical.';
 const crumbs = [{ name:'Home', url:'/' }, { name:'All Models', url:'/models/' }];
@@ -61,7 +62,7 @@ const appTabs = ['watch','key-fob','cmos','remote','medical','toys','hearing','s
         <div class="cat" data-cat={c.k} data-volt={c.volt} data-size={c.size} data-apps={c.apps||""} style="margin-bottom:46px;">
           <div class="eyebrow">{c.n}</div>
           <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-top:16px;">
-            {c.m.map(([name,slug,img])=>( slug ? <a class="card" href={`/battery-type/${slug}-battery/`} style="text-align:center;padding:0;overflow:hidden;text-decoration:none;border:1px solid var(--border-light);"><img src={img} alt={name} loading="lazy" style="width:100%;height:110px;object-fit:contain;background:var(--soft);padding:8px;display:block;"/><div style="padding:10px;font-weight:700;font-size:15px;color:var(--ink);">{name}</div><div style="font-size:12px;color:var(--ink-2);padding-bottom:8px;">View specs →</div></a> : <div class="card" style="text-align:center;padding:0;overflow:hidden;border:1px solid var(--border-light);opacity:.72;"><img src={img} alt={name} loading="lazy" style="width:100%;height:110px;object-fit:contain;background:var(--soft);padding:8px;display:block;"/><div style="padding:10px;font-weight:700;font-size:15px;color:var(--ink);">{name}</div><div style="font-size:12px;color:var(--muted);padding-bottom:8px;">On request</div></div> ))}
+            {c.m.map(([name,slug,img])=>( slug ? <a class="card" href={`/battery-type/${slug}-battery/`} style="text-align:center;padding:0;overflow:hidden;text-decoration:none;border:1px solid var(--border-light);"><img src={(modelImages[name]||[])[0] || img} alt={name} loading="lazy" style="width:100%;height:110px;object-fit:contain;background:var(--soft);padding:8px;display:block;"/><div style="padding:10px;font-weight:700;font-size:15px;color:var(--ink);">{name}</div><div style="font-size:12px;color:var(--ink-2);padding-bottom:8px;">View specs →</div></a> : <div class="card" style="text-align:center;padding:0;overflow:hidden;border:1px solid var(--border-light);opacity:.72;"><img src={(modelImages[name]||[])[0] || img} alt={name} loading="lazy" style="width:100%;height:110px;object-fit:contain;background:var(--soft);padding:8px;display:block;"/><div style="padding:10px;font-weight:700;font-size:15px;color:var(--ink);">{name}</div><div style="font-size:12px;color:var(--muted);padding-bottom:8px;">On request</div></div> ))}
           </div>
         </div>
       ))}
