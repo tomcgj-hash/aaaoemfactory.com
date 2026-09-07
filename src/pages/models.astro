@@ -6,17 +6,18 @@ const description = 'Browse every TIANQIU battery model by category, voltage and
 const crumbs = [{ name:'Home', url:'/' }, { name:'All Models', url:'/models/' }];
 const BTN='/images/products/__btn.png';
 const cats = [
-  { k:'cr', n:'Lithium Button Cells (CR · 3.0V)', volt:'3.0', size:'button', m:buttonLines[0].models },
-  { k:'lr', n:'Alkaline Button Cells (LR · 1.5V)', volt:'1.5', size:'button', m:buttonLines[1].models },
-  { k:'sr', n:'Silver-Oxide Button Cells (SR · 1.5V)', volt:'1.5', size:'button', m:[['SR44','sr44',BTN],['SR626','sr626',BTN]] },
-  { k:'aa', n:'AA Cylindrical (LR6 / R6)', volt:'1.5', size:'cyl', m:aaLine[0].models },
-  { k:'aaa', n:'AAA Cylindrical (LR03 / R03)', volt:'1.5', size:'cyl', m:aaaLine[0].models },
-  { k:'cd', n:'C & D Cylindrical (LR14 / LR20)', volt:'1.5', size:'cyl', m:dLine[0].models },
-  { k:'9v', n:'9V (6LR61 / 6F22)', volt:'9', size:'cyl', m:nineVoltLine[0].models },
+  { k:'cr', n:'Lithium Button Cells (CR · 3.0V)', volt:'3.0', size:'button', apps:'key-fob,cmos,remote,watch', m:buttonLines[0].models },
+  { k:'lr', n:'Alkaline Button Cells (LR · 1.5V)', volt:'1.5', size:'button', apps:'watch,medical,toys,remote', m:buttonLines[1].models },
+  { k:'sr', n:'Silver-Oxide Button Cells (SR · 1.5V)', volt:'1.5', size:'button', apps:'watch,medical', m:[['SR44','sr44',BTN],['SR626','sr626',BTN]] },
+  { k:'aa', n:'AA Cylindrical (LR6 / R6)', volt:'1.5', size:'cyl', apps:'remote,toys,home', m:aaLine[0].models },
+  { k:'aaa', n:'AAA Cylindrical (LR03 / R03)', volt:'1.5', size:'cyl', apps:'remote,toys,home', m:aaaLine[0].models },
+  { k:'cd', n:'C & D Cylindrical (LR14 / LR20)', volt:'1.5', size:'cyl', apps:'toys,home', m:dLine[0].models },
+  { k:'9v', n:'9V (6LR61 / 6F22)', volt:'9', size:'cyl', apps:'remote,smoke', m:nineVoltLine[0].models },
 ];
 const catTabs = ['cr','lr','sr','aa','aaa','cd','9v'];
 const voltTabs = ['1.5','3.0','9'];
 const sizeTabs = ['button','cyl'];
+const appTabs = ['watch','key-fob','cmos','remote','medical','toys','hearing','storage'];
 ---
 <Layout title={title} description={description} breadcrumbs={crumbs}>
   <div class="container breadcrumb"><a href="/">Home</a> <span>/</span> All Models</div>
@@ -49,8 +50,15 @@ const sizeTabs = ['button','cyl'];
           {sizeTabs.map(t=>(<button class="badge fbtn sbtn" data-f={t} data-kind="size" style="cursor:pointer;font-size:14px;padding:10px 18px;">{t==='button'?'Button':'Cylindrical'}</button>))}
         </div>
       </div>
+      <div style="margin-bottom:34px;">
+        <div style="font-size:12px;color:var(--ink-3);font-weight:700;letter-spacing:.06em;margin-bottom:8px;">APPLICATION</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="badge fbtn abtn" data-f="all" data-kind="app" style="cursor:pointer;font-size:14px;padding:10px 18px;background:var(--primary);color:#fff;border:none;">All</button>
+          {appTabs.map(t=>(<button class="badge fbtn abtn" data-f={t} data-kind="app" style="cursor:pointer;font-size:14px;padding:10px 18px;">{t.split('-').map(w=>w[0].toUpperCase()+w.slice(1)).join(' ')}</button>))}
+        </div>
+      </div>
       {cats.map(c=>(
-        <div class="cat" data-cat={c.k} data-volt={c.volt} data-size={c.size} style="margin-bottom:46px;">
+        <div class="cat" data-cat={c.k} data-volt={c.volt} data-size={c.size} data-apps={c.apps||""} style="margin-bottom:46px;">
           <div class="eyebrow">{c.n}</div>
           <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-top:16px;">
             {c.m.map(([name,slug,img])=>( slug ? <a class="card" href={`/battery-type/${slug}-battery/`} style="text-align:center;padding:0;overflow:hidden;text-decoration:none;border:1px solid var(--border-light);"><img src={img} alt={name} loading="lazy" style="width:100%;height:110px;object-fit:contain;background:var(--soft);padding:8px;display:block;"/><div style="padding:10px;font-weight:700;font-size:15px;color:var(--ink);">{name}</div><div style="font-size:12px;color:var(--ink-2);padding-bottom:8px;">View specs →</div></a> : <div class="card" style="text-align:center;padding:0;overflow:hidden;border:1px solid var(--border-light);opacity:.72;"><img src={img} alt={name} loading="lazy" style="width:100%;height:110px;object-fit:contain;background:var(--soft);padding:8px;display:block;"/><div style="padding:10px;font-weight:700;font-size:15px;color:var(--ink);">{name}</div><div style="font-size:12px;color:var(--muted);padding-bottom:8px;">On request</div></div> ))}
@@ -61,9 +69,9 @@ const sizeTabs = ['button','cyl'];
   </section>
 
 <script>
-  var S={cat:'all',volt:'all',size:'all'};
+  var S={cat:'all',volt:'all',size:'all',app:'all'};
   document.querySelectorAll('.fbtn').forEach(function(b){ b.addEventListener('click',function(){ var kind=b.getAttribute('data-kind'), f=b.getAttribute('data-f'); S[kind]=f;
-    document.querySelectorAll('.cat').forEach(function(c){ var ok=(S.cat==='all'||c.getAttribute('data-cat')===S.cat) && (S.volt==='all'||c.getAttribute('data-volt')===S.volt) && (S.size==='all'||c.getAttribute('data-size')===S.size); c.style.display=ok?'':'none'; });
+    document.querySelectorAll('.cat').forEach(function(c){ var ok=(S.cat==='all'||c.getAttribute('data-cat')===S.cat) && (S.volt==='all'||c.getAttribute('data-volt')===S.volt) && (S.size==='all'||c.getAttribute('data-size')===S.size) && (S.app==='all'||(c.getAttribute('data-apps')||'').split(',').indexOf(S.app)>-1); c.style.display=ok?'':'none'; });
     document.querySelectorAll('.fbtn[data-kind="'+kind+'"]').forEach(function(x){ x.style.background=''; x.style.color=''; }); b.style.background='var(--primary)'; b.style.color='#fff';
   }); });
 </script>
