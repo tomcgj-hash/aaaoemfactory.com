@@ -253,9 +253,8 @@ if (breadcrumbs && breadcrumbs.length) {
     var t=e.target;
     if(!t || t.tagName!=='IMG') return;
     var src=t.currentSrc||t.src||''; if(!src) return;
-    if(/favicon|logo-|logo__|__btn|bmark|icon-|-icon|badge/.test(src)) return;
-    if(t.closest('nav')||t.closest('footer')||t.closest('.floating-quote')) return;
-    if(!(t.closest('.card')||t.closest('.carousel')||t.closest('.product-layout')||t.closest('section')||t.closest('article'))) return;
+    if(/favicon|__btn|data:image/.test(src)) return;            // favicon / placeholder
+    if(t.naturalWidth>0 && t.naturalWidth<40) return;           // tiny ui icon
     e.preventDefault(); open(src);
   });
   lb.addEventListener('click',function(e){ if(e.target!==img){ close(); } });
