@@ -51,8 +51,8 @@ const symbols = [
         <div class="img-wrap" style="display:flex;align-items:center;justify-content:center;">
           <div class="carousel">
             <div class="car-slides">
-              {(modelImages[p.type.toUpperCase()]||[]).map(m=>(<img src={m} alt={p.model+" "+p.chem+" battery packaging"} loading="eager" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);padding:10px;" onerror="this.style.display='none';" />))}
-              <img src={img} alt={p.model+" "+p.chem+" battery"} loading="lazy" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);" onerror="this.style.display='none';this.parentElement.outerHTML='<div style=&quot;height:300px;display:flex;align-items:center;justify-content:center;color:#a1a1a6;font-size:14px;&quot;>Battery product image</div>'" />
+              <img src={img} alt={p.model+" "+p.chem+" battery"} loading="eager" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);padding:6px;" onerror="this.style.display='none';this.parentElement.outerHTML='<div style=&quot;height:300px;display:flex;align-items:center;justify-content:center;color:#a1a1a6;font-size:14px;&quot;>Battery product image</div>'" />
+              {(modelImages[p.type.toUpperCase()]||[]).map(m=>(<img src={m} alt={p.model+" "+p.chem+" battery packaging"} loading="lazy" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);padding:10px;" onerror="this.style.display='none';" />))}
             </div>
             <button class="car-arrow prev" aria-label="Previous">‹</button>
             <button class="car-arrow next" aria-label="Next">›</button>

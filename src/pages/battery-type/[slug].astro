@@ -196,8 +196,8 @@ const crumbs = [
         <div class="img-wrap">
           <div class="carousel">
             <div class="car-slides">
-              {(modelImages[b.model.toUpperCase()]||[]).map(m=>(<img src={m} alt={`${b.model} battery packaging`} loading="eager" onerror="this.style.display='none'" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);padding:10px;" />))}
-              {modelImgs.map(im=>(<img src={im} alt={`${b.model} battery ${b.chemistryEn}`} loading="lazy" onerror="this.style.display='none'" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);" />))}
+              {modelImgs.map(im=>(<img src={im} alt={`${b.model} battery ${b.chemistryEn}`} loading="eager" onerror="this.style.display='none'" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);padding:6px;" />))}
+              {(modelImages[b.model.toUpperCase()]||[]).map(m=>(<img src={m} alt={`${b.model} battery packaging`} loading="lazy" onerror="this.style.display='none'" style="width:100%;max-height:340px;object-fit:contain;background:var(--soft);padding:10px;" />))}
             </div>
             <button class="car-arrow prev" aria-label="Previous">‹</button>
             <button class="car-arrow next" aria-label="Next">›</button>
