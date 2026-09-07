@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+const title = 'Search | TIANQIU Battery';
+const description = 'Search TIANQIU battery models, guides, OEM info and more.';
+const crumbs = [{ name:'Home', url:'/' }, { name:'Search', url:'/search/' }];
+---
+<Layout title={title} description={description} breadcrumbs={crumbs}>
+  <div class="container breadcrumb"><a href="/">Home</a> <span>/</span> Search</div>
+  <section class="hero hero-industrial"><div class="container" style="max-width:860px;text-align:center;">
+    <div class="eyebrow">Search</div><h1>Search TIANQIU</h1>
+    <p class="lead">Find battery models, specs, OEM info and guides — everything in one place.</p>
+  </div></section>
+  <section class="section reveal"><div class="container" style="max-width:780px;">
+    <div id="search"></div>
+  </div></section>
+<script>
+  import { PagefindUI } from '@pagefind/default-ui';
+  import '@pagefind/default-ui/css/ui.css';
+  new PagefindUI({ element:'#search', showSubResults:false, showImages:false, pageSize:6, debounceTimeoutMs:180, translations:{ placeholder:'Search battery models, guides, pages…' } });
+</script>
+</Layout>

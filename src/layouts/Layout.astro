@@ -120,6 +120,7 @@ if (breadcrumbs && breadcrumbs.length) {
           <a href="/about-us/" class={path.includes('about-us') ? 'active' : ''}>About</a>
           <a href="/downloads/" class={path.includes('downloads') ? 'active' : ''}>Resources</a>
         </nav>
+        <a href="/search/" class="nav-link" style="margin-right:18px;">Search</a>
         <a href="/contact-us/" class="btn btn-primary btn-sm nav-cta">Get a Quote</a>
         <button class="nav-burger" aria-label="Menu">&#9776;</button>
       </div>
@@ -195,6 +196,7 @@ if (breadcrumbs && breadcrumbs.length) {
       <a href="/button-cell-battery/" class={Astro.url.pathname.startsWith('/button-cell') ? 'active' : ''}><i class="fa-solid fa-car"></i>Cells</a><a href="/battery-pack/" class={Astro.url.pathname.startsWith('/battery-pack') ? 'active' : ''}><i class="fa-solid fa-bolt"></i>Pack</a>
       
       <a href="/oem-battery-manufacturing/" class={Astro.url.pathname.startsWith('/oem') ? 'active' : ''}><i class="fa-solid fa-industry"></i>OEM</a>
+      <a href="/search/" class={Astro.url.pathname.startsWith('/search') ? 'active' : ''}><i class="fa-solid fa-magnifying-glass"></i>Search</a>
       <a href="/contact-us/" class={Astro.url.pathname.startsWith('/contact') ? 'active' : ''}><i class="fa-solid fa-envelope"></i>Contact</a>
     </nav>
 
