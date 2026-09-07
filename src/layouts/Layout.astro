@@ -97,8 +97,9 @@ if (breadcrumbs && breadcrumbs.length) {
         <nav class="nav-links" aria-label="Main">
           <a href="/" class={path==='/' ? 'active' : ''}>Home</a>
           <div class="nav-drop">
-            <span class={'nav-drop-title'+(['button-cell-battery','aa-battery','aaa-battery','d-battery','rechargeable-battery','battery-pack'].some(p=>path.includes(p)) ? ' active' : '')}>Products <i class="fa-solid fa-chevron-down" style="font-size:11px;margin-left:4px;"></i></span>
+            <span class={'nav-drop-title'+(['button-cell-battery','aa-battery','aaa-battery','d-battery','rechargeable-battery','battery-pack','models'].some(p=>path.includes(p)) ? ' active' : '')}>Products <i class="fa-solid fa-chevron-down" style="font-size:11px;margin-left:4px;"></i></span>
             <div class="nav-dropdown">
+              <a href="/models/">All Models</a>
               <a href="/button-cell-battery/">Button Cell Batteries</a>
               <a href="/aa-battery/">AA Batteries</a>
               <a href="/aaa-battery/">AAA Batteries</a>

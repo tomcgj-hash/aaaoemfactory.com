@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { buttonLines, aaLine, aaaLine, dLine, nineVoltLine } from '../data/models.js';
+const title = 'All Battery Models | TIANQIU Battery Catalog';
+const description = 'Browse every TIANQIU battery model by category: CR lithium, LR alkaline and SR silver-oxide button cells, plus AA / AAA / C / D / 9V cylindrical batteries. Filter to find the right cell.';
+const crumbs = [{ name:'Home', url:'/' }, { name:'All Models', url:'/models/' }];
+const BTN='/images/products/__btn.png';
+const cats = [
+  { k:'cr', n:'Lithium Button Cells (CR · 3.0V)', m:buttonLines[0].models },
+  { k:'lr', n:'Alkaline Button Cells (LR · 1.5V)', m:buttonLines[1].models },
+  { k:'sr', n:'Silver-Oxide Button Cells (SR · 1.5V)', m:[['SR44','sr44',BTN],['SR626','sr626',BTN]] },
+  { k:'aa', n:'AA Cylindrical (LR6 / R6)', m:aaLine[0].models },
+  { k:'aaa', n:'AAA Cylindrical (LR03 / R03)', m:aaaLine[0].models },
+  { k:'cd', n:'C & D Cylindrical (LR14 / LR20)', m:dLine[0].models },
+  { k:'9v', n:'9V (6LR61 / 6F22)', m:nineVoltLine[0].models },
+];
+const tabs = ['cr','lr','sr','aa','aaa','cd','9v'];
+---
+<Layout title={title} description={description} breadcrumbs={crumbs}>
+  <div class="container breadcrumb"><a href="/">Home</a> <span>/</span> All Models</div>
+  <section class="hero hero-industrial"><div class="container" style="max-width:920px;">
+    <div class="eyebrow">Product Catalog</div>
+    <h1>All Battery Models</h1>
+    <p class="lead">Every TIANQIU cell, grouped by category. Filter by chemistry or size to find the right model — and open its full spec.</p>
+  </div></section>
+
+  <section class="section reveal">
+    <div class="container">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px;">
+        <button class="badge" data-f="all" style="cursor:pointer;font-size:14px;padding:10px 18px;background:var(--primary);color:#fff;border:none;">All</button>
+        {tabs.map(t=>(<button class="badge" data-f={t} style="cursor:pointer;font-size:14px;padding:10px 18px;">{t.toUpperCase()}</button>))}
+      </div>
+      {cats.map(c=>(
+        <div class="cat" data-cat={c.k} style="margin-bottom:46px;">
+          <div class="eyebrow">{c.n}</div>
+          <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-top:16px;">
+            {c.m.map(([name,slug,img])=>( slug ? <a class="card" href={`/battery-type/${slug}-battery/`} style="text-align:center;padding:0;overflow:hidden;text-decoration:none;border:1px solid var(--border-light);"><img src={img} alt={name} loading="lazy" style="width:100%;height:110px;object-fit:contain;background:var(--soft);padding:8px;display:block;"/><div style="padding:10px;font-weight:700;font-size:15px;color:var(--ink);">{name}</div><div style="font-size:12px;color:var(--ink-2);padding-bottom:8px;">View specs →</div></a> : <div class="card" style="text-align:center;padding:0;overflow:hidden;border:1px solid var(--border-light);opacity:.72;"><img src={img} alt={name} loading="lazy" style="width:100%;height:110px;object-fit:contain;background:var(--soft);padding:8px;display:block;"/><div style="padding:10px;font-weight:700;font-size:15px;color:var(--ink);">{name}</div><div style="font-size:12px;color:var(--muted);padding-bottom:8px;">On request</div></div> ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+<script>
+  document.querySelectorAll('[data-f]').forEach(function(b){ b.addEventListener('click',function(){ var f=b.getAttribute('data-f'); document.querySelectorAll('.cat').forEach(function(c){ c.style.display=(f==='all'||c.getAttribute('data-cat')===f)?'':'none'; }); document.querySelectorAll('[data-f]').forEach(function(x){ x.style.background=''; x.style.color=''; }); b.style.background='var(--primary)'; b.style.color='#fff'; }); });
+</script>
+</Layout>
