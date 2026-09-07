@@ -73,7 +73,7 @@ if (breadcrumbs && breadcrumbs.length) {
   var lbEl=document.getElementById('lb'), lbImg=document.getElementById('lb-img'), lbClose=document.getElementById('lb-close');
   if(lbEl){
     document.addEventListener('click',function(e){ var t=e.target;
-      if(t && t.tagName==='IMG' && t.src && /\/images\//.test(t.src) && !/favicon|logo|__btn|bmark|icon|badge/.test(t.src) && t.naturalWidth>=320 && !t.closest('.floating-quote')){
+      if(t && t.tagName==='IMG' && t.src && !/favicon|logo|__btn|bmark|\-icon|icon-/.test(t.src) && t.naturalWidth>=140 && !t.closest('.floating-quote') && !t.closest('nav') && !t.closest('footer') && t.closest('.card, .carousel, .product-layout, section, article')){
         e.preventDefault(); lbImg.src=t.src; lbEl.style.display='flex';
       }
     });
