@@ -267,7 +267,7 @@ if (breadcrumbs && breadcrumbs.length) {
 <script>
   import { PagefindUI } from '@pagefind/default-ui';
   import '@pagefind/default-ui/css/ui.css';
-  window.addEventListener('DOMContentLoaded',function(){ new PagefindUI({ element:'#search', showSubResults:true, showImages:false, translations:{placeholder:'Search models, pages, guides…'} }); });
+  window.addEventListener('DOMContentLoaded',function(){ new PagefindUI({ element:'#search', showSubResults:false, showImages:false, pageSize:6, debounceTimeoutMs:200, translations:{placeholder:'Search models, pages, guides…'} }); });
 </script>
 </body>
 </html>
