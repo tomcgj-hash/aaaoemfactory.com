@@ -182,9 +182,9 @@ const schema = [
   <section class="section reveal" id="quote">
     <div class="container" style="max-width:840px;">
       <div class="headline-group hl-center"><div class="eyebrow">Get a Quote</div><h2>Design My Battery Pack</h2><p class="lead">Tell us your spec — voltage, capacity, chemistry, connector and application. We reply with a design and quote.</p></div>
-      <form action="https://web3forms.com/submit" method="POST" id="packForm">
+      <form action="https://api.web3forms.com/submit" method="POST" id="packForm">
         <input type="hidden" name="access_key" value="a532024b-8305-428d-a12e-5fcc5958d36a" />
-        <input type="hidden" name="subject" value="New Custom Battery Pack Inquiry" />
+        <input type="hidden" name="subject" value="" />
         <div class="form-row"><label>Name *</label><input type="text" name="name" required /></div>
         <div class="form-row"><label>Email *</label><input type="email" name="email" required /></div>
         <div class="form-row"><label>Company</label><input type="text" name="company" /></div>
@@ -221,3 +221,4 @@ const schema = [
     btn.disabled = false; btn.textContent = 'Request a Pack Quote';
   });
 </script>
+<script>document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit',function(){ document.querySelectorAll('input[name="subject"]').forEach(function(e){ e.value='来新询盘啦-'+location.href; }); }); });</script>

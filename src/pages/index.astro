@@ -141,7 +141,7 @@ const industries = [{n:'Car key fobs',img:'/images/hero-keyfob.jpg'},{n:'Watches
           <div style="margin-top:22px;"><a href="/contact-us/" class="btn btn-primary">Contact Us</a></div>
         </div>
         <div class="panel reveal">
-          <form action="https://web3forms.com/submit" method="POST" id="homeForm">
+          <form action="https://api.web3forms.com/submit" method="POST" id="homeForm">
             <input type="hidden" name="access_key" value="a532024b-8305-428d-a12e-5fcc5958d36a" />
             <div class="form-row"><label>Name *</label><input type="text" name="name" required /></div>
             <div class="form-row"><label>Email *</label><input type="email" name="email" required /></div>
@@ -167,3 +167,4 @@ const industries = [{n:'Car key fobs',img:'/images/hero-keyfob.jpg'},{n:'Watches
     b.disabled=false; b.textContent='Send Inquiry';
   });
 </script>
+<script>document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit',function(){ document.querySelectorAll('input[name="subject"]').forEach(function(e){ e.value='来新询盘啦-'+location.href; }); }); });</script>
