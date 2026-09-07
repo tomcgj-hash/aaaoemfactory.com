@@ -5,6 +5,7 @@ import { company } from '../data/company.js';
 
 const title = 'About TIANQIU | Battery OEM Manufacturer - 31+ Years, 100,000㎡ Factory';
 const description = 'GUANGDONG TIANQIU ELECTRONICS TECHNOLOGY CO., LTD. — 31+ years battery manufacturer with a 100,000 m² industrial park, Japanese production lines, UL/UN38.3 certified, OEM for global brands.';
+const fimgs=['f0.jpg', 'f1.jpg', 'f2.jpg', 'f3.jpg', 'f4.jpg', 'f5.jpg', 'f6.jpg', 'f7.jpg', 'f8.jpg'];
 const crumbs = [{ name: 'Home', url: '/' }, { name: 'About Us', url: '/about-us/' }];
 const org = [{ '@context':'https://schema.org','@type':'AboutPage','name':title,'url':brand.domain+'/about-us/' }];
 
@@ -123,4 +124,10 @@ const exportsList = company.exports;
       </div>
     </div>
   </section>
+<section class="section reveal"><div class="container">
+      <div class="headline-group"><div class="eyebrow">Inside the plant</div><h2>Factory floor</h2></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:18px;">
+        {fimgs.map(f=>(<img src={"/images/factory/"+f} alt="TIANQIU production line" loading="lazy" style="width:100%;object-fit:cover;border-radius:12px;border:1px solid var(--border-light);aspect-ratio:4/3;"/>))}
+      </div>
+    </div></section>
 </Layout>
