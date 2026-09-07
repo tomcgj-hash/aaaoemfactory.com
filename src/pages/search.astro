@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+const title = 'Search | TIANQIU Battery';
+const description = 'Search TIANQIU battery models, guides, OEM/ODM info and more — find the cell, spec or guide you need.';
+const crumbs = [{ name:'Home', url:'/' }, { name:'Search', url:'/search/' }];
+const chips = ['CR2032','Button cell','AA battery','Watch battery','OEM battery','Which battery','How long do batteries last','Wholesale'];
+---
+<Layout title={title} description={description} breadcrumbs={crumbs}>
+  <div class="container breadcrumb"><a href="/">Home</a> <span>/</span> Search</div>
+  <section class="hero hero-industrial"><div class="container" style="max-width:920px;text-align:center;">
+    <div class="eyebrow">Search</div>
+    <h1>Search TIANQIU</h1>
+    <p class="lead">Find battery models, specs, OEM info and guides — everything in one place.</p>
+  </div></section>
+
+  <section class="section reveal"><div class="container" style="max-width:780px;">
+    <div id="search-page" style="position:relative;"></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;justify-content:center;">
+      {chips.map(c=>(<button class="badge search-chip" data-q={c} style="cursor:pointer;font-size:14px;padding:10px 18px;">{c}</button>))}
+    </div>
+  </div></section>
+
+<script>
+  import { PagefindUI } from '@pagefind/default-ui';
+  import '@pagefind/default-ui/css/ui.css';
+  new PagefindUI({ element:'#search-page', showSubResults:false, showImages:false, pageSize:8, showEmptyFilters:false, translations:{ placeholder:'Search battery models, guides, pages\u2026' } });
+  document.querySelectorAll('.search-chip').forEach(function(b){ b.addEventListener('click',function(){ var inp=document.querySelector('#search-page .pagefind-ui__search-input'); if(inp){ inp.value=b.getAttribute('data-q'); inp.dispatchEvent(new Event('input',{bubbles:true})); inp.focus(); } }); });
+</script>
+</Layout>
