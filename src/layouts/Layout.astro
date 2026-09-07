@@ -70,18 +70,7 @@ if (breadcrumbs && breadcrumbs.length) {
 
     <!-- Tailwind CSS (CDN) -->
     <script is:inline src="https://cdn.tailwindcss.com">
-  var lbEl=document.getElementById('lb'), lbImg=document.getElementById('lb-img'), lbClose=document.getElementById('lb-close');
-  if(lbEl){
-    document.addEventListener('click',function(e){ var t=e.target;
-      if(t && t.tagName==='IMG' && t.src && !/favicon|logo|__btn|bmark|\-icon|icon-/.test(t.src) && t.naturalWidth>=140 && !t.closest('.floating-quote') && !t.closest('nav') && !t.closest('footer') && t.closest('.card, .carousel, .product-layout, section, article')){
-        e.preventDefault(); lbImg.src=t.src; lbEl.style.display='flex';
-      }
-    });
-    lbEl.addEventListener('click',function(e){ if(e.target!==lbImg){ lbEl.style.display='none'; } });
-    document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ lbEl.style.display='none'; } });
-    if(lbClose){ lbClose.addEventListener('click',function(){ lbEl.style.display='none'; }); }
-  }
-</script>
+  </script>
     <script is:inline>
       tailwind.config = { theme: { extend: { colors: {
         primary: '#1F4E79', ink: '#1d1d1f', surface: '#f5f5f7',
@@ -252,5 +241,27 @@ if (breadcrumbs && breadcrumbs.length) {
   <img id="lb-img" style="max-width:90vw;max-height:90vh;object-fit:contain;border-radius:12px;box-shadow:0 24px 90px rgba(0,0,0,.55);">
 </div>
 
+
+<script>
+(function(){
+  var lb=document.getElementById('lb');
+  if(!lb) return;
+  var img=document.getElementById('lb-img');
+  function open(src){ img.setAttribute('src',src); lb.style.display='flex'; }
+  function close(){ lb.style.display='none'; }
+  document.addEventListener('click',function(e){
+    var t=e.target;
+    if(!t || t.tagName!=='IMG') return;
+    var src=t.currentSrc||t.src||''; if(!src) return;
+    if(/favicon|logo-|logo__|__btn|bmark|icon-|-icon|badge/.test(src)) return;
+    if(t.closest('nav')||t.closest('footer')||t.closest('.floating-quote')) return;
+    if(!(t.closest('.card')||t.closest('.carousel')||t.closest('.product-layout')||t.closest('section')||t.closest('article'))) return;
+    e.preventDefault(); open(src);
+  });
+  lb.addEventListener('click',function(e){ if(e.target!==img){ close(); } });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ close(); } });
+  var c=document.getElementById('lb-close'); if(c){ c.addEventListener('click',close); }
+})();
+</script>
 </body>
 </html>
