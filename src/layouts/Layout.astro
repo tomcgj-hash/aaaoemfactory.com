@@ -89,8 +89,7 @@ if (breadcrumbs && breadcrumbs.length) {
       ))
     }
     {breadcrumbSchema && <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />}
-  <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
-</head>
+  </head>
   <body>
     <header class="nav">
       <div class="nav-inner">
@@ -266,8 +265,9 @@ if (breadcrumbs && breadcrumbs.length) {
 })();
 </script>
 <script>
-  window.addEventListener('DOMContentLoaded',function(){ if(window.PagefindUI){ new PagefindUI({ element:'#search', showSubResults:true, showImages:false, translations:{placeholder:'Search models, pages, guides…'} }); } else { var s=document.getElementById('search'); if(s){ s.innerHTML='<input type="text" placeholder="Search…" style="width:100%;padding:9px 12px;border:1px solid var(--border-light);border-radius:8px;font-size:14px;">'; } } });
+  import { PagefindUI } from '@pagefind/default-ui';
+  import '@pagefind/default-ui/css/ui.css';
+  window.addEventListener('DOMContentLoaded',function(){ new PagefindUI({ element:'#search', showSubResults:true, showImages:false, translations:{placeholder:'Search models, pages, guides…'} }); });
 </script>
-<script src="/pagefind/pagefind-ui.js"></script>
 </body>
 </html>
