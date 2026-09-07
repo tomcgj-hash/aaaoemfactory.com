@@ -69,7 +69,19 @@ if (breadcrumbs && breadcrumbs.length) {
     <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Tailwind CSS (CDN) -->
-    <script is:inline src="https://cdn.tailwindcss.com"></script>
+    <script is:inline src="https://cdn.tailwindcss.com">
+  var lbEl=document.getElementById('lb'), lbImg=document.getElementById('lb-img'), lbClose=document.getElementById('lb-close');
+  if(lbEl){
+    document.addEventListener('click',function(e){ var t=e.target;
+      if(t && t.tagName==='IMG' && t.src && /\/images\//.test(t.src) && !/favicon|logo|__btn|bmark|icon|badge/.test(t.src) && t.naturalWidth>=320 && !t.closest('.floating-quote')){
+        e.preventDefault(); lbImg.src=t.src; lbEl.style.display='flex';
+      }
+    });
+    lbEl.addEventListener('click',function(e){ if(e.target!==lbImg){ lbEl.style.display='none'; } });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ lbEl.style.display='none'; } });
+    if(lbClose){ lbClose.addEventListener('click',function(){ lbEl.style.display='none'; }); }
+  }
+</script>
     <script is:inline>
       tailwind.config = { theme: { extend: { colors: {
         primary: '#1F4E79', ink: '#1d1d1f', surface: '#f5f5f7',
@@ -234,5 +246,11 @@ if (breadcrumbs && breadcrumbs.length) {
 </script>
 
 <a href="/contact-us/?subject=General Inquiry" class="floating-quote" aria-label="Get a Quote"><i class="fa-solid fa-comment-dots"></i></a>
+
+<div id="lb" style="display:none;position:fixed;inset:0;background:rgba(8,20,36,.93);z-index:2000;align-items:center;justify-content:center;cursor:zoom-out;">
+  <button id="lb-close" aria-label="Close" style="position:absolute;top:20px;right:26px;background:rgba(255,255,255,.16);color:#fff;border:none;font-size:26px;width:46px;height:46px;border-radius:50%;cursor:pointer;line-height:1;">×</button>
+  <img id="lb-img" style="max-width:90vw;max-height:90vh;object-fit:contain;border-radius:12px;box-shadow:0 24px 90px rgba(0,0,0,.55);">
+</div>
+
 </body>
 </html>
