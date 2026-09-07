@@ -16,7 +16,7 @@ const pg = [{ '@context':'https://schema.org','@type':'ContactPage','name':'Cont
   </div></section>
   <section class="section reveal"><div class="container" style="display:grid;grid-template-columns:1.4fr 1fr;gap:40px;">
     <div>
-      <form action="https://web3forms.com/submit" method="POST" id="contactForm">
+      <form action="https://api.web3forms.com/submit" method="POST" id="contactForm">
 <div style="margin-bottom:22px;"><div style="display:inline-flex;align-items:center;gap:8px;background:#eef4fb;border:1px solid #d9e6f7;border-radius:12px;padding:12px 16px;font-size:14.5px;color:var(--ink);"><i class="fa-solid fa-bolt" style="color:var(--primary);"></i> <strong>We reply within 24 hours</strong> &nbsp;·&nbsp; sales@aaaoemfactory.com &nbsp;·&nbsp; WhatsApp</div></div>
         <input type="hidden" name="access_key" value="a532024b-8305-428d-a12e-5fcc5958d36a" />
         <div class="form-row"><label>Name *</label><input type="text" name="name" required /></div>
@@ -29,7 +29,7 @@ const pg = [{ '@context':'https://schema.org','@type':'ContactPage','name':'Cont
         <div class="form-row"><label>Sample Required?</label><select name="sample"><option value="no">No, ready to order</option><option value="yes">Yes, please send a sample</option></select></div>
         <div class="form-row"><label>Target Lead Time</label><input type="text" name="lead_time" placeholder="e.g. 30 days" /></div>
         <div class="form-row"><label>Message *</label><textarea name="message" rows="5" required placeholder="Your battery requirements (voltage, capacity, size, packaging, etc.)"></textarea></div>
-        <input type="hidden" name="subject" value="Battery OEM Inquiry from TIANQIU website" />
+        <input type="hidden" name="subject" value="" />
         <button class="btn btn-primary" type="submit" style="width:100%;">Send Message</button>
         <p id="cMsg" style="margin-top:12px;font-size:14px;"></p>
       </form>
@@ -51,6 +51,8 @@ const pg = [{ '@context':'https://schema.org','@type':'ContactPage','name':'Cont
     catch(e){ msg.textContent='Network error. Please try again.'; }
     btn.disabled=false; btn.textContent='Send Message';
   });
+
+  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit',function(){ document.querySelectorAll('input[name="subject"]').forEach(function(e){ e.value='来新询盘啦-'+location.href; }); }); });
 </script>
 
 <script>
@@ -61,4 +63,6 @@ const pg = [{ '@context':'https://schema.org','@type':'ContactPage','name':'Cont
     document.querySelectorAll('select[name="product_type"]').forEach(function(e){ if(pt){ Array.from(e.options).forEach(function(o){ if(o.value===pt){ e.value=pt; } }); } });
     document.querySelectorAll('input[name="product_type"]').forEach(function(e){ if(pt) e.value=pt; });
   })();
+
+  document.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit',function(){ document.querySelectorAll('input[name="subject"]').forEach(function(e){ e.value='来新询盘啦-'+location.href; }); }); });
 </script>
