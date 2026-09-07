@@ -215,6 +215,7 @@ const crumbs = [
           </div>
           <div style="margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;">
             <div style="display:flex;gap:18px;flex-wrap:wrap;margin-bottom:16px;font-size:13.5px;color:var(--ink-2);"><span><i class="fa-solid fa-boxes-stacked" style="color:var(--accent);"></i> MOQ from 10,000 pcs</span><span><i class="fa-solid fa-flask-vial" style="color:var(--accent);"></i> Samples available</span><span><i class="fa-solid fa-clock" style="color:var(--accent);"></i> Lead time per quote</span></div>
+            <a href={`/docs/${b.model}.pdf`} class="btn btn-outline" download><i class="fa-solid fa-file-pdf"></i> Download Spec (PDF)</a>
             <a href={`/contact-us/?subject=${encodeURIComponent('Quote for '+b.model)}&product_type=${encodeURIComponent(b.model)}&sample=1`} class="btn btn-primary">Request Quote / Sample</a>
             <a href="/wholesale-batteries/" class="btn btn-outline">Buy {b.model} in Bulk</a>
             <a href="/oem-battery-manufacturing/" class="btn btn-outline">Customize Your {b.model}</a>
