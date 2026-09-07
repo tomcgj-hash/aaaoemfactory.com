@@ -115,13 +115,17 @@ const industries = [{n:'Car key fobs',img:'/images/hero-keyfob.jpg'},{n:'Watches
   <!-- AUTHORIZED + CERTIFICATION — dark trust wall -->
   <section class="section reveal" style="background:linear-gradient(135deg,#12233c,#1b3a6b);">
     <div class="container">
-      <div class="headline-group hl-center"><div class="eyebrow" style="color:#ffd8a8;">Authorized &amp; certified</div><h2 style="color:#fff;">Licenses and certificates, not claims.</h2><p class="lead" style="color:#cfe0f5;max-width:62ch;">We manufacture under license for globally recognized brands and hold the certifications your compliance team asks for — they exist.</p></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:26px;">{certImgs.map(f=>(<div class="card" style="padding:6px;background:#fff;border-radius:8px;box-shadow:none;"><img src={"/images/cert/"+f} alt="TIANQIU certification" loading="lazy" style="width:100%;aspect-ratio:1.3/1;object-fit:contain;border-radius:6px;"/></div>))}</div>
-<a href="/battery-certifications/" class="btn" style="background:#fff;color:var(--primary);margin-top:20px;">All Certifications</a>
+      <div class="headline-group hl-center"><div class="eyebrow" style="color:#ffd8a8;">Authorized &amp; certified</div><h2 style="color:#fff;">Licenses and certificates, not claims.</h2><p class="lead" style="color:#cfe0f5;max-width:62ch;">We manufacture under license for globally recognized brands and hold the certifications your compliance team asks for — they exist.</p></div>
 
       <div style="display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:30px;">
         <div class="card" style="padding:14px;max-width:300px;background:#fff;"><img src="/images/partner-philips-mitsubishi.jpg" alt="PHILIPS &amp; MITSUBISHI authorization letters" loading="lazy" style="width:100%;max-height:170px;object-fit:contain;border-radius:8px;"><p style="font-size:13px;color:var(--ink-2);margin-top:8px;text-align:center;">PHILIPS &amp; MITSUBISHI authorization</p></div>
         <div class="card" style="padding:14px;max-width:300px;background:#fff;"><img src="/images/partner-seizi-authorization.jpg" alt="SEIZI Japan exclusive agency agreement" loading="lazy" style="width:100%;max-height:170px;object-fit:contain;border-radius:8px;"><p style="font-size:13px;color:var(--ink-2);margin-top:8px;text-align:center;">SEIZI (Japan) exclusive agency</p></div>
       </div>
+      <div style="margin-top:34px;text-align:center;"><div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#9fb8dd;font-weight:700;">Certification library</div><div style="font-size:13px;color:#cfe0f5;margin-top:4px;">ISO &middot; CE &middot; UL &middot; UN38.3 &middot; RoHS &middot; IEC — the certificates we actually hold</div></div>
+      <div style="display:flex;gap:12px;overflow-x:auto;padding:10px 2px 14px;margin-top:16px;scroll-snap-type:x proximity;scrollbar-width:thin;">
+        {certImgs.map(f=>(<div style="scroll-snap-align:center;flex:0 0 150px;background:#fff;border-radius:10px;padding:8px;box-shadow:0 2px 12px rgba(0,0,0,.14);"><img src={"/images/cert/"+f} alt="TIANQIU certification" loading="lazy" style="width:100%;aspect-ratio:1.3/1;object-fit:contain;border-radius:6px;"/></div>))}
+      </div>
+      <div style="text-align:center;margin-top:16px;"><a href="/battery-certifications/" class="btn" style="background:#fff;color:var(--primary);">All Certifications</a></div>
       <div style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
         {company.certifications.map(c=>(<span class="badge" style="font-size:14px;font-weight:600;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.28);"><i class="fa-solid fa-badge-check"></i>{c}</span>))}
       </div>
