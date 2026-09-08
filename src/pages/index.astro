@@ -1,6 +1,6 @@
 ---
 const factoryImgs=["f0.jpg", "f1.jpg", "f2.jpg", "f3.jpg", "f4.jpg", "f5.jpg", "f6.jpg", "f7.jpg", "f8.jpg"];
-const gCerts=["global-certs/cert-tm0.jpg", "global-certs/cert-tm1.jpg", "global-certs/cert-tm2.jpg", "global-certs/cert-tm3.jpg", "global-certs/cert-tm4.jpg", "global-certs/cert-tm5.jpg", "global-certs/cert-tm6.jpg", "global-certs/cert-tm7.jpg", "global-certs/cert-tm8.jpg", "global-certs/cert-tm9.jpg"];;
+const gCerts=["global-certs/cert-tm1.jpg", "global-certs/cert-tm2.jpg", "global-certs/cert-tm3.jpg", "global-certs/cert-tm4.jpg", "global-certs/cert-tm5.jpg", "global-certs/cert-tm6.jpg", "global-certs/cert-tm7.jpg", "global-certs/cert-tm8.jpg", "global-certs/cert-tm9.jpg"];;;
 const certImgs=["c0.jpg", "c1.jpg", "c2.jpg", "c3.jpg", "c4.jpg", "c5.jpg", "c6.jpg", "c7.jpg", "c8.jpg", "c9.jpg", "c10.jpg"];;
 import Layout from '../layouts/Layout.astro';
 import { productLines, productLines as pl } from '../data/productLines.js';
@@ -101,7 +101,7 @@ const industries = [{n:'Car key fobs',img:'/images/hero-keyfob.jpg'},{n:'Watches
       <div class="headline-group"><div class="eyebrow">Global service</div><h2>TIANQIU Global Service Network</h2><p class="lead">We ship to buyers across 6 continents &mdash; with the U.S., Germany, Turkey, Spain, Brazil, Italy, South Korea, Dubai, Saudi Arabia and South Africa as our key export windows.</p></div>
       <img src="/images/global-network.jpg" alt="TIANQIU global service network world map" loading="lazy" style="width:100%;border-radius:18px;border:1px solid var(--border-light);box-shadow:var(--shadow-sm);" />
       <div style="margin-top:34px;text-align:center;"><div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:700;">Global trademarks &amp; registrations</div></div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:16px;max-width:960px;margin-left:auto;margin-right:auto;">{gCerts.map(c=>(<div style="background:#fff;border-radius:12px;padding:10px;border:1px solid var(--border-light);box-shadow:var(--shadow-sm);"><img src={"/images/"+c} alt="TIANQIU international trademark registration" loading="lazy" style="width:100%;aspect-ratio:3/4;object-fit:contain;border-radius:6px;"/></div>))}</div></div>
+      <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:18px;max-width:200px;margin-left:auto;margin-right:auto;">{gCerts.map(c=>(<div style="background:#fff;border-radius:12px;padding:10px;border:1px solid var(--border-light);box-shadow:var(--shadow-sm);"><img src={"/images/"+c} alt="TIANQIU international trademark registration" loading="lazy" style="width:100%;aspect-ratio:3/4;object-fit:contain;border-radius:6px;"/></div>))}</div></div>
   </section>
   <!-- WHY — numbers, no icon cards -->
   <section class="section reveal">
