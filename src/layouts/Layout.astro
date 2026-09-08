@@ -265,11 +265,9 @@ if (breadcrumbs && breadcrumbs.length) {
   var c=document.getElementById('lb-close'); if(c){ c.addEventListener('click',close); }
 })();
 </script>
-<script>
-  
-  
-    var fb=document.querySelector('.wa-fab');
+  <script>
+  var fb=document.querySelector('.wa-fab');
   if(fb){ fb.addEventListener('click',function(){ var u=new URL(fb.href); u.searchParams.set('text','Hello, I am interested in your batteries. (from ' + location.href + ')'); fb.href=u.toString(); }); }
-
+  </script>
 </body>
 </html>
