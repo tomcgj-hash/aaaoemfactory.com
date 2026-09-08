@@ -10,13 +10,16 @@ export function getStaticPaths() {
 
 const { b } = Astro.props;
 const appImg=(a)=>{const k=String(a).toLowerCase();
- if(/(key fob| fob|remote|vehicle|car|garage)/.test(k)) return "/images/hero-keyfob.jpg";
+ if(/(key fob|keyfob|vehicle|garage|code fob)/.test(k)) return "/images/hero-keyfob.jpg";
+ if(/(remote control|remote)/.test(k)) return "/images/ind-remote.jpg";
+ if(/(motherboard|cmos|computer|pc board)/.test(k)) return "/images/hero-cmos.jpg";
  if(/(watch)/.test(k)) return "/images/hero-watch.jpg";
- if(/(camera|photo|cmos|flash)/.test(k)) return "/images/hero-cmos.jpg";
- if(/(hearing|ear|aud)/.test(k)) return "/images/ind-hearing.jpg";
- if(/(medical|thermometer|health|fever|glucose|nurse)/.test(k)) return "/images/ind-medical.jpg";
- if(/(lock|iot|smart|sensor|meter|alarm)/.test(k)) return "/images/ind-smartlock.jpg";
- if(/(toy|game|gadget)/.test(k)) return "/images/ind-toys.jpg";
+ if(/(medical|thermometer|glucose|health|fever)/.test(k)) return "/images/ind-medical.jpg";
+ if(/(smart lock|\block\b)/.test(k)) return "/images/ind-smartlock.jpg";
+ if(/(toy|game)/.test(k)) return "/images/ind-toys.jpg";
+ if(/(hearing|ear)/.test(k)) return "/images/ind-hearing.jpg";
+ if(/(rfid|iot|sensor|meter|calculator|radio|flashlight|laser|micro|small|industrial|emergency|scales)/.test(k)) return "/images/ind-iot.jpg";
+ if(/(energy|storage|power|pack)/.test(k)) return "/images/hero-pack.jpg";
  return null;};
 const ic=["fa-watch","fa-car","fa-heartbeat","fa-calculator","fa-gamepad","fa-mobile-screen","fa-bolt","fa-clock"];
 const { title, description, schema, breadcrumbs } = Astro.props;
