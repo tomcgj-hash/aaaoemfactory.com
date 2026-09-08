@@ -87,9 +87,9 @@ const industries = [{n:'Car key fobs',img:'/images/hero-keyfob.jpg'},{n:'Watches
         </div>
       </div>
     </div>
-<div class="section reveal"><div class="container"><div class="headline-group"><div class="eyebrow">Real plant</div><h2>Inside the factory floor</h2></div><p class="lead">A look at where TIANQIU cells are poured, printed and packed.</p><div style="display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:18px;">
-        <div style="grid-column:1/-1;background:#fff;border-radius:14px;padding:12px;border:1px solid var(--border-light);"><img src={"/images/factory/"+factoryImgs[0]} alt="TIANQIU battery production line" loading="lazy" style="width:100%;aspect-ratio:16/7;object-fit:contain;border-radius:8px;"/></div>
-        {factoryImgs.slice(1).map(f=>(<div style="grid-column:span 3;background:#fff;border-radius:12px;padding:8px;border:1px solid var(--border-light);"><img src={"/images/factory/"+f} alt="TIANQIU factory" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:contain;border-radius:6px;"/></div>))}
+<div class="section reveal"><div class="container"><div class="headline-group"><div class="eyebrow">Real plant</div><h2>Inside the factory floor</h2></div><p class="lead">A look at where TIANQIU cells are poured, printed and packed.</p><div style="display:grid;grid-template-columns:repeat(12,1fr);gap:10px;margin-top:18px;">
+        <img src={"/images/factory/"+factoryImgs[0]} alt="TIANQIU battery production line" loading="lazy" style="grid-column:1/-1;width:100%;aspect-ratio:16/8;object-fit:cover;border:2px solid #c9a227;border-radius:3px;"/>
+        {factoryImgs.slice(1).map(f=>(<img src={"/images/factory/"+f} alt="TIANQIU factory" loading="lazy" style="grid-column:span 3;width:100%;aspect-ratio:4/3;object-fit:cover;border:2px solid #c9a227;border-radius:3px;"/>))}
       </div></div></div>
 
   </section>
