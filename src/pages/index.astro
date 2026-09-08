@@ -105,7 +105,9 @@ const industries = [{n:'Car key fobs',img:'/images/hero-keyfob.jpg'},{n:'Watches
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;border-top:1px solid var(--border-light);padding-top:28px;">
         {why.map(w=>(<div><div style="font-size:50px;font-weight:900;color:var(--primary);line-height:1;letter-spacing:-.03em;">{w.n}</div><div style="font-size:15px;color:var(--ink-2);margin-top:10px;">{w.l}</div></div>))}
       </div>
-      <p class="lead" style="margin-top:30px;font-size:18px;">Certified: ISO 9001 · ISO 45001 · BSCI · UL · UN38.3 · CE · RoHS · EU 2023/1542. The paperwork your compliance team asks for — it exists.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;">{["ISO 9001:2015","ISO 45001:2018","BSCI","UL","UN38.3","CE","RoHS","EU 2023/1542"].map(c=>(<span class="badge" style="font-size:13px;background:var(--soft);color:var(--ink);border:1px solid var(--border-light);"><i class="fa-solid fa-certificate" style="color:var(--accent);margin-right:6px;"></i>{c}</span>))}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:26px;align-items:center;"><span style="font-size:13px;color:var(--ink-2);font-weight:600;letter-spacing:.04em;">LICENSED OEM FOR:</span>{["PHILIPS","MITSUBISHI","SEIZI","SOXEY"].map(b=>(<span style="font-size:15px;font-weight:800;color:var(--ink);opacity:.72;letter-spacing:.02em;">{b}</span>))}<span style="font-size:13px;color:var(--ink-2);">&amp; other global brands</span></div>
+      <p class="lead" style="margin-top:24px;font-size:16px;color:var(--ink-2);">Every claim above is backed by a certificate we can send you — audited factory, SGS-inspected, mercury-free production, and a 31-year manufacturing record.</p>
     </div>
   </section>
 
