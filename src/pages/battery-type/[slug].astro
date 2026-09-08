@@ -303,11 +303,7 @@ const crumbs = [
   <section class="section reveal">
     <div class="container">
       <div class="headline-group"><div class="eyebrow">Applications</div><h2>Where the {b.model} is Used</h2></div>
-      <div class="grid">
-        {b.applicationsEn.map(a=>(
-          <div class="card"><div class="feat-icon"><i class="fa-solid fa-battery-three-quarters"></i></div><h3>{a}</h3><p style="color:var(--ink-2);font-size:15px;">Common replacement for {a.toLowerCase()} devices using a {b.model} coin cell.</p></div>
-        ))}
-      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;">{b.applicationsEn.map((a,i)=>(<div style="flex:1 1 160px;background:linear-gradient(135deg,#1746a2,#2a5fce);color:#fff;border-radius:14px;padding:20px 14px;text-align:center;box-shadow:0 6px 18px rgba(23,70,162,.18);"><i class={`fa-solid ${ic[i%ic.length]}`} style="font-size:26px;color:#ffd8a8;"></i><div style="font-weight:700;margin-top:12px;font-size:15px;">{a}</div></div>))}</div>
       <div style="margin-top:24px;">
         <strong style="font-size:15px;">Related guides:</strong> {sceneLinks.map((s,i)=>(<>{i>0 && ' · '}<a href={s.url} style="font-weight:600;">{s.name}</a></>))}
       </div>
@@ -340,7 +336,7 @@ const crumbs = [
   <section class="section reveal" id="faq">
     <div class="container container-narrow">
       <div class="headline-group"><div class="eyebrow">FAQ</div><h2>{b.model} Battery FAQs</h2></div>
-      {faqs.map(f=>(<details><summary>{f.q}</summary><div class="a">{f.a}</div></details>))}
+      <div style="display:grid;gap:16px;">{faqs.map(f=>(<div style="border:1px solid var(--border-light);border-radius:14px;padding:22px;background:#fff;box-shadow:var(--shadow-sm);"><div style="font-weight:800;color:var(--primary);margin-bottom:8px;font-size:17px;"><i class="fa-solid fa-circle-question" style="color:var(--accent);margin-right:8px;"></i>{f.q}</div><div style="color:var(--ink-2);line-height:1.7;font-size:15px;">{f.a}</div></div>))}</div>
     </div>
   </section>
 
