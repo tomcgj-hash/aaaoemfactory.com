@@ -92,7 +92,7 @@ p{margin:0 0 1.1em;}
 .btn-block{width:100%;justify-content:center;}
 
 /* eyebrow */
-.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:15px;font-weight:800;color:#ea5b0b;margin-bottom:16px;display:flex;align-items:center;gap:10px;justify-content:center;}
+.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:13px;font-weight:800;color:#ea5b0b;margin-bottom:14px;display:flex;align-items:center;gap:10px;justify-content:center;}
 .eyebrow::before{content:"";width:24px;height:3px;border-radius:3px;background:var(--accent);}
 .eyebrow.left{justify-content:flex-start;}
 .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);}
