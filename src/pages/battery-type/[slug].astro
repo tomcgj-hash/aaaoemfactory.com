@@ -241,7 +241,7 @@ const crumbs = [
   <!-- Specs (icon card grid) -->
   <section class="section reveal">
     <div class="container">
-      <div class="headline-group"><div class="eyebrow">Specifications</div><h2>{b.model} Battery Specifications</h2></div>
+      <div class="headline-group"><div class="eyebrow">Specifications</div><h2 id="specs">{b.model} Battery Specifications</h2></div>
       <div style="max-width:640px;">
         <table><tbody>
           <tr><th style="width:150px;">Chemistry</th><td>{b.chemistry}</td></tr>
@@ -284,7 +284,7 @@ const crumbs = [
   {b.eu && b.eu.perf && b.eu.perf.rows && b.eu.perf.rows.length > 0 && (
     <section class="section reveal">
       <div class="container">
-        <div class="headline-group"><div class="eyebrow">EU 2023/1542 Data</div><h2>{b.model} Battery Characteristics</h2></div>
+        <div class="headline-group"><div class="eyebrow">EU 2023/1542 Data</div><h2 id="characteristics">{b.model} Battery Characteristics</h2></div>
         <div style="overflow-x:auto;">
           <table>
             <thead><tr>{b.eu.perf.headers ? b.eu.perf.headers.map(h=>(<th>{h}</th>)) : ''}</tr></thead>
@@ -302,7 +302,7 @@ const crumbs = [
   <!-- Compatibility -->
   <section class="section section-alt reveal">
     <div class="container">
-      <div class="headline-group"><div class="eyebrow">Cross Reference</div><h2>{b.model} Compatible Batteries</h2></div>
+      <div class="headline-group"><div class="eyebrow">Cross Reference</div><h2 id="compatible">{b.model} Compatible Batteries</h2></div>
       <p class="lead">The {b.model} is interchangeable with the following same-size, same-voltage models:</p>
       <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(180px,1fr));">
         {compatAlternatives.map(c=>(
@@ -315,7 +315,7 @@ const crumbs = [
   <!-- Applications -->
   <section class="section reveal">
     <div class="container">
-      <div class="headline-group"><div class="eyebrow">Applications</div><h2>Where the {b.model} is Used</h2></div>
+      <div class="headline-group"><div class="eyebrow">Applications</div><h2 id="applications">Where the {b.model} is Used</h2></div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;">{b.applicationsEn.map(a=>(<div style="background:#fff;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm);">{appImg(a)?<img src={appImg(a)} alt={a} loading="lazy" style="width:100%;height:110px;object-fit:cover;display:block;"/>:<div style="height:110px;display:flex;align-items:center;justify-content:center;background:var(--soft);"><i class="fa-solid fa-battery-three-quarters" style="font-size:26px;color:var(--primary);"></i></div>}<div style="padding:10px 8px;font-weight:700;font-size:13px;text-align:center;color:var(--ink);">{a}</div></div>))}</div>
       <div style="margin-top:24px;">
         <strong style="font-size:15px;">Related guides:</strong> {sceneLinks.map((s,i)=>(<>{i>0 && ' · '}<a href={s.url} style="font-weight:600;">{s.name}</a></>))}
@@ -336,7 +336,7 @@ const crumbs = [
   <!-- Long-tail keywords natural block -->
   <section class="section section-alt reveal">
     <div class="container">
-      <div class="headline-group"><div class="eyebrow">Buyers Also Search</div><h2>Common Questions About the {b.model}</h2></div>
+      <div class="headline-group"><div class="eyebrow">Buyers Also Search</div><h2 id="buyers">Common Questions About the {b.model}</h2></div>
       <ul style="font-size:17px;column-count:2;color:var(--ink-2);">
         {b.longtail.map(k=>(
           <li style="margin-bottom:8px;"><a href="/contact-us/" style="color:var(--ink-2);">{b.model} {k.replace(/\b(for|of|best)/g,'')}</a></li>
@@ -369,7 +369,7 @@ const crumbs = [
   {related.length>0 && (
   <section class="section reveal">
     <div class="container">
-      <div class="headline-group"><div class="eyebrow">Related</div><h2>Related Batteries</h2></div>
+      <div class="headline-group"><div class="eyebrow">Related</div><h2 id="related">Related Batteries</h2></div>
       <div class="grid">
         {related.map(r=>(<a class="card" href={r.url} style="text-decoration:none;">
           <h3>{r.model}</h3>
@@ -385,4 +385,11 @@ const crumbs = [
     </div>
   </section>
   )}
+<aside class="page-toc" style="position:fixed;right:18px;top:100px;width:200px;background:#fff;border:1px solid var(--border-light);border-radius:12px;padding:14px 16px;box-shadow:0 8px 24px rgba(0,0,0,.08);z-index:30;display:none;">
+  <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-bottom:8px;">On this page</div>
+  {[["specs","Specifications"],["characteristics","Characteristics"],["compatible","Compatible Batteries"],["applications","Applications"],["buyers","Buyers Also Search"],["faq","FAQs"],["related","Related Batteries"]].map(t=>(<a href={"#"+t[0]} style="display:block;padding:6px 0;font-size:13px;color:var(--ink-2);border-bottom:1px solid var(--border-light);">{t[1]}</a>))}
+</aside>
+<style>@media(min-width:1240px){.page-toc{display:block;}}</style>
+<style>html{scroll-behavior:smooth}</style>
+<script is:inline>document.addEventListener("scroll",function(){var t=document.querySelector(".page-toc");if(t){var w=window.innerWidth;t.style.display=(w>=1240?"block":"none");}});</script>
 </Layout>
