@@ -9,6 +9,15 @@ export function getStaticPaths() {
 }
 
 const { b } = Astro.props;
+const appImg=(a)=>{const k=String(a).toLowerCase();
+ if(/(key fob| fob|remote|vehicle|car|garage)/.test(k)) return "/images/hero-keyfob.jpg";
+ if(/(watch)/.test(k)) return "/images/hero-watch.jpg";
+ if(/(camera|photo|cmos|flash)/.test(k)) return "/images/hero-cmos.jpg";
+ if(/(hearing|ear|aud)/.test(k)) return "/images/ind-hearing.jpg";
+ if(/(medical|thermometer|health|fever|glucose|nurse)/.test(k)) return "/images/ind-medical.jpg";
+ if(/(lock|iot|smart|sensor|meter|alarm)/.test(k)) return "/images/ind-smartlock.jpg";
+ if(/(toy|game|gadget)/.test(k)) return "/images/ind-toys.jpg";
+ return null;};
 const ic=["fa-watch","fa-car","fa-heartbeat","fa-calculator","fa-gamepad","fa-mobile-screen","fa-bolt","fa-clock"];
 const { title, description, schema, breadcrumbs } = Astro.props;
 
@@ -304,7 +313,7 @@ const crumbs = [
   <section class="section reveal">
     <div class="container">
       <div class="headline-group"><div class="eyebrow">Applications</div><h2>Where the {b.model} is Used</h2></div>
-      <div style="display:flex;flex-wrap:wrap;gap:12px;">{b.applicationsEn.map((a,i)=>(<div style="flex:1 1 160px;background:linear-gradient(135deg,#1746a2,#2a5fce);color:#fff;border-radius:14px;padding:20px 14px;text-align:center;box-shadow:0 6px 18px rgba(23,70,162,.18);"><i class={`fa-solid ${ic[i%ic.length]}`} style="font-size:26px;color:#ffd8a8;"></i><div style="font-weight:700;margin-top:12px;font-size:15px;">{a}</div></div>))}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;">{b.applicationsEn.map(a=>(<div style="background:#fff;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm);">{appImg(a)?<img src={appImg(a)} alt={a} loading="lazy" style="width:100%;height:110px;object-fit:cover;display:block;"/>:<div style="height:110px;display:flex;align-items:center;justify-content:center;background:var(--soft);"><i class="fa-solid fa-battery-three-quarters" style="font-size:26px;color:var(--primary);"></i></div>}<div style="padding:10px 8px;font-weight:700;font-size:13px;text-align:center;color:var(--ink);">{a}</div></div>))}</div>
       <div style="margin-top:24px;">
         <strong style="font-size:15px;">Related guides:</strong> {sceneLinks.map((s,i)=>(<>{i>0 && ' · '}<a href={s.url} style="font-weight:600;">{s.name}</a></>))}
       </div>
