@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+const appImg=(a)=>{const k=String(a).toLowerCase(); if(/(key fob|keyfob|vehicle|garage|code fob)/.test(k)) return "/images/hero-keyfob.jpg"; if(/(remote control|remote)/.test(k)) return "/images/ind-remote.jpg"; if(/(motherboard|cmos|computer|pc board)/.test(k)) return "/images/hero-cmos.jpg"; if(/(watch)/.test(k)) return "/images/hero-watch.jpg"; if(/(medical|thermometer|glucose|health|fever)/.test(k)) return "/images/ind-medical.jpg"; if(/(smart lock|\block\b)/.test(k)) return "/images/ind-smartlock.jpg"; if(/(toy|game)/.test(k)) return "/images/ind-toys.jpg"; if(/(hearing|ear)/.test(k)) return "/images/ind-hearing.jpg"; if(/(rfid|iot|sensor|meter|calculator|radio|flashlight|laser|micro|small|industrial|emergency|scales)/.test(k)) return "/images/ind-iot.jpg"; if(/(energy|storage|power|pack)/.test(k)) return "/images/hero-pack.jpg"; return null;};
 import { modelImages } from '../data/model_images.js';
 import { dLine, nineVoltLine } from '../data/models.js';
 import { brand } from '../data/brand.js';
@@ -127,9 +128,7 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage',
   <section class="section reveal">
     <div class="container">
       <div class="headline-group"><div class="eyebrow">Applications</div><h2>Where D Batteries Are Used</h2></div>
-      <div class="grid">{dApps.map(a => (
-        <div class="card"><div class="feat-icon"><i class="fa-solid fa-battery-full"></i></div><h3>{a}</h3><p style="color:var(--ink-2);font-size:15px;">Powered by a TIANQIU LR20 alkaline D cell — maximum capacity for heavy-duty devices.</p></div>
-      ))}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;">{dApps.map(a=>(<div style="background:#fff;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm);">{appImg(a)?<img src={appImg(a)} alt={a} loading="lazy" style="width:100%;height:110px;object-fit:cover;display:block;"/>:<div style="height:110px;display:flex;align-items:center;justify-content:center;background:var(--soft);"><i class="fa-solid fa-battery-three-quarters" style="font-size:26px;color:var(--primary);"></i></div>}<div style="padding:10px 8px;font-weight:700;font-size:13px;text-align:center;color:var(--ink);">{a}</div></div>))}</div>
     </div>
   </section>
 
