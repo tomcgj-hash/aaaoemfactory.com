@@ -203,7 +203,13 @@ const crumbs = [
     {crumbs.map((c,i)=>(<>{i>0 && <span> / </span>}<a href={c.url}>{c.name}</a></>))}
   </div>
 
-  <section class="section reveal" style="padding:48px 0 30px;">
+  <div class="detail-layout">
+<aside class="page-toc">
+  <div class="lbl">On this page</div>
+  {[["specs","Specifications"],["characteristics","Characteristics"],["compatible","Compatible Batteries"],["applications","Applications"],["buyers","Buyers Also Search"],["faq","FAQs"],["related","Related Batteries"]].map(t=>(<a href={"#"+t[0]} class="toc-link">{t[1]}</a>))}
+</aside>
+<div class="detail-content">
+<section class="section reveal" style="padding:48px 0 30px;">
     <div class="container">
       <div class="product-layout">
         <div class="img-wrap">
@@ -385,11 +391,10 @@ const crumbs = [
     </div>
   </section>
   )}
-<aside class="page-toc" style="position:fixed;right:18px;top:100px;width:200px;background:#fff;border:1px solid var(--border-light);border-radius:12px;padding:14px 16px;box-shadow:0 8px 24px rgba(0,0,0,.08);z-index:30;display:none;">
-  <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-bottom:8px;">On this page</div>
-  {[["specs","Specifications"],["characteristics","Characteristics"],["compatible","Compatible Batteries"],["applications","Applications"],["buyers","Buyers Also Search"],["faq","FAQs"],["related","Related Batteries"]].map(t=>(<a href={"#"+t[0]} style="display:block;padding:6px 0;font-size:13px;color:var(--ink-2);border-bottom:1px solid var(--border-light);">{t[1]}</a>))}
-</aside>
-<style>@media(min-width:1240px){.page-toc{display:block;}}</style>
-<style>html{scroll-behavior:smooth}</style>
-<script is:inline>document.addEventListener("scroll",function(){var t=document.querySelector(".page-toc");if(t){var w=window.innerWidth;t.style.display=(w>=1240?"block":"none");}});</script>
+
+</div>
+</div>
+<style>.detail-layout{display:grid;grid-template-columns:220px 1fr;gap:36px;max-width:1240px;margin:0 auto;padding:0 24px;align-items:start;}.page-toc{position:sticky;top:96px;background:#fff;border:1px solid var(--border-light);border-radius:12px;padding:14px 16px;box-shadow:0 8px 24px rgba(0,0,0,.06);}.page-toc .lbl{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-bottom:8px;}.page-toc a{display:block;padding:6px 0;font-size:13px;color:var(--ink-2);border-bottom:1px solid var(--border-light);}.page-toc a.active{font-weight:800;color:var(--primary);border-left:3px solid var(--accent);padding-left:8px;}@media(max-width:1239px){.detail-layout{grid-template-columns:1fr;padding:0 16px;}.page-toc{position:sticky;top:60px;z-index:20;display:flex;flex-wrap:wrap;gap:8px;width:100%;padding:8px 10px;}.page-toc .lbl{display:none;}.page-toc a{border:none;padding:6px 10px;background:var(--soft);border-radius:20px;font-size:12px;}}html{scroll-behavior:smooth}</style>
+<script is:inline>(function(){var l=document.querySelectorAll(".page-toc .toc-link");var ids=["specs","characteristics","compatible","applications","buyers","faq","related"];function up(){var cur=ids[0];ids.forEach(function(id){var el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<130)cur=id;});l.forEach(function(a){a.classList.toggle("active",a.getAttribute("href")==="#"+cur);});}document.addEventListener("scroll",up,{passive:true});up();})();</script>
 </Layout>
+
